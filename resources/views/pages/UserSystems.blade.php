@@ -45,40 +45,33 @@
                     </div>
                 </div>
             </div> --}}
-            <div class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow relative mb-6">
+<div class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow relative mb-6">
     {{-- Dropdown trigger and menu --}}
-    <div class="absolute top-4 right-4">
-        <div class="relative group">
-            <button class="text-gray-500 hover:text-gray-700 focus:outline-none">
-                ⋮
-            </button>
-
-            <div class="absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-150 z-10">
-                <a href="" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit</a>
-                <form method="POST" action="">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">Delete</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    {{-- Card Content --}}
-    <div class="flex items-start gap-4">
-        <x-image name="{{ $institute->logo }}" class="w-16 h-16 rounded-lg" />
-        <div class="flex-1">
-            <h2 class="text-xl font-semibold text-gray-800 mb-2">{{ $institute->name }}</h2>
-            <p class="text-sm text-gray-600 mb-4">{{ $institute->about }}</p>
-            <div class="flex items-center justify-between text-sm text-gray-500">
-                <div class="space-x-2">
-                    <span>📚 Resources</span>
-                    <span>👥 245 Members</span>
+            <div class="absolute top-4 right-4">
+                <div class="relative group">
+                    <button class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                        ⋮
+                    </button>
+                    <div class="absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-150 z-10">
+                        <a href="{{route('update.system',['id'=>$institute->id])}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit</a>
+                        <a href="{{route('delete.confirm',['table'=>'institution','id'=>$institute->id])}}" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">Delete</a>
+                    </div>
                 </div>
-                <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Admin</span>
             </div>
-        </div>
-    </div>
+                <div class="flex items-start gap-4">
+                    <x-image name="{{ $institute->logo }}" class="w-16 h-16 rounded-lg" />
+                    <div class="flex-1">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-2">{{ $institute->name }}</h2>
+                        <p class="text-sm text-gray-600 mb-4">{{ $institute->about }}</p>
+                        <div class="flex items-center justify-between text-sm text-gray-500">
+                            <div class="space-x-2">
+                                <span>📚 Resources</span>
+                                <span>👥 245 Members</span>
+                            </div>
+                            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Admin</span>
+                        </div>
+                    </div>
+                </div>
 </div>
 
             @endforeach

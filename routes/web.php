@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FrontpagesController;
 use App\Http\Controllers\SystemController;
+use App\Http\Controllers\DeleteHandlerController;
 
 
 
@@ -27,10 +28,11 @@ Route::prefix('create')->name('create.')->middleware('auth')->group(function(){
     Route::get('/system-logo/{id}',[SystemController::class,'addlogo'])->name('systemlogo');
 });
 Route::prefix('update')->name('update.')->middleware('auth')->group(function(){
-    Route::get('/system',[SystemController::class,'updatepage'])->name('system');
+    Route::get('/system/{id}',[SystemController::class,'updatepage'])->name('system');
 });
 Route::prefix('delete')->name('delete.')->middleware('auth')->group(function(){
-    Route::get('/system',[SystemController::class,'delete'])->name('system');
+    Route::delete('/system',[SystemController::class,'delete'])->name('system');
+    Route::get('/confirm-delete/{table}/{id}',[DeleteHandlerController::class,'delete'])->name('confirm');
 });
 Route::middleware('guest')->name('auth.')->group(function(){
     Route::get('/signin',[AuthController::class,'signinpage'])->name('signinpage');

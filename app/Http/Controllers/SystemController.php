@@ -7,14 +7,6 @@ use Illuminate\Http\Request;
 
 class SystemController extends Controller
 {
-    public function index(){
-        $system = System::paginate(10);
-        return view('',compact('system'));
-    }
-    public function show($id){
-         $system = System::with(['resources','notes','questionaires'])->where('id',$id)->first();
-        return view('',compact('system'));
-    }
     public  function CreateSystemPage(){
         return view('create.system');
     }
@@ -29,17 +21,18 @@ class SystemController extends Controller
     }
     public function store(Request $request)
 {
-    $data = $request->validate([
-        'creator' => 'required',
-        'name' => 'required|max:80|unique:systems,name',
-        'about' => 'required|max:500',
-    ]);
-        if ($request->id === 'new-entry') {
+    $validationArray = ($request->id == 'newentry') ?
+     ['creator' => 'required','name' => 'required|max:80|unique:users,name','about' => 'required|max:500'] 
+     :
+     ['creator' => 'required','name' => 'required|max:80','about' => 'required|max:500'];
+    $data = $request->validate($validationArray);
+        if ($request->id === 'newentry') {
             $system = System::create($data);
+            return redirect()->route('create.systemlogo',['id'=> $system->id]);
         } else {
            $system = System::updateOrCreate(['id' => $request->id], $data);
+           return redirect()->route('pages.myInstitutions');
         }
-    return redirect()->route('create.systemlogo',['id'=> $system->id]);
 }
 
 public function UpdateLogo(Request $request){
@@ -57,6 +50,6 @@ public function UpdateLogo(Request $request){
 public function delete(Request $request){
     $system = System::find($request->id);
     $system->forceDelete();
-    return back()->with('success','System Deleted');
+    return redirect()->route('pages.myInstitutions');
 }
 }

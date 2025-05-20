@@ -21,15 +21,11 @@ class Resources extends Model
     public function System(){
         return $this->belongsTo(System::class,'system');
     }
-    public static function createIfContributor(array $data, $system, User $user)
+   public static function createIfContributor(array $data, $system, User $user)
 {
-    $isContributor = $user->tickets()
-        ->where('type', 'contributor')
-        ->where('system', $system)
-        ->exists();
+    $hasAccess = System::where('id', $system)->where('creator', $user->id)->exists() ||
+                 $user->tickets()->where('type', 'contributor')->where('system', $system)->exists();
 
-    return $isContributor
-        ? Note::create($data)
-        : null; 
+    return $hasAccess ? Note::create($data) : null;
 }
 }
