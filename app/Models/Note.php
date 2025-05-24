@@ -13,7 +13,8 @@ class Note extends Model
         'author',
         'system',
         'title',
-        'body'
+        'body',
+        'image'
     ];
     public function User(){
         return $this->belongsTo(Note::class,'author');
@@ -26,6 +27,6 @@ class Note extends Model
     $hasAccess = System::where('id', $system)->where('creator', $user->id)->exists() ||
                  $user->tickets()->where('type', 'contributor')->where('system', $system)->exists();
 
-    return $hasAccess ? Note::create($data) : null;
+    return $hasAccess ? Note::create($data) : false;
 }
 }

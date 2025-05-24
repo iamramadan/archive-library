@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Scopes\ContributableSystems;
 
 class System extends Model
 {
@@ -25,5 +26,8 @@ class System extends Model
     }
     public function Resources(){
         return $this->hasMany(Resources::class,'system');
+    }
+    public static function booted(){
+        static::addGlobalScope(new ContributableSystems());
     }
 }

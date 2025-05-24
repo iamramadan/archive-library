@@ -68,7 +68,7 @@
                                 <span>📚 Resources</span>
                                 <span>👥 245 Members</span>
                             </div>
-                            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Admin</span>
+                            <a href="" class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">View</a>
                         </div>
                     </div>
                 </div>

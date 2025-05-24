@@ -42,8 +42,7 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- Existing Content Types -->
-                    <a class="p-6 text-left rounded-lg border-2 border-blue-100 hover:border-blue-200 hover:bg-blue-50 transition-all">
+                    <a href="{{route('create.note')}}" class="p-6 text-left rounded-lg border-2 border-blue-100 hover:border-blue-200 hover:bg-blue-50 transition-all">
                         <div class="flex items-center space-x-4">
                             <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                                 📝
@@ -54,8 +53,7 @@
                             </div>
                         </div>
                     </a>
-
-                    <button class="p-6 text-left rounded-lg border-2 border-blue-100 hover:border-blue-200 hover:bg-blue-50 transition-all">
+                    <a class="p-6 text-left rounded-lg border-2 border-blue-100 hover:border-blue-200 hover:bg-blue-50 transition-all">
                         <div class="flex items-center space-x-4">
                             <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                                 📁
@@ -65,8 +63,8 @@
                                 <p class="text-sm text-gray-600">Upload files or links</p>
                             </div>
                         </div>
-                    </button>
-                    <button class="p-6 text-left rounded-lg border-2 border-blue-100 hover:border-blue-200 hover:bg-blue-50 transition-all">
+                    </a>
+                    <a class="p-6 text-left rounded-lg border-2 border-blue-100 hover:border-blue-200 hover:bg-blue-50 transition-all">
                         <div class="flex items-center space-x-4">
                             <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                                 📁
@@ -76,7 +74,7 @@
                                 <p class="text-sm text-gray-600">Create New Questionaire</p>
                             </div>
                         </div>
-                    </button>
+                    </abb>
 
                     <!-- New Institution Option -->
                     <a href="{{route('create.system')}}" class="p-6 text-left rounded-lg border-2 border-blue-100 hover:border-blue-200 hover:bg-blue-50 transition-all">
