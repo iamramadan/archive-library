@@ -62,13 +62,13 @@
                     <x-image name="{{ $institute->logo }}" class="w-16 h-16 rounded-lg" />
                     <div class="flex-1">
                         <h2 class="text-xl font-semibold text-gray-800 mb-2">{{ $institute->name }}</h2>
-                        <p class="text-sm text-gray-600 mb-4">{{ $institute->about }}</p>
+                        <p class="text-sm text-gray-600 mb-4">{{ Str::limit($institute->about,50) }}</p>
                         <div class="flex items-center justify-between text-sm text-gray-500">
                             <div class="space-x-2">
                                 <span>📚 Resources</span>
                                 <span>👥 245 Members</span>
                             </div>
-                            <a href="" class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">View</a>
+                            <a href="{{route('pages.institution',['name'=>$institute->name])}}" class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">View</a>
                         </div>
                     </div>
                 </div>

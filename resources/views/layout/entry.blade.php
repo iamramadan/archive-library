@@ -10,11 +10,25 @@
 </head>
 <body class="bg-gray-50 min-h-screen">
     <!-- Header -->
-    <header class="bg-white shadow-sm">
-        <div class="max-w-5xl mx-auto p-4">
-            <a class="text-2xl font-bold text-gray-800" href='{{route('index')}}' >@yield('heading')</a>
+    <header class="bg-white shadow-sm flex items-center justify-between px-4 py-3">
+    <!-- Left: Static Logo -->
+    <a href="{{ route('index') }}" class="text-xl sm:text-2xl font-bold text-gray-800">
+        ARCHLIB
+    </a>
+
+    <!-- Center: Page Heading (Centered on larger screens) -->
+    <div class="absolute left-1/2 transform -translate-x-1/2 hidden sm:block">
+        <div  class="text-xl font-bold text-gray-800">
+            @yield('heading')
         </div>
-    </header>
+    </div>
+
+    <!-- Optional: Add right-side icons or user menu here -->
+    <div class="sm:hidden">
+        <!-- You can place a hamburger menu icon for mobile here if needed -->
+    </div>
+</header>
+
 
     @yield('main')
     @stack('scripts')

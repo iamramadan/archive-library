@@ -38,7 +38,7 @@
             <!-- Metadata Footer -->
             <div class="p-6 border-t border-gray-200 text-sm text-gray-500">
                 <div class="flex space-x-4">
-                    <span>Author: Dr. Emily Robertson</span>
+                    <span>Author: {{username($note->author)}}</span>
                     <span>•</span>
                     <span>Tags: urbanism, european-history, architecture</span>
                 </div>

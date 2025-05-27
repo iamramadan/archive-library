@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Note;
+use App\Models\System;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\System;
 // use Illuminate\Support\Facades\Auth;
 
 class NoteController extends Controller
@@ -23,9 +23,6 @@ class NoteController extends Controller
             'image'=>'mimes:png,jpeg,jpg|max:10000'
     ]);
     // dd($data);
-    if ($request->has('id')) {
-            return  $this->update($request) ? redirect()->route('pages.note',['id'=>$request->id])->with('msg','updated note') : redirect()->back()->with('error')
-        }
         if($request->hasFile('image')){
             $data['image'] = upload($request->logo);
         }
