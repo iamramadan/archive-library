@@ -9,15 +9,28 @@
                 </div>
                 <div>
                     <h1 class="text-3xl font-bold text-gray-800">{{$institute->name}}</h1>
-                    <p class="text-gray-600 mt-2">{{$institute->about}}</p>
-                    <div class="flex gap-4 mt-4 text-sm text-gray-500">
-                        <span>📚 1,452 items</span>
-                        <span>👥 245 members</span>
-                        <span>📅 Established 2020</span>
-                    </div>
+                    <p class="text-gray-600 mt-2">{{Str::limit($institute->about,200)}}</p>
+                    
+<div class="flex gap-4 mt-4 text-sm text-gray-500">
+    <span class="flex items-center gap-1">
+        <i data-lucide="edit-3" class="w-4 h-4"></i> {{ $institute->note_count }}
+    </span>
+    <span class="flex items-center gap-1">
+        <i data-lucide="file-text" class="w-4 h-4"></i> {{ $institute->resources_count }}
+    </span>
+    <span class="flex items-center gap-1">
+        <i data-lucide="clipboard-list" class="w-4 h-4"></i> {{ $institute->questionaires_count }}
+    </span>
+</div>
                 </div>
             </div>
         </div>
     </div>
     @livewire('content-toggler', ['InstitutionId' => $institute->id])
 @endsection
+@push('scripts')
+    <script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  lucide.createIcons();
+</script>
+@endpush

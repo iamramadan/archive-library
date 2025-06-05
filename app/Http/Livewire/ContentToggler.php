@@ -32,7 +32,7 @@ class ContentToggler extends Component
         }
     }
 
-    protected function SetContent($modelClass)
+    public function SetContent($modelClass)
     {
         $this->content = $modelClass::where('author', $this->InstitutionId)->get();
     }

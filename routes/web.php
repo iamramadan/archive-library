@@ -29,10 +29,13 @@ Route::prefix('create')->name('create.')->middleware('auth')->group(function(){
     Route::get('/system-logo/{id}',[SystemController::class,'addlogo'])->name('systemlogo');
     Route::get('/note',[NoteController::class,'CreateNotesPage'])->name('note');
     Route::post('/create-note',[NoteController::class,'store'])->name('note.store');
+    Route::get('/resources',[ResourcesController::class,'CreateResourcesPage'])->name('resources');
+    Route::post('/create-resources',[ResourcesController::class,'UpdateStore'])->name('resources.UpdateStore');
 });
 Route::prefix('update')->name('update.')->middleware('auth')->group(function(){
     Route::get('/system/{id}',[SystemController::class,'updatepage'])->name('system');
-    Route::get('/note/{id}',[NoteController::class,'updatepage'])->name('system');
+    Route::get('/note/{id}',[NoteController::class,'UpdateNotesPage'])->name('note');
+    Route::put('/update-note',[NoteController::class,'update'])->name('note.update');
 });
 Route::prefix('delete')->name('delete.')->middleware('auth')->group(function(){
     Route::delete('/system',[SystemController::class,'delete'])->name('system');

@@ -1,11 +1,9 @@
 <div>
-    <div>{{$contentDisplayed}}</div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex space-x-8 border-b">
             <div  wire:click='sort("resources")'  class="py-3 px-1 @if($contentDisplayed == 'resources') border-b-2 border-blue-500 text-blue-600 @else text-gray-500 hover:text-blue-600 @endif ">Resources</div>
             <div  wire:click='sort("note")' class="py-3 px-1 @if($contentDisplayed == 'note') border-b-2 border-blue-500 @else text-gray-500 hover:text-blue-600 @endif ">Notes</div>
             <div  wire:click='sort("questionaires")' class="py-3 px-1 @if($contentDisplayed == 'questionaires') border-b-2 border-blue-500 @else text-gray-500 hover:text-blue-600 @endif ">Questionnaires</div>
-            <button wire:click="$refresh" class="bg-red-500 text-white p-2">Refresh</button>
         </div>
 
     </div>

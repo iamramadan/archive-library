@@ -14,6 +14,11 @@ class NoteController extends Controller
         $AvailableSystems = System::all();
         return view('create.notes',compact('AvailableSystems'));
     }
+    public function UpdateNotesPage($id){
+        $AvailableSystems = System::all();
+        $note = Note::find($id);
+        return view('update.note',compact('AvailableSystems','note'));
+    }
     public function store(Request $request){
         $data = $this->validate($request,[
             'author'=>'required',

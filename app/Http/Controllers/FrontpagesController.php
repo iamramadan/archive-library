@@ -22,7 +22,7 @@ class FrontpagesController extends Controller
         return view('pages.note',compact('note'));
     }
     public function institution($name){
-        $institute = System::withoutGlobalScope(new ContributableSystems)->where('name',$name)->first();
+        $institute = System::withoutGlobalScope(new ContributableSystems)->withCount(['resources','note','questionaires'])->where('name',$name)->first();
         return view('pages.institution',compact('institute'));
     }
 }

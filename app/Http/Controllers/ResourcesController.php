@@ -12,6 +12,10 @@ class ResourcesController extends Controller
         $Resources = Resources::find($id);
         return view('');
     }
+    public function CreateResourcesPage(){
+        $AvailableSystems = System::all();
+        return view('create.resources',compact(['AvailableSystems']));
+    }
     public function UpdateStore(Request $request){
         $data  = $this->validate($request,[
            'name'=>'required|max:100|min:5',
@@ -21,6 +25,7 @@ class ResourcesController extends Controller
            'details'=>'min:8|max:30' 
         ]);
          if ($request->id != null) {
+            $data['filename'] = upload($data['filename']);
             return Resources::where('id',$request->id)->update($data) ? back()->with('sucess','Updated Resource Successfully') : back()->with('error','Couldnt Update Resource');
          }
         $data['filename'] = upload($data['filename']);
