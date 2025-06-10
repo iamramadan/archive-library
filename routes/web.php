@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\SystemController;
+use App\Http\Controllers\ResourcesController;
 use App\Http\Controllers\FrontpagesController;
 use App\Http\Controllers\DeleteHandlerController;
 
@@ -51,4 +52,5 @@ Route::name('pages.')->middleware('auth')->group(function(){
     Route::get('/my-institutions',[FrontpagesController::class,'myInstitutions'])->name('myInstitutions');
     Route::get('/note/{id}',[FrontpagesController::class,'note'])->name('note');
     Route::get('/institution/{name}',[FrontpagesController::class,'institution'])->name('institution');
+    Route::get('/manage-content',[FrontpagesController::class,'managecontent'])->name('manage');
 });

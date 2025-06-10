@@ -7,6 +7,16 @@
 @endpush
 @section('main')
   <main class="max-w-3xl mx-auto p-4 space-y-6">
+            <div class="max-w-xs rounded overflow-hidden shadow-lg bg-white m-4">
+                <x-image class="w-full h-48 object-cover" name="{{$note->image}}">
+                <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-2 text-gray-800">Beautiful Scenery</div>
+                    <p class="text-gray-600 text-base">
+                    A stunning view captured from nature.
+                    </p>
+                </div>
+        </div>
+
     <div class="bg-white rounded-lg shadow-sm p-6">
       <h2 class="text-2xl font-bold text-gray-800 mb-6">Create New Note</h2>
       <form class="space-y-4" method="post" action="{{route('update.note.store')}}" enctype="multipart/form-data">
@@ -29,7 +39,7 @@
           <x-error name="system"/>
           <select type="text" name="system"  placeholder="Comma-separated tags" class="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
             @foreach($AvailableSystems as $system)
-                <option value="{{$system->id}}">{{$system->name}}</option>
+                <option value="{{$system->id}}" @if($system->id == $note->system) selected @endif>{{$system->name}}</option>
             @endforeach
           </select>
         </div>

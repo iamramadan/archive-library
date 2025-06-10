@@ -50,7 +50,10 @@
           </button>
           @else
           <span> No Institution Create Or Registered </span>
-          <a href="{{route('create.system')}}">Create New Institution</a>
+<a href="{{ route('create.system') }}"
+   class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out">
+   Create New Institution
+</a>
           @endif
         </div>
       </form>
