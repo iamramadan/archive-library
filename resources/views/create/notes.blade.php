@@ -20,7 +20,7 @@
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Content*</label>
           <x-error name="body"/>
-          <textarea rows="6" name="body" id="body" required class="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500">{{old('body')}}</textarea>
+          <textarea rows="6" name="body" id="body" class="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500">{{old('body')}}</textarea>
         </div>
 
         <div>
@@ -37,9 +37,9 @@
         <div>
           <x-error name="image"/>
           <label class="block text-sm font-medium text-gray-700 mb-1">Attach File</label>
-                    <input type="file" 
+                    <input type="file"
                            name="logo"
-                          > 
+                          >
           </div>
 
         <div class="flex justify-end space-x-3">
@@ -76,10 +76,6 @@
   tinymce.init({
     selector: '#body',
     // ... your config
-  });
-
-  $('form').on('submit', function() {
-    tinymce.triggerSave();
   });
 </script>
 @endpush

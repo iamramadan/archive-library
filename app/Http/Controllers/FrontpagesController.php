@@ -28,10 +28,10 @@ class FrontpagesController extends Controller
         return view('pages.institution',compact('institute'));
     }
     public function managecontent(){
-        $note = Note::where('author',Auth::user()->id)->paginate(4);
+        $notes = Note::where('author',Auth::user()->id)->paginate(4);
         $resources = Resources::where('author',Auth::user()->id)->paginate(4);
         $questionaires = Questionaires::where('author',Auth::user()->id)->paginate(4);
-        $system = System::paginate(5);
-        return view('pages.managecontent',compact(['note','resources','questionaires','system']));
+        $systems = System::paginate(5);
+        return view('pages.manage.managecontent',compact(['notes','resources','questionaires','systems']));
     }
 }

@@ -40,6 +40,7 @@ Route::prefix('update')->name('update.')->middleware('auth')->group(function(){
 });
 Route::prefix('delete')->name('delete.')->middleware('auth')->group(function(){
     Route::delete('/system',[SystemController::class,'delete'])->name('system');
+    Route::delete('/note',[NoteController::class,'delete'])->name('note');
     Route::get('/confirm-delete/{table}/{id}',[DeleteHandlerController::class,'delete'])->name('confirm');
 });
 Route::middleware('guest')->name('auth.')->group(function(){
@@ -53,4 +54,7 @@ Route::name('pages.')->middleware('auth')->group(function(){
     Route::get('/note/{id}',[FrontpagesController::class,'note'])->name('note');
     Route::get('/institution/{name}',[FrontpagesController::class,'institution'])->name('institution');
     Route::get('/manage-content',[FrontpagesController::class,'managecontent'])->name('manage');
+    Route::name('manage.')->prefix('manage')->group(function(){
+        Route::get('/note',[NoteController::class,'show'])->name('notes');
+    });
 });

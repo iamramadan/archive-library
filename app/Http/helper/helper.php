@@ -1,5 +1,6 @@
 <?php
 use App\Models\User;
+use App\Models\System;
 
 function upload($file){
         $filename = md5($file->getClientOriginalName())."_".time().'.'.$file->getClientOriginalExtension();
@@ -7,5 +8,8 @@ function upload($file){
         return $filename;
 }
 function username($id){
-  return User::find($id)->value('name');
+  return User::find($id)->value('username');
+}
+function SystemName($id){
+  return System::where('id',$id)->get('name')->value('name') ;
 }

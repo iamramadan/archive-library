@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Auth;
 
 class NoteController extends Controller
 {
+    public function show(){
+        $notes = Note::paginate(10);
+        $user =  Auth::user();
+        $sytemIds = $user->Tickets()->pluck('system')->toArray();
+        $system = System::where('author',$user->id)->orWhereIn('id',$sytemIds)->pluck('id')->toArray();
+        return view('pages.manage.note',compact(['notes','system']));
+    }
     public function CreateNotesPage(){
         $AvailableSystems = System::all();
         return view('create.notes',compact('AvailableSystems'));

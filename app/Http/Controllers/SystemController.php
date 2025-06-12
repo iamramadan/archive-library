@@ -22,9 +22,9 @@ class SystemController extends Controller
     public function store(Request $request)
 {
     $validationArray = ($request->id == 'newentry') ?
-     ['creator' => 'required','name' => 'required|max:80|unique:systems,name','about' => 'required|max:500'] 
+     ['creator' => 'required','name' => 'required|max:50|unique:systems,name','about' => 'required|max:500'] 
      :
-     ['creator' => 'required','name' => 'required|max:80','about' => 'required|max:500'];
+     ['creator' => 'required','name' => 'required|max:50','about' => 'required|max:500'];
     $data = $request->validate($validationArray);
         if ($request->id === 'newentry') {
             $system = System::create($data);

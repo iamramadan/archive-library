@@ -10,9 +10,9 @@
             <div class="max-w-xs rounded overflow-hidden shadow-lg bg-white m-4">
                 <x-image class="w-full h-48 object-cover" name="{{$note->image}}">
                 <div class="px-6 py-4">
-                    <div class="font-bold text-xl mb-2 text-gray-800">Beautiful Scenery</div>
+                    <div class="font-bold text-xl mb-2 text-gray-800">{{$note->title}}</div>
                     <p class="text-gray-600 text-base">
-                    A stunning view captured from nature.
+                    {{Str::limit($note->body,100)}}
                     </p>
                 </div>
         </div>
@@ -81,7 +81,7 @@
 
         // Logo Upload Handler
 
-       
+
     </script>
     <!-- Place the first <script> tag in your HTML's <head> -->
 
@@ -98,10 +98,6 @@
   tinymce.init({
     selector: '#body',
     // ... your config
-  });
-
-  $('form').on('submit', function() {
-    tinymce.triggerSave();
   });
 </script>
 @endpush

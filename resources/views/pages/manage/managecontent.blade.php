@@ -1,4 +1,7 @@
 @extends('layout.main')
+@section('title')
+    Manage Content
+@endsection
 @push('links')
     <style>
         body {
@@ -72,95 +75,24 @@
                             </button>
                         </div>
                     </div>
-                    
+
                     <div class="space-y-4">
                         <!-- Note Card 1 -->
-                        <div class="note-card bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 p-4 rounded-lg hover:shadow-md transition-all cursor-pointer">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <div class="flex items-center mb-1">
-                                        <h3 class="font-semibold text-gray-900 mr-2">Urban Development Patterns</h3>
-                                        <span class="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">Research</span>
-                                    </div>
-                                    <p class="text-sm text-gray-600 mb-3 line-clamp-2">Analysis of 20th century urban expansion in European cities with focus on post-war reconstruction efforts and modern planning principles...</p>
-                                    <div class="flex items-center text-xs text-gray-500">
-                                        <span><i class="far fa-clock mr-1"></i> Last updated: 2023-08-15</span>
-                                        <span class="mx-2">•</span>
-                                        <span><i class="far fa-file-alt mr-1"></i> 1,240 words</span>
-                                    </div>
-                                </div>
-                                <div class="note-actions opacity-0 transition-opacity flex space-x-1">
-                                    <button class="p-2 text-blue-500 hover:bg-blue-100 rounded-full">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="p-2 text-red-500 hover:bg-red-100 rounded-full">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Note Card 2 -->
-                        <div class="note-card bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100 p-4 rounded-lg hover:shadow-md transition-all cursor-pointer">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <div class="flex items-center mb-1">
-                                        <h3 class="font-semibold text-gray-900 mr-2">Medieval Architecture Comparison</h3>
-                                        <span class="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">Analysis</span>
-                                    </div>
-                                    <p class="text-sm text-gray-600 mb-3 line-clamp-2">Detailed comparison between Gothic cathedrals in France and England, focusing on structural innovations and regional stylistic differences...</p>
-                                    <div class="flex items-center text-xs text-gray-500">
-                                        <span><i class="far fa-clock mr-1"></i> Last updated: 2023-09-02</span>
-                                        <span class="mx-2">•</span>
-                                        <span><i class="far fa-file-alt mr-1"></i> 2,150 words</span>
-                                    </div>
-                                </div>
-                                <div class="note-actions opacity-0 transition-opacity flex space-x-1">
-                                    <button class="p-2 text-blue-500 hover:bg-blue-100 rounded-full">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="p-2 text-red-500 hover:bg-red-100 rounded-full">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Note Card 3 -->
-                        <div class="note-card bg-gradient-to-br from-purple-50 to-violet-50 border border-purple-100 p-4 rounded-lg hover:shadow-md transition-all cursor-pointer">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <div class="flex items-center mb-1">
-                                        <h3 class="font-semibold text-gray-900 mr-2">Digital Preservation Techniques</h3>
-                                        <span class="px-2 py-1 text-xs bg-purple-100 text-purple-800 rounded-full">Methodology</span>
-                                    </div>
-                                    <p class="text-sm text-gray-600 mb-3 line-clamp-2">Modern approaches to digital archiving, including format migration, emulation strategies, and blockchain verification methods...</p>
-                                    <div class="flex items-center text-xs text-gray-500">
-                                        <span><i class="far fa-clock mr-1"></i> Last updated: 2023-10-18</span>
-                                        <span class="mx-2">•</span>
-                                        <span><i class="far fa-file-alt mr-1"></i> 3,420 words</span>
-                                    </div>
-                                </div>
-                                <div class="note-actions opacity-0 transition-opacity flex space-x-1">
-                                    <button class="p-2 text-blue-500 hover:bg-blue-100 rounded-full">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="p-2 text-red-500 hover:bg-red-100 rounded-full">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                        @foreach ($notes as $content)
+                            
+                        <x-note title="{{$content->title}}" system="{{Ucwords(SystemName($content->system))}}" id="{{$content->id}}" body="{!!$content->body!!}" DateCreated="{{$content->created_at}}"/>
+                        @endforeach
+
                     </div>
-                    
+
                     <div class="mt-6 flex justify-between items-center">
-                        <div class="text-sm text-gray-500">Showing 3 of 42 notes</div>
-                        <button class="px-4 py-2 border border-gray-300 hover:bg-gray-50 text-gray-700 rounded-lg flex items-center">
-                            Load More Notes <i class="fas fa-chevron-down ml-2"></i>
-                        </button>
+                        <div class="text-sm text-gray-500">Showing {{$notes->count()}} of all notes</div>
+                        <a href="{{route('pages.manage.notes')}}" class="px-4 py-2 border border-gray-300 hover:bg-gray-50 text-gray-700 rounded-lg flex items-center">
+                            See All Notes <i class="fas fa-chevron-down ml-2"></i>
+                        </a>
                     </div>
                 </div>
-                
+
                 <!-- Resources Section -->
                 <div class="bg-white rounded-xl shadow-sm p-6">
                     <div class="flex justify-between items-center mb-6">
@@ -171,7 +103,7 @@
                             <i class="fas fa-plus mr-2"></i> Upload Resource
                         </button>
                     </div>
-                    
+
                     <div class="space-y-4">
                         <!-- Resource Card 1 -->
                         <div class="resource-card bg-white border border-gray-200 p-4 rounded-lg hover:shadow-md transition-all">
@@ -203,7 +135,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Resource Card 2 -->
                         <div class="resource-card bg-white border border-gray-200 p-4 rounded-lg hover:shadow-md transition-all">
                             <div class="flex items-center justify-between">
@@ -235,7 +167,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="mt-6 text-center">
                         <a href="#" class="text-blue-600 hover:text-blue-700 font-medium inline-flex items-center">
                             View All Resources <i class="fas fa-arrow-right ml-2"></i>
@@ -325,7 +257,7 @@
 
             </div>
             <!-- questionaires -->
-                
+
             <!-- Sidebar -->
             <div class="space-y-6">
                 <!-- Quick Actions -->
@@ -361,7 +293,7 @@
                         </button>
                     </div>
                 </div> --}}
-                
+
                 <!-- Systems Section -->
                 <div class="bg-white rounded-xl shadow-sm p-6">
                     <div class="flex justify-between items-center mb-4">
@@ -371,36 +303,22 @@
                         </button>
                     </div>
                     <div class="space-y-4">
+                    @foreach ($systems as $system)
+                        
                         <div class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-50 cursor-pointer">
-                            <div class="h-10 w-10 rounded-lg bg-indigo-100 flex items-center justify-center mr-3">
-                                <i class="fas fa-database text-indigo-600"></i>
+                            <div class="h-10 w-10 rounded-lg bg-indigo-100 flex items-center justify-center mr-3 overflow-hidden">
+                                <x-image name="{{ $system->logo }}" class="h-full w-full object-contain"/>
                             </div>
                             <div>
-                                <div class="font-medium text-gray-900">Urban Planning Database</div>
-                                <div class="text-sm text-gray-500">42 datasets • Updated today</div>
+                                <div class="font-medium text-gray-900">{{ $system->name }}</div>
+                                <div class="text-sm text-gray-500">{{ Str::limit($system->about, 35) }}...</div>
                             </div>
                         </div>
-                        <div class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-50 cursor-pointer">
-                            <div class="h-10 w-10 rounded-lg bg-amber-100 flex items-center justify-center mr-3">
-                                <i class="fas fa-landmark text-amber-600"></i>
-                            </div>
-                            <div>
-                                <div class="font-medium text-gray-900">Historical Architecture</div>
-                                <div class="text-sm text-gray-500">18 collections • Updated 3 days ago</div>
-                            </div>
-                        </div>
-                        <div class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-50 cursor-pointer">
-                            <div class="h-10 w-10 rounded-lg bg-emerald-100 flex items-center justify-center mr-3">
-                                <i class="fas fa-leaf text-emerald-600"></i>
-                            </div>
-                            <div>
-                                <div class="font-medium text-gray-900">Environmental Studies</div>
-                                <div class="text-sm text-gray-500">7 datasets • Updated last week</div>
-                            </div>
-                        </div>
+
+                    @endforeach
                     </div>
                 </div>
-                
+
                 <!-- Activity Feed -->
                 <div class="bg-white rounded-xl shadow-sm p-6">
                     <div class="flex justify-between items-center mb-4">
