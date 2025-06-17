@@ -21,14 +21,16 @@
     <div class="bg-white rounded-lg shadow-sm p-6">
         <h2 class="text-2xl font-bold text-gray-800 mb-6">Upload New Resource</h2>
         <form class="space-y-4" method="post" enctype="multipart/form-data" action="{{ route('create.resources.UpdateStore') }}">
-            @csrf
+            @csrf 
+            <input type="hidden" value="{{Auth::user()->id}}" name="author">
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Title*</label>
-                <input type="text" name="title" required class="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Name*</label>
+                <input type="text" name="name" required class="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Description*</label>
-                <textarea name="description" rows="3" required class="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"></textarea>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Details*</label>
+                <div><small>add more info about this resources</small></div>
+                <textarea name="details" rows="3" required class="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"></textarea>
             </div>
              <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Institution</label>
@@ -41,7 +43,7 @@
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">File Upload*</label>
-                <input type="file" name="resource_file" required class="dropify" data-max-file-size="50M" data-allowed-file-extensions="pdf docx csv" />
+                <input type="file" name="filename" required class="dropify" data-max-file-size="50M" data-allowed-file-extensions="pdf docx csv" />
             </div>
             <div class="flex justify-end space-x-3">
                 <button type="button" class="px-4 py-2 text-gray-600 hover:text-gray-800">Cancel</button>

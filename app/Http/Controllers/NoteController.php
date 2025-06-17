@@ -6,16 +6,20 @@ use App\Models\Note;
 use App\Models\System;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Scopes\ContributableSystems;
 // use Illuminate\Support\Facades\Auth;
 
 class NoteController extends Controller
 {
     public function show(){
-        $notes = Note::paginate(10);
+        // dd(System::where('name',"Unilag")->value('id'));
+        $notes =  ($_GET) ?
+         Note::where('system',System::where('name',$_GET['system'])->value('id'))->paginate(10)
+         : Note::all();
         $user =  Auth::user();
-        $sytemIds = $user->Tickets()->pluck('system')->toArray();
-        $system = System::where('author',$user->id)->orWhereIn('id',$sytemIds)->pluck('id')->toArray();
-        return view('pages.manage.note',compact(['notes','system']));
+        $systemIds = $user->Ticket()->pluck('system')->toArray();
+        $systems = System::all();
+        return view('pages.manage.note',compact(['notes','systems']));
     }
     public function CreateNotesPage(){
         $AvailableSystems = System::all();
@@ -34,7 +38,6 @@ class NoteController extends Controller
             'body'=>'required|min:50',
             'image'=>'mimes:png,jpeg,jpg|max:10000'
     ]);
-    // dd($data);
         if($request->hasFile('image')){
             $data['image'] = upload($request->logo);
         }
@@ -53,16 +56,17 @@ class NoteController extends Controller
             'body'=>'required|min:50',
             'image'=>'mimes:png,jpeg,jpg'
         ]);
+        // dd($request);
         if($request->hasFile('image')){
-            $IncomingField['image'] = upload($request->logo);
+            $IncomingField['image'] = upload($request->image);
         }
         unset($IncomingField['id']);
         $update = Note::where('id',$request->id)->update($IncomingField);
         if (!$update) {
             # code...
-            return back()->with('error','Note Could Not Be Updated');
+            return back()->with('message','Note Could Not Be Updated');
         }
-        return back()->with('success','Note Updated Successfully');
+        return back()->with('message','Note Updated Successfully');
     }
     public function delete($id){
         Note::where('id',$id)->delete();

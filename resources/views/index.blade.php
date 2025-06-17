@@ -53,7 +53,7 @@
                             </div>
                         </div>
                     </a>
-                    <a class="p-6 text-left rounded-lg border-2 border-blue-100 hover:border-blue-200 hover:bg-blue-50 transition-all">
+                    <a href="{{route('create.resources')}}" class="p-6 text-left rounded-lg border-2 border-blue-100 hover:border-blue-200 hover:bg-blue-50 transition-all">
                         <div class="flex items-center space-x-4">
                             <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                                 📁

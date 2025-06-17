@@ -297,15 +297,15 @@
                 <!-- Systems Section -->
                 <div class="bg-white rounded-xl shadow-sm p-6">
                     <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-lg font-semibold text-gray-800">Your Systems</h3>
+                        <h3 class="text-lg font-semibold text-gray-800">Your Institution</h3>
                         <button class="text-blue-600 hover:text-blue-700">
                             <i class="fas fa-plus"></i>
                         </button>
                     </div>
                     <div class="space-y-4">
                     @foreach ($systems as $system)
-                        
-                        <div class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-50 cursor-pointer">
+                    
+                        <a href="{{route('pages.institution',['name'=>$system->name])}}" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-50 cursor-pointer">
                             <div class="h-10 w-10 rounded-lg bg-indigo-100 flex items-center justify-center mr-3 overflow-hidden">
                                 <x-image name="{{ $system->logo }}" class="h-full w-full object-contain"/>
                             </div>
@@ -313,7 +313,7 @@
                                 <div class="font-medium text-gray-900">{{ $system->name }}</div>
                                 <div class="text-sm text-gray-500">{{ Str::limit($system->about, 35) }}...</div>
                             </div>
-                        </div>
+                        </a>
 
                     @endforeach
                     </div>

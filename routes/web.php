@@ -36,7 +36,7 @@ Route::prefix('create')->name('create.')->middleware('auth')->group(function(){
 Route::prefix('update')->name('update.')->middleware('auth')->group(function(){
     Route::get('/system/{id}',[SystemController::class,'updatepage'])->name('system');
     Route::get('/note/{id}',[NoteController::class,'UpdateNotesPage'])->name('note');
-    Route::put('/update-note',[NoteController::class,'update'])->name('note.update');
+    Route::put('/update-note',[NoteController::class,'update'])->name('note.store');
 });
 Route::prefix('delete')->name('delete.')->middleware('auth')->group(function(){
     Route::delete('/system',[SystemController::class,'delete'])->name('system');

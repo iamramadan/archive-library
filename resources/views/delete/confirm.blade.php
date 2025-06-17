@@ -1,8 +1,8 @@
 @extends('layout.entry')
 @section('title', 'Confirm-Delete')
-@section('heading', 'Confirm Delete Of'.$table)
+@section('heading', 'Confirm Delete Of '.$table)
 @php
-    $action = ['institution'=>'delete.system'];
+    $action = ['institution'=>'delete.system','note'=>'delete.note'];
 @endphp
 @section('main')
     <main class="max-w-3xl mx-auto p-4">
