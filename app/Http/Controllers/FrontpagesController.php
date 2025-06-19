@@ -23,6 +23,10 @@ class FrontpagesController extends Controller
         $note = Note::find($id);
         return view('pages.note',compact('note'));
     }
+    public function resources($id){
+        $resource = Resources::find($id);
+        return view('pages.resources',compact('resource'));
+    }
     public function institution($name){
         $institute = System::withoutGlobalScope(new ContributableSystems)->withCount(['resources','note','questionaires'])->where('name',$name)->first();
         return view('pages.institution',compact('institute'));

@@ -24,14 +24,17 @@
             @csrf 
             <input type="hidden" value="{{Auth::user()->id}}" name="author">
             <div>
+                <x-error name="name"/>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Name*</label>
-                <input type="text" name="name" required class="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+                <input type="text" name="name" value="{{old('name')}}" required class="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
             </div>
             <div>
+                <x-error name="details"/>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Details*</label>
                 <div><small>add more info about this resources</small></div>
-                <textarea name="details" rows="3" required class="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"></textarea>
+                <textarea name="details" value="{{old('details')}}" rows="3" required class="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"></textarea>
             </div>
+            @if($AvailableSystems->count())
              <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Institution</label>
                 <x-error name="system"/>
@@ -40,16 +43,28 @@
                         <option value="{{$system->id}}">{{$system->name}}</option>
                     @endforeach
                 </select>
+              </div>
+            @else
+            <div class="md:col-span-2 text-center py-12 text-gray-500" id="emptyState">
+                <p class="mb-4">No institutions found</p>
+                <a href="{{route('create.system')}}"
+                   class="px-4 py-2 text-blue-600 hover:text-blue-700 border border-blue-600 rounded-full">
+                    Create Your First Institution
+                </a>
             </div>
+            @endif
             <div>
+                <x-error name="filename"/>
                 <label class="block text-sm font-medium text-gray-700 mb-1">File Upload*</label>
-                <input type="file" name="filename" required class="dropify" data-max-file-size="50M" data-allowed-file-extensions="pdf docx csv" />
+                <input type="file" name="filename" value="{{old('filename')}}" required class="dropify" data-max-file-size="50M" data-allowed-file-extensions="pdf docx csv" />
             </div>
             <div class="flex justify-end space-x-3">
-                <button type="button" class="px-4 py-2 text-gray-600 hover:text-gray-800">Cancel</button>
+                <a href="{{route('index')}}"  class="px-4 py-2 text-gray-600 hover:text-gray-800">Cancel</a>
+                @if ($AvailableSystems->count())           
                 <button type="submit" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
                     Upload Resource
                 </button>
+                @endif
             </div>
         </form>
     </div>

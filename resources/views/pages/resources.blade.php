@@ -37,13 +37,13 @@
     <main class="max-w-6xl mx-auto p-4">
         <!-- Breadcrumb -->
         <nav class="text-sm text-gray-600 mb-6 flex items-center">
-            <a href="#" class="text-primary hover:underline">Home</a>
+            <a href="{{route('index')}}" class="text-primary hover:underline">Home</a>
             <span class="mx-2">/</span>
             <a href="#" class="text-primary hover:underline">Resources</a>
             <span class="mx-2">/</span>
-            <span class="text-gray-500">Historical Climate Data Report</span>
+            <span class="text-gray-500">{{$resource->name}}</span>
         </nav>
-        
+
         <!-- Resource Header -->
         <div class="bg-white p-6 rounded-xl shadow-sm mb-8">
             <div class="flex flex-col md:flex-row gap-6">
@@ -53,85 +53,65 @@
                         <i class="fas fa-file-pdf text-5xl text-red-500"></i>
                     </div>
                 </div>
-                
+
                 <!-- File Details -->
                 <div class="flex-1">
-                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Historical Climate Data Report</h1>
-                    <p class="text-gray-700 mb-4">Comprehensive analysis of climate patterns from 1950 to 2020 with detailed regional breakdowns and future projections.</p>
-                    
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">{{$resource->name}}</h1>
+                    <p class="text-gray-700 mb-4">{{Str::limit($resource->details,200)}}...</p>
+
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                         <div>
                             <p class="text-xs font-semibold text-gray-500 uppercase">File Type</p>
-                            <p class="font-medium">PDF Document</p>
+                            <p class="font-medium">{{$resource->filetype}}</p>
                         </div>
                         <div>
                             <p class="text-xs font-semibold text-gray-500 uppercase">File Size</p>
-                            <p class="font-medium">24.8 MB</p>
+                            @php
+                            // {{filesize(asset('storage/files/'.$resource->filename))}}
+                                $file = storage_path('app/public/files/'.$resource->filename);
+                                $filesize = (file_exists($file)) ? round(filesize($file)/1048576) : null;
+                            @endphp
+                            <p class="font-medium">{{$filesize}} MB</p>
                         </div>
                         <div>
                             <p class="text-xs font-semibold text-gray-500 uppercase">Uploaded</p>
-                            <p class="font-medium">2023-09-15</p>
+                            <p class="font-medium">{{$resource->created_at}}</p>
                         </div>
                         <div>
                             <p class="text-xs font-semibold text-gray-500 uppercase">Author</p>
-                            <p class="font-medium">Dr. Emma Richardson</p>
+                            <p class="font-medium">{{username($resource->author)}}</p>
                         </div>
                     </div>
-                    
                     <div class="flex flex-wrap gap-3">
-                        <button class="action-btn bg-primary hover:bg-secondary text-white px-5 py-2.5 rounded-lg font-medium flex items-center">
+                        <a href="{{route('download',['file'=>$resource->filename])}}" class="action-btn bg-primary hover:bg-secondary px-5 py-2.5 rounded-lg font-medium flex items-center">
                             <i class="fas fa-download mr-2"></i> Download
-                        </button>
+                        </a>
                         <button class="action-btn bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-5 py-2.5 rounded-lg font-medium flex items-center">
                             <i class="fas fa-share-alt mr-2"></i> Share
                         </button>
                         <button class="action-btn bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-5 py-2.5 rounded-lg font-medium flex items-center">
                             <i class="fas fa-bookmark mr-2"></i> Save
                         </button>
-                        <button class="action-btn bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-5 py-2.5 rounded-lg font-medium flex items-center">
-                            <i class="fas fa-print mr-2"></i> Print
-                        </button>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- Preview Section -->
-        <div class="bg-white p-6 rounded-xl shadow-sm mb-8">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
-                <i class="fas fa-eye mr-2 text-primary"></i>
-                Document Preview
-            </h2>
-            
-            <div class="preview-container border-2 border-dashed border-gray-300 rounded-xl bg-gray-50 min-h-[500px] flex flex-col items-center justify-center p-8">
-                <div class="text-center">
-                    <i class="fas fa-file-pdf text-6xl text-red-500 mb-4"></i>
-                    <h3 class="text-xl font-medium text-gray-800 mb-2">Historical Climate Data Report</h3>
-                    <p class="text-gray-600 mb-6">Preview unavailable for this file type. Download to view the full document.</p>
-                    <button class="bg-primary hover:bg-secondary text-white px-5 py-2.5 rounded-lg font-medium">
-                        Download Full Document
-                    </button>
-                </div>
-            </div>
-        </div>
-        
+
+
         <!-- Details Section -->
         <div class="bg-white p-6 rounded-xl shadow-sm mb-8">
             <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
                 <i class="fas fa-info-circle mr-2 text-primary"></i>
                 Additional Information
             </h2>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <h3 class="font-medium text-gray-800 mb-3">Description</h3>
                     <p class="text-gray-700 mb-4">
-                        This comprehensive report provides detailed historical climate data analysis from 1950 to 2020. 
-                        It includes regional breakdowns, temperature anomaly analysis, precipitation trends, and extreme 
-                        weather event documentation. The report also contains projections for future climate patterns 
-                        based on current trends.
+                        {{$resource->details}}
                     </p>
-                    
+
                     <h3 class="font-medium text-gray-800 mb-3">Tags</h3>
                     <div class="flex flex-wrap gap-2">
                         <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Climate Data</span>
@@ -141,42 +121,16 @@
                         <span class="bg-pink-100 text-pink-800 text-xs font-medium px-2.5 py-0.5 rounded">Sustainability</span>
                     </div>
                 </div>
-                
-                <div>
-                    <h3 class="font-medium text-gray-800 mb-3">Technical Details</h3>
-                    <ul class="space-y-3 text-gray-700">
-                        <li class="flex">
-                            <i class="fas fa-file-alt text-primary mt-1 mr-3"></i>
-                            <span>Number of Pages: 124</span>
-                        </li>
-                        <li class="flex">
-                            <i class="fas fa-chart-bar text-primary mt-1 mr-3"></i>
-                            <span>Contains 24 charts and 18 data tables</span>
-                        </li>
-                        <li class="flex">
-                            <i class="fas fa-database text-primary mt-1 mr-3"></i>
-                            <span>Data sources: NOAA, NASA, WMO, IPCC</span>
-                        </li>
-                        <li class="flex">
-                            <i class="fas fa-lock text-primary mt-1 mr-3"></i>
-                            <span>Security: Public Access</span>
-                        </li>
-                        <li class="flex">
-                            <i class="fas fa-code text-primary mt-1 mr-3"></i>
-                            <span>Version: 2.1.4</span>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
-        
+
         <!-- Related Resources -->
-        <div class="bg-white p-6 rounded-xl shadow-sm">
+        {{-- <div class="bg-white p-6 rounded-xl shadow-sm">
             <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
                 <i class="fas fa-link mr-2 text-primary"></i>
                 Related Resources
             </h2>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <!-- Resource Card 1 -->
                 <div class="file-card bg-white border border-gray-200 rounded-lg p-4 hover:border-primary transition-all">
@@ -194,7 +148,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Resource Card 2 -->
                 <div class="file-card bg-white border border-gray-200 rounded-lg p-4 hover:border-primary transition-all">
                     <div class="flex items-start">
@@ -211,7 +165,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Resource Card 3 -->
                 <div class="file-card bg-white border border-gray-200 rounded-lg p-4 hover:border-primary transition-all">
                     <div class="flex items-start">
@@ -229,9 +183,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </main>
 @endsection
 @push('scripts')
-    
+
 @endpush

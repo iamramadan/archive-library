@@ -13,3 +13,9 @@ function username($id){
 function SystemName($id){
   return System::where('id',$id)->get('name')->value('name') ;
 }
+function fileTypeIcon($name){
+    $name = match ($name) {
+        'pdf' => 'fa-file-pdf',
+    };
+    return $name;
+}

@@ -52,9 +52,11 @@ Route::middleware('guest')->name('auth.')->group(function(){
 Route::name('pages.')->middleware('auth')->group(function(){
     Route::get('/my-institutions',[FrontpagesController::class,'myInstitutions'])->name('myInstitutions');
     Route::get('/note/{id}',[FrontpagesController::class,'note'])->name('note');
+    Route::get('/resources/{id}',[FrontpagesController::class,'resources'])->name('resources');
     Route::get('/institution/{name}',[FrontpagesController::class,'institution'])->name('institution');
     Route::get('/manage-content',[FrontpagesController::class,'managecontent'])->name('manage');
     Route::name('manage.')->prefix('manage')->group(function(){
         Route::get('/note',[NoteController::class,'show'])->name('notes');
     });
 });
+Route::get('/download/{filename}',[ResourcesController::class,'download'])->name('download');

@@ -13,7 +13,8 @@ class Resources extends Model
         'author',
         'system',
         'filename',
-        'details'
+        'details',
+        'filetype'
     ];
     public function Users(){
         return $this->belongsTo(User::class,'author');
@@ -26,6 +27,6 @@ class Resources extends Model
     $hasAccess = System::where('id', $system)->where('creator', $user->id)->exists() ||
                  $user->tickets()->where('type', 'contributor')->where('system', $system)->exists();
 
-    return $hasAccess ? Note::create($data) : null;
+    return $hasAccess ? Resources::create($data) : null;
 }
 }

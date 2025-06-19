@@ -16,8 +16,6 @@ class NoteController extends Controller
         $notes =  ($_GET) ?
          Note::where('system',System::where('name',$_GET['system'])->value('id'))->paginate(10)
          : Note::all();
-        $user =  Auth::user();
-        $systemIds = $user->Ticket()->pluck('system')->toArray();
         $systems = System::all();
         return view('pages.manage.note',compact(['notes','systems']));
     }

@@ -3,6 +3,7 @@
     Manage Content
 @endsection
 @push('links')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -79,7 +80,7 @@
                     <div class="space-y-4">
                         <!-- Note Card 1 -->
                         @foreach ($notes as $content)
-                            
+
                         <x-note title="{{$content->title}}" system="{{Ucwords(SystemName($content->system))}}" id="{{$content->id}}" body="{!!$content->body!!}" DateCreated="{{$content->created_at}}"/>
                         @endforeach
 
@@ -99,73 +100,15 @@
                         <h2 class="text-xl font-semibold text-gray-800 flex items-center">
                             <i class="fas fa-folder text-green-500 mr-2"></i> Recent Resources
                         </h2>
-                        <button class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg flex items-center">
+                        <a class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg flex items-center">
                             <i class="fas fa-plus mr-2"></i> Upload Resource
-                        </button>
+                        </a>
                     </div>
 
                     <div class="space-y-4">
-                        <!-- Resource Card 1 -->
-                        <div class="resource-card bg-white border border-gray-200 p-4 rounded-lg hover:shadow-md transition-all">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <div class="h-12 w-12 rounded-lg bg-blue-100 flex items-center justify-center mr-4">
-                                        <i class="fas fa-file-pdf text-blue-600 text-xl"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="font-medium text-gray-900 mb-1">Climate Data 2022</h3>
-                                        <p class="text-sm text-gray-600">Annual climate report with regional analysis</p>
-                                        <div class="flex items-center text-xs text-gray-500 mt-1">
-                                            <span>PDF • 8.4 MB</span>
-                                            <span class="mx-2">•</span>
-                                            <span><i class="far fa-clock mr-1"></i> Uploaded: 2023-07-22</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="resource-actions opacity-0 transition-opacity flex space-x-2">
-                                    <button class="p-2 text-blue-500 hover:bg-blue-100 rounded-full">
-                                        <i class="fas fa-download"></i>
-                                    </button>
-                                    <button class="p-2 text-gray-500 hover:bg-gray-100 rounded-full">
-                                        <i class="fas fa-share-alt"></i>
-                                    </button>
-                                    <button class="p-2 text-red-500 hover:bg-red-100 rounded-full">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Resource Card 2 -->
-                        <div class="resource-card bg-white border border-gray-200 p-4 rounded-lg hover:shadow-md transition-all">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <div class="h-12 w-12 rounded-lg bg-purple-100 flex items-center justify-center mr-4">
-                                        <i class="fas fa-file-csv text-purple-600 text-xl"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="font-medium text-gray-900 mb-1">Historical Demographics Dataset</h3>
-                                        <p class="text-sm text-gray-600">Population statistics 1950-2020 for European cities</p>
-                                        <div class="flex items-center text-xs text-gray-500 mt-1">
-                                            <span>CSV • 4.2 MB</span>
-                                            <span class="mx-2">•</span>
-                                            <span><i class="far fa-clock mr-1"></i> Uploaded: 2023-09-10</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="resource-actions opacity-0 transition-opacity flex space-x-2">
-                                    <button class="p-2 text-blue-500 hover:bg-blue-100 rounded-full">
-                                        <i class="fas fa-download"></i>
-                                    </button>
-                                    <button class="p-2 text-gray-500 hover:bg-gray-100 rounded-full">
-                                        <i class="fas fa-share-alt"></i>
-                                    </button>
-                                    <button class="p-2 text-red-500 hover:bg-red-100 rounded-full">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                        @foreach ($resources as $resource)
+                            <x-resources name="{{$resource->name}}" details="{{$resource->details}}" id="{{$resource->id}}" created_at="{{$resource->created_at}}" size="5"/>
+                        @endforeach
                     </div>
 
                     <div class="mt-6 text-center">
@@ -304,7 +247,7 @@
                     </div>
                     <div class="space-y-4">
                     @foreach ($systems as $system)
-                    
+
                         <a href="{{route('pages.institution',['name'=>$system->name])}}" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-50 cursor-pointer">
                             <div class="h-10 w-10 rounded-lg bg-indigo-100 flex items-center justify-center mr-3 overflow-hidden">
                                 <x-image name="{{ $system->logo }}" class="h-full w-full object-contain"/>
