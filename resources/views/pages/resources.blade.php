@@ -83,7 +83,7 @@
                         </div>
                     </div>
                     <div class="flex flex-wrap gap-3">
-                        <a href="{{route('download',['file'=>$resource->filename])}}" class="action-btn bg-primary hover:bg-secondary px-5 py-2.5 rounded-lg font-medium flex items-center">
+                        <a href="{{route('download',['filename'=>$resource->filename])}}" class="action-btn bg-primary hover:bg-secondary px-5 py-2.5 rounded-lg font-medium flex items-center">
                             <i class="fas fa-download mr-2"></i> Download
                         </a>
                         <button class="action-btn bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-5 py-2.5 rounded-lg font-medium flex items-center">

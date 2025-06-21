@@ -100,19 +100,19 @@
                         <h2 class="text-xl font-semibold text-gray-800 flex items-center">
                             <i class="fas fa-folder text-green-500 mr-2"></i> Recent Resources
                         </h2>
-                        <a class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg flex items-center">
-                            <i class="fas fa-plus mr-2"></i> Upload Resource
+                        <a href="{{route('create.resources')}}" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg flex items-center">
+                            <i class="fas fa-plus mr-2"></i> Create Resource
                         </a>
                     </div>
 
                     <div class="space-y-4">
                         @foreach ($resources as $resource)
-                            <x-resources name="{{$resource->name}}" details="{{$resource->details}}" id="{{$resource->id}}" created_at="{{$resource->created_at}}" size="5"/>
+                            <x-resources filetype="{{$resource->filetype}}" name="{{$resource->name}}" details="{{$resource->details}}" id="{{$resource->id}}" created_at="{{$resource->created_at}}" size="5"/>
                         @endforeach
                     </div>
 
                     <div class="mt-6 text-center">
-                        <a href="#" class="text-blue-600 hover:text-blue-700 font-medium inline-flex items-center">
+                        <a href="{{route('pages.manage.resources')}}" class="text-blue-600 hover:text-blue-700 font-medium inline-flex items-center">
                             View All Resources <i class="fas fa-arrow-right ml-2"></i>
                         </a>
                     </div>
@@ -241,9 +241,9 @@
                 <div class="bg-white rounded-xl shadow-sm p-6">
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-lg font-semibold text-gray-800">Your Institution</h3>
-                        <button class="text-blue-600 hover:text-blue-700">
+                        <a href="{{route('create.system')}}" class="text-blue-600 hover:text-blue-700">
                             <i class="fas fa-plus"></i>
-                        </button>
+                        </a>
                     </div>
                     <div class="space-y-4">
                     @foreach ($systems as $system)

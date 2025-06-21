@@ -9,9 +9,14 @@ use Illuminate\Support\Facades\Auth;
 
 class ResourcesController extends Controller
 {
-    public function show($id){
-        $Resources = Resources::find($id);
-        return view('');
+    public function show(){
+        $resources = ($_GET)
+        ? Resources::where('system',System::where('name',$_GET['system'])->value('id'))->get()
+        : Resources::all();
+        $systems = System::all();
+        $TotalResources = Resources::count();
+        $UploadedToday = Resources::where('created_at','>',now()->startOfDay())->count();
+        return view('pages.manage.resources',compact(['systems','resources','TotalResources','UploadedToday']));
     }
     public function CreateResourcesPage(){
         $AvailableSystems = System::all();
@@ -22,7 +27,7 @@ class ResourcesController extends Controller
            'name'=>'required|max:100|min:5',
            'author'=>'required',
            'system'=>'required',
-           'filename'=>'required|min:8|mimes:pdf',
+           'filename' => 'required|mimes:doc,docx,pdf,mp4,avi,mov,mp3,wav,aac,epub,xls,xlsx,csv,txt,rtf|max:51200', // max: 50MB
            'details'=>'min:8|max:100' 
         ]);
         $data['filetype'] = $request->filename->getClientOriginalExtension();
@@ -39,12 +44,12 @@ class ResourcesController extends Controller
         }
         return redirect()->route('pages.resources',['id'=>$resource->id]);
     }
-    public function download($file){
-        $file_path = storage_path('app/public/files/'.$file);
+    public function download($filename){
+        $file_path = storage_path('app/public/files/'.$filename);
         if(!file_exists($file_path)){
             abort(404,'file doesnt exist');
         }
-        return redirect()->download($file_path);
+        return back()->response()->download($file_path);
     }
     public function delete(Request $request){
     $resource = Resources::find($request->id);

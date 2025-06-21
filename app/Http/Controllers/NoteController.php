@@ -12,7 +12,6 @@ use App\Models\Scopes\ContributableSystems;
 class NoteController extends Controller
 {
     public function show(){
-        // dd(System::where('name',"Unilag")->value('id'));
         $notes =  ($_GET) ?
          Note::where('system',System::where('name',$_GET['system'])->value('id'))->paginate(10)
          : Note::all();

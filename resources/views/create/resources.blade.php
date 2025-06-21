@@ -19,6 +19,11 @@
 @section('main')
 <main class="max-w-3xl mx-auto p-4">
     <div class="bg-white rounded-lg shadow-sm p-6">
+    @if (session('message'))
+          <div class="mt-1 text-sm text-red-600">
+              {{session('message')}}
+          </div>
+      @endif
         <h2 class="text-2xl font-bold text-gray-800 mb-6">Upload New Resource</h2>
         <form class="space-y-4" method="post" enctype="multipart/form-data" action="{{ route('create.resources.UpdateStore') }}">
             @csrf 

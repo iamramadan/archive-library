@@ -1,11 +1,11 @@
 <div>
-    @props(['name','details','created_at','size','id'])
+    @props(['name','details','created_at','size','id','filetype'])
     <div class="resource-card bg-white border border-gray-200 p-4 rounded-lg hover:shadow-md transition-all">
         <a href="{{route('pages.resources',['id'=>$id])}}">
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
                     <div class="h-12 w-12 rounded-lg bg-blue-100 flex items-center justify-center mr-4">
-                        <i class="fas fa-file-pdf text-blue-600 text-xl"></i>
+                        <i class="fas {{fileTypeIcon($filetype)}} text-blue-600 text-xl"></i>
                     </div>
                     <div>
                         <h3 class="font-medium text-gray-900 mb-1">{{$name}}</h3>

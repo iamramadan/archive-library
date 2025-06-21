@@ -8,6 +8,11 @@
   <main class="max-w-3xl mx-auto p-4 space-y-6">
     <div class="bg-white rounded-lg shadow-sm p-6">
       <h2 class="text-2xl font-bold text-gray-800 mb-6">Create New Note</h2>
+      @if (session('message'))
+          <div class="mt-1 text-sm text-red-600">
+              {{session('message')}}
+          </div>
+      @endif
       <form class="space-y-4" method="post" action="{{route('create.note.store')}}" enctype="multipart/form-data">
         @csrf
         <div>

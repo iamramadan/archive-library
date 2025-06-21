@@ -57,6 +57,7 @@ Route::name('pages.')->middleware('auth')->group(function(){
     Route::get('/manage-content',[FrontpagesController::class,'managecontent'])->name('manage');
     Route::name('manage.')->prefix('manage')->group(function(){
         Route::get('/note',[NoteController::class,'show'])->name('notes');
+        Route::get('/resources',[ResourcesController::class,'show'])->name('resources');
     });
 });
 Route::get('/download/{filename}',[ResourcesController::class,'download'])->name('download');
