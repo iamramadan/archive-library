@@ -13,8 +13,8 @@ class NoteController extends Controller
 {
     public function show(){
         $notes =  ($_GET) ?
-         Note::where('system',System::where('name',$_GET['system'])->value('id'))->paginate(10)
-         : Note::all();
+         Note::where('author',Auth::user()->id)->where('system',System::where('name',$_GET['system'])->value('id'))->paginate(10)
+         : Note::where('author',Auth::user()->id)->get();
         $systems = System::all();
         return view('pages.manage.note',compact(['notes','systems']));
     }

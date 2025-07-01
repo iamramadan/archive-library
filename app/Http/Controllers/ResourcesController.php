@@ -11,8 +11,8 @@ class ResourcesController extends Controller
 {
     public function show(){
         $resources = ($_GET)
-        ? Resources::where('system',System::where('name',$_GET['system'])->value('id'))->get()
-        : Resources::all();
+        ? Resources::where('author',Auth::user()->id)->where('system',System::where('name',$_GET['system'])->value('id'))->get()
+        : Resources::where('author',Auth::user()->id)->get();
         $systems = System::all();
         $TotalResources = Resources::count();
         $UploadedToday = Resources::where('created_at','>',now()->startOfDay())->count();
@@ -28,13 +28,13 @@ class ResourcesController extends Controller
            'author'=>'required',
            'system'=>'required',
            'filename' => 'required|mimes:doc,docx,pdf,mp4,avi,mov,mp3,wav,aac,epub,xls,xlsx,csv,txt,rtf|max:51200', // max: 50MB
-           'details'=>'min:8|max:100' 
+           'details'=>'min:8|max:100'
         ]);
         $data['filetype'] = $request->filename->getClientOriginalExtension();
          if ($request->id != null) {
             $data['filename'] = upload($data['filename']);
             return Resources::where('id',$request->id)->update($data) ?
-             back()->with('sucess','Updated Resource Successfully') 
+             back()->with('sucess','Updated Resource Successfully')
              : back()->with('error','Couldnt Update Resource');
          }
         $data['filename'] = upload($data['filename']);
@@ -49,7 +49,7 @@ class ResourcesController extends Controller
         if(!file_exists($file_path)){
             abort(404,'file doesnt exist');
         }
-        return back()->response()->download($file_path);
+        return response()->download($file_path);
     }
     public function delete(Request $request){
     $resource = Resources::find($request->id);

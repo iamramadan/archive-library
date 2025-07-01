@@ -5,9 +5,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\SystemController;
+use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\ResourcesController;
 use App\Http\Controllers\FrontpagesController;
 use App\Http\Controllers\DeleteHandlerController;
+use App\Http\Controllers\QuestionairesController;
 
 
 
@@ -31,7 +33,10 @@ Route::prefix('create')->name('create.')->middleware('auth')->group(function(){
     Route::get('/note',[NoteController::class,'CreateNotesPage'])->name('note');
     Route::post('/create-note',[NoteController::class,'store'])->name('note.store');
     Route::get('/resources',[ResourcesController::class,'CreateResourcesPage'])->name('resources');
+    Route::get('/questionaires',[QuestionairesController::class,'CreateQuestionaires'])->name('questionaires');
+    Route::post('/create-questionaires',[QuestionairesController::class,'store'])->name('questionaires.store');
     Route::post('/create-resources',[ResourcesController::class,'UpdateStore'])->name('resources.UpdateStore');
+    Route::get('/add-questions/{id}',[QuestionsController::class,'CreateQuestions'])->name('questions');
 });
 Route::prefix('update')->name('update.')->middleware('auth')->group(function(){
     Route::get('/system/{id}',[SystemController::class,'updatepage'])->name('system');
