@@ -27,6 +27,10 @@ class System extends Model
     public function Resources(){
         return $this->hasMany(Resources::class,'system');
     }
+    public function Tickets(){
+        return $this->hasMany(Ticket::class,'system');
+    }
+
     public static function booted(){
         static::addGlobalScope(new ContributableSystems());
     }

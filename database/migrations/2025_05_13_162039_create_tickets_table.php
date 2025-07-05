@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->string('token',16);
+            $table->string('token',13);
             $table->enum('type',['contributor','viewer'])->default('viewer');
             $table->foreignId('system')->refrences('id')->on('systems')->onDelete('cascade');
+            $table->date('expires_at');
+            $table->integer('max_usage');
             $table->timestamps();
         });
     }

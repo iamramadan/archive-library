@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\SystemController;
+use App\Http\Controllers\TicketController;
 use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\ResourcesController;
 use App\Http\Controllers\FrontpagesController;
@@ -37,6 +38,7 @@ Route::prefix('create')->name('create.')->middleware('auth')->group(function(){
     Route::post('/create-questionaires',[QuestionairesController::class,'store'])->name('questionaires.store');
     Route::post('/create-resources',[ResourcesController::class,'UpdateStore'])->name('resources.UpdateStore');
     Route::get('/add-questions/{id}',[QuestionsController::class,'CreateQuestions'])->name('questions');
+    Route::post('/tickets',[TicketController::class,'CreateTickets'])->name('tickets');
 });
 Route::prefix('update')->name('update.')->middleware('auth')->group(function(){
     Route::get('/system/{id}',[SystemController::class,'updatepage'])->name('system');
@@ -60,7 +62,10 @@ Route::name('pages.')->middleware('auth')->group(function(){
     Route::get('/resources/{id}',[FrontpagesController::class,'resources'])->name('resources');
     Route::get('/institution/{name}',[FrontpagesController::class,'institution'])->name('institution');
     Route::get('/manage-content',[FrontpagesController::class,'managecontent'])->name('manage');
+    Route::get('/ticket',[TicketController::class,'index'])->name('ticket-settings');
+    Route::get('/register-tickets/{token}',[TicketController::class,'register'])->name('register-ticket');
     Route::name('manage.')->prefix('manage')->group(function(){
+        Route::get('/ticket/institution/{id}',[TicketController::class,'show'])->name('tickets');
         Route::get('/note',[NoteController::class,'show'])->name('notes');
         Route::get('/resources',[ResourcesController::class,'show'])->name('resources');
     });

@@ -11,7 +11,9 @@ class Ticket extends Model
     protected $fillable=[
       'token',
       'type',
-      'system'  
+      'system',
+      'max_usage',
+      'expires_at'  
     ];
     public function System(){
         return $this->belongsTo(System::class,'system');

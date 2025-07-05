@@ -1,16 +1,18 @@
 <div>
     <div class="bg-white rounded-lg shadow-sm p-6">
+        @if($isloading) <b>Questions are Being Submitted ...</b> @endif
             <h2 class="text-2xl font-bold text-gray-800 mb-6">Add New Question</h2>
             <div class="space-y-6">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Question {{$index + 1}}</label>
-                    <input type="text" 
+                    <input type="text"
                             @if(isset($this->questionArray[$index]))
                                  value="{{$this->questionArray[$index]['question']}}"
                             @endif
                     wire:model="Question" required class="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
                 </div>
                 <div class="space-y-4">
+                {{$QuestionaireId}}
                     <div class="border-l-4 border-blue-500 pl-4">
                         <h3 class="text-lg font-semibold text-gray-800 mb-2">Correct Option</h3>
                         <select wire:model="correct_option"  placeholder="Question text" class="w-full px-4 py-2 rounded-lg border border-gray-200 mb-3 focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
@@ -62,7 +64,7 @@
 
                     <div class="space-x-3">
                         <a type="button" class="px-4 py-2 text-gray-600 hover:text-gray-800" href="{{route('index')}}">Cancel</a>
-                        <button wire:click="submit" type="submit" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                        <button wire:click="submit" @if($isloading) disabled @endif type="submit" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
                             Save Questionnaire
                         </button>
                     </div>
@@ -70,7 +72,7 @@
             </div>
         </div>
                 <div class="grid grid-cols-10 gap-2 p-6 bg-white my-2 rounded-xl shadow-lg">
-                    
+
                     @php
                         $i = 1;
                     @endphp

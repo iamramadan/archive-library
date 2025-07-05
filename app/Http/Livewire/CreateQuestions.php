@@ -18,6 +18,8 @@ class CreateQuestions extends Component
     public $QuestionaireId;
     public $questionArray = [];
     public $index = 0;
+    public $msg = '';
+    public $isloading = false;
     public function mount($id){
         $this->QuestionaireId = $id;
     }
@@ -41,7 +43,6 @@ class CreateQuestions extends Component
         $this->Option2 = '';
         $this->Option3 = '';
         $this->Option4 = '';
-        $this->QuestionaireId = '';
         $this->correct_option = '';
     }
     public function back(){
@@ -52,9 +53,15 @@ class CreateQuestions extends Component
     }
 
     public function submit(){
+        if(count($this->questionArray) > 20){
+            $this->msg = 'Questions Should Not Exceed 20';
+            return;
+        }
+        $this->isloading = true;
         foreach ($this->questionArray as $question) {
             Questions::create($question);
         }
+        $this->isloading = false;
         return redirect()->route('index');
     }
     public function render()

@@ -74,7 +74,7 @@
                                 <p class="text-sm text-gray-600">Create New Questionaire</p>
                             </div>
                         </div>
-                    </abb>
+                    </a>
 
                     <!-- New Institution Option -->
                     <a href="{{route('create.system')}}" class="p-6 text-left rounded-lg border-2 border-blue-100 hover:border-blue-200 hover:bg-blue-50 transition-all">
@@ -90,7 +90,9 @@
                     </a>
 
                     <!-- Ticket Registration -->
-                    <button class="p-6 text-left rounded-lg border-2 border-blue-100 hover:border-blue-200 hover:bg-blue-50 transition-all">
+                    <a
+                     href="{{route('pages.ticket-settings')}}"
+                     class="p-6 text-left rounded-lg border-2 border-blue-100 hover:border-blue-200 hover:bg-blue-50 transition-all">
                         <div class="flex items-center space-x-4">
                             <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                                 🎟️
@@ -100,7 +102,7 @@
                                 <p class="text-sm text-gray-600">Activate access token</p>
                             </div>
                         </div>
-                    </button>
+                    </a>
                 {{-- <a href="{{route('pages.myInstitutions')}}" class="p-6 text-left rounded-lg border-2 border-green-100 hover:border-green-200 hover:bg-green-50 transition-all">
                     <div class="flex items-center space-x-4">
                         <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">

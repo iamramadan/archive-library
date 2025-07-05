@@ -36,3 +36,15 @@ function StorageUsed($resources){
   }
   return $size;
 }
+function ArcCode() {
+    do {
+        $digits = str_pad(mt_rand(0, 9999), 4, '0', STR_PAD_LEFT) .
+                  str_pad(mt_rand(0, 9999), 4, '0', STR_PAD_LEFT);
+
+        $formatted = substr($digits, 0, 4) . '-' . substr($digits, 4, 4);
+        $code = 'ARC-' . $formatted;
+
+    } while (\App\Models\Ticket::where('token', $code)->exists());
+
+    return $code;
+}
