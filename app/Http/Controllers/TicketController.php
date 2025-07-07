@@ -14,7 +14,8 @@ class TicketController extends Controller
     public function index(){
         $systems = System::withoutGlobalScope(new ContributableSystems)->where('creator',Auth::user()->id)->get();
         $SystemsWithTickets = System::where('creator',Auth::user()->id)->whereHas('tickets')->get();
-        return view('pages.ticket-setting',compact(['systems','SystemsWithTickets']));
+        $tickets = Auth::user()->Ticket()->get();
+        return view('pages.ticket-setting',compact(['systems','SystemsWithTickets','tickets']));
     }
     public function CreateTickets(Request $request){
         $data =$request->validate([
@@ -38,8 +39,9 @@ class TicketController extends Controller
         return redirect()->route('pages.manage.tickets',['id'=>$request->input('system')]);
     }
     public function show($id){
-        $system = System::with('tickets')->where('id',$id)->first();
-        return view('pages.manage.tickets',compact(['system']));
+        $system = System::find($id);
+        $tickets = $system->tickets()->orderBy('created_at','desc')->paginate(10);
+        return view('pages.manage.tickets',compact(['system','tickets']));
     }
     public function register($token)
 {
@@ -47,23 +49,23 @@ class TicketController extends Controller
 
     // Check if the ticket exists
     if (!$ticket) {
-        return back()->with('error', 'This token does not exist.');
+        return back()->with('msg', 'This token does not exist.');
     }
 
     // Check if the ticket usage has reached its maximum limit
     if ($ticket->Users()->count() >= $ticket->max_usage) {
-        return back()->with('error', 'This ticket has reached its usage limit.');
+        return back()->with('msg', 'This ticket has reached its usage limit.');
     }
 
     // Check if the user has already registered this ticket
     if (Auth::user()->tickets->contains($ticket->id)) {
-        return back()->with('error', 'You have already registered this ticket.');
+        return back()->with('msg', 'You have already registered this ticket.');
     }
 
     // Attach the ticket to the user
     Auth::user()->tickets()->attach($ticket->id);
 
-    return redirect()->route('index')->with('success', 'You have successfully registered.');
+    return back()->with('msg', 'You have successfully registered.');
 }
 
 }
