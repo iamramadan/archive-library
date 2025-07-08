@@ -11,6 +11,7 @@ use App\Http\Controllers\ResourcesController;
 use App\Http\Controllers\FrontpagesController;
 use App\Http\Controllers\DeleteHandlerController;
 use App\Http\Controllers\QuestionairesController;
+use App\Http\Controllers\SearchController;
 
 
 
@@ -68,6 +69,9 @@ Route::name('pages.')->middleware('auth')->group(function(){
         Route::get('/ticket/institution/{id}',[TicketController::class,'show'])->name('tickets');
         Route::get('/note',[NoteController::class,'show'])->name('notes');
         Route::get('/resources',[ResourcesController::class,'show'])->name('resources');
+    });
+    Route::prefix('search')->name('search.')->group(function(){
+        Route::get('/result/{query}', [SearchController::class,'index'])->name('name');
     });
 });
 Route::get('/download/{filename}',[ResourcesController::class,'download'])->name('download');

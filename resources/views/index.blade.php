@@ -17,9 +17,12 @@
         <!-- Search Box -->
         <div class="max-w-2xl w-full px-4 mb-8">
             <div class="relative">
+            <form id="searchForm" method="GET" onsubmit="updateAction(event)">
                 <input type="text"
+                    id="queryInput"
                     class="w-full px-6 py-4 text-lg rounded-full border border-gray-200 focus:outline-none focus:border-gray-300 focus:shadow-lg transition-all"
                     placeholder="Search the archive...">
+            </form>
             </div>
         </div>
 
@@ -137,5 +140,18 @@
             document.body.classList.toggle('overflow-hidden');
         }
     </script>
+    <script>
+    function updateAction(event) {
+        const input = document.getElementById('queryInput').value.trim();
+        if (!input) {
+            event.preventDefault(); // block submission if empty
+            return;
+        }
+
+        // update form action before submit
+        const form = document.getElementById('searchForm');
+        form.action = '/search/result/' + encodeURIComponent(input); // e.g. /books or /resources/my-query
+    }
+</script>
 </body>
 </html>
