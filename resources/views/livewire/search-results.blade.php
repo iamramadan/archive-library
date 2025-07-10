@@ -1,23 +1,41 @@
 <div>
-<div class="border-b border-gray-300">
-        <div class="max-w-5xl mx-auto px-4">
-            <div class="nav-tabs flex space-x-8">
-                <a wire:click="show('all')" class="nav-tab active">
-                    <i class="fas fa-globe mr-2"></i>All
-                </a>
-                <a wire:click="show('questionaires')" class="nav-tab">
-                    <i class="fas fa-clipboard-list mr-2"></i>Questionnaires
-                </a>
-                <a wire:click="show('resources')" class="nav-tab">
-                    <i class="fas fa-book mr-2"></i>Resources
-                </a>
-                <a wire:click="show('notes')" class="nav-tab">
-                    <i class="fas fa-sticky-note mr-2"></i>Notes
-                </a>
-            </div>
-        </div>
-    </div>
+    <div class="border-b border-gray-300 my-8">
+  <div class="max-w-6xl mx-auto px-4">
+    <nav class="flex flex-wrap gap-4 md:gap-8 justify-center md:justify-start">
+      <a 
+        wire:click="show('all')" 
+        class="nav-tab flex items-center px-4 py-2 rounded-md text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition @if($showing == 'all') active @endif bg-blue-100 text-blue-600"
+      >
+        <i class="fas fa-globe mr-2"></i> All
+      </a>
 
+      <a 
+        wire:click="show('questionaires')" 
+        class=" @if($showing == 'questionaires') active @endif nav-tab flex items-center px-4 py-2 rounded-md text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition"
+      >
+        <i class="fas fa-clipboard-list mr-2"></i> Questionnaires
+      </a>
+
+      <a 
+        wire:click="show('resources')" 
+        class="@if($showing == 'resources') active @endif nav-tab flex items-center px-4 py-2 rounded-md text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition"
+      >
+        <i class="fas fa-book mr-2"></i> Resources
+      </a>
+
+      <a 
+        wire:click="show('notes')" 
+        class="@if($showing == 'notes') active @endif nav-tab flex items-center px-4 py-2 rounded-md text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition"
+      >
+        <i class="fas fa-sticky-note mr-2"></i> Notes
+      </a>
+    </nav>
+  </div>
+</div>
+
+    {{-- @dd($all)
+    @dd($resources)
+    @dd($notes) --}}
     <!-- Main Content -->
     <main class="flex-grow max-w-3xl mx-auto px-4 py-6 w-full">
         <p class="text-gray-600 text-sm mb-6">About 4,210,000 results (0.42 seconds)</p>
@@ -26,13 +44,6 @@
         <div class="space-y-8">
             <!-- Result 1 -->
             @switch($showing)
-                @case('all')
-                    @forelse ($all as $content)
-                        
-                    @empty
-                        
-                    @endforelse
-                    @break
                 @case('notes')
                     @forelse ($notes as $content)
                         <div class="result-card p-4 rounded-lg">
@@ -67,7 +78,7 @@
                                 </div>
                     @endforelse
                     @break
-                @case('questionaire')
+                @case('questionaires')
                     @forelse ($questionaires as $content)
                         <div class="result-card p-4 rounded-lg">
                             <div class="flex items-center mb-1">
@@ -143,112 +154,6 @@
                 @default
                     
             @endswitch
-            <div class="result-card p-4 rounded-lg">
-                <div class="flex items-center mb-1">
-                    <span class="result-url">https://www.researchgate.net › methodology</span>
-                </div>
-                <a href="#" class="result-title text-xl font-medium mb-1 inline-block">Research Methodology: A Step-by-Step Guide for Beginners</a>
-                <p class="text-gray-700 mb-2">Research methodology simply refers to the practical "how" of any given piece of research. More specifically, it's about how a researcher systematically designs a study to ensure valid and reliable results that address the research aims and objectives.</p>
-                <div class="flex flex-wrap gap-2 mt-3">
-                    <span class="tag"><i class="fas fa-book mr-1"></i>Resource</span>
-                    <span class="tag"><i class="fas fa-calendar mr-1"></i>Published 2023</span>
-                </div>
-            </div>
-            
-            <!-- Result 2 -->
-            <div class="result-card p-4 rounded-lg">
-                <div class="flex items-center mb-1">
-                    <span class="result-url">https://www.scribbr.com › category › methodology</span>
-                </div>
-                <a href="#" class="result-title text-xl font-medium mb-1 inline-block">What Is Research Methodology? | Definition + Examples</a>
-                <p class="text-gray-700 mb-2">Research methodology is the specific procedures or techniques used to identify, select, process, and analyze information about a topic. In a research paper, the methodology section allows the reader to critically evaluate a study's overall validity and reliability.</p>
-                <div class="flex flex-wrap gap-2 mt-3">
-                    <span class="tag"><i class="fas fa-book mr-1"></i>Resource</span>
-                    <span class="tag"><i class="fas fa-file-pdf mr-1"></i>PDF Available</span>
-                </div>
-            </div>
-            
-            <!-- Result 3 -->
-            <div class="result-card p-4 rounded-lg">
-                <div class="flex items-center mb-1">
-                    <span class="result-url">https://archlib.edu › questionnaires › RM-2024</span>
-                </div>
-                <a href="#" class="result-title text-xl font-medium mb-1 inline-block">Research Methodology Questionnaire - ARCHLIB</a>
-                <p class="text-gray-700 mb-2">A comprehensive questionnaire on research methodology concepts including research design, data collection methods, sampling techniques, and data analysis approaches. Used in academic studies since 2021.</p>
-                <div class="flex flex-wrap gap-2 mt-3">
-                    <span class="tag"><i class="fas fa-clipboard-list mr-1"></i>Questionnaire</span>
-                    <span class="tag"><i class="fas fa-download mr-1"></i>Downloadable</span>
-                    <span class="tag"><i class="fas fa-users mr-1"></i>Used by 210 researchers</span>
-                </div>
-            </div>
-            
-            <!-- Result 4 -->
-            <div class="result-card p-4 rounded-lg">
-                <div class="flex items-center mb-1">
-                    <span class="result-url">https://libguides.usc.edu › writingguide › methodology</span>
-                </div>
-                <a href="#" class="result-title text-xl font-medium mb-1 inline-block">Research Methods - Research Guides at University of ...</a>
-                <p class="text-gray-700 mb-2">The purpose of this chapter is to explain in detail the research methods and the methodology implemented for this study. The chapter will explain first of all the choice of research approach, then the research design, as well as the advantages and disadvantages of the research tools chosen.</p>
-                <div class="flex flex-wrap gap-2 mt-3">
-                    <span class="tag"><i class="fas fa-book mr-1"></i>Resource</span>
-                    <span class="tag"><i class="fas fa-university mr-1"></i>Academic</span>
-                </div>
-            </div>
-            
-            <!-- Result 5 -->
-            <div class="result-card p-4 rounded-lg">
-                <div class="flex items-center mb-1">
-                    <span class="result-url">https://archlib.edu › notes › research-methods-summary</span>
-                </div>
-                <a href="#" class="result-title text-xl font-medium mb-1 inline-block">Research Methods - Comprehensive Notes - ARCHLIB</a>
-                <p class="text-gray-700 mb-2">Detailed notes covering quantitative, qualitative, and mixed methods approaches. Includes definitions, applications, strengths and limitations of each research method. Last updated: March 15, 2024.</p>
-                <div class="flex flex-wrap gap-2 mt-3">
-                    <span class="tag"><i class="fas fa-sticky-note mr-1"></i>Notes</span>
-                    <span class="tag"><i class="fas fa-star mr-1"></i>Highly Rated</span>
-                    <span class="tag"><i class="fas fa-eye mr-1"></i>Viewed 1,240 times</span>
-                </div>
-            </div>
-            
-            <!-- Result 6 -->
-            <div class="result-card p-4 rounded-lg">
-                <div class="flex items-center mb-1">
-                    <span class="result-url">https://www.questionpro.com › research-methodology</span>
-                </div>
-                <a href="#" class="result-title text-xl font-medium mb-1 inline-block">Research Methodology: What it is and How to Write it</a>
-                <p class="text-gray-700 mb-2">A research methodology describes the techniques and procedures used to identify and analyze information regarding a specific research topic. It is a process by which researchers design their study so that they can achieve their objectives using the selected research instruments.</p>
-                <div class="flex flex-wrap gap-2 mt-3">
-                    <span class="tag"><i class="fas fa-book mr-1"></i>Resource</span>
-                    <span class="tag"><i class="fas fa-chart-bar mr-1"></i>Includes Examples</span>
-                </div>
-            </div>
-            
-            <!-- Result 7 -->
-            <div class="result-card p-4 rounded-lg">
-                <div class="flex items-center mb-1">
-                    <span class="result-url">https://archlib.edu › questionnaires › qualitative-methods</span>
-                </div>
-                <a href="#" class="result-title text-xl font-medium mb-1 inline-block">Qualitative Research Methods Questionnaire - ARCHLIB</a>
-                <p class="text-gray-700 mb-2">A specialized questionnaire focusing on qualitative research methodologies including interviews, focus groups, ethnographic studies, and case studies. Developed by Dr. Elena Rodriguez for her 2022 study on qualitative approaches in social sciences.</p>
-                <div class="flex flex-wrap gap-2 mt-3">
-                    <span class="tag"><i class="fas fa-clipboard-list mr-1"></i>Questionnaire</span>
-                    <span class="tag"><i class="fas fa-graduation-cap mr-1"></i>Academic</span>
-                    <span class="tag"><i class="fas fa-download mr-1"></i>Template Available</span>
-                </div>
-            </div>
-            
-            <!-- Result 8 -->
-            <div class="result-card p-4 rounded-lg">
-                <div class="flex items-center mb-1">
-                    <span class="result-url">https://archlib.edu › notes › quantitative-methods</span>
-                </div>
-                <a href="#" class="result-title text-xl font-medium mb-1 inline-block">Quantitative Research Methods Notes - ARCHLIB</a>
-                <p class="text-gray-700 mb-2">Comprehensive notes on quantitative research methods, including experimental design, survey methodology, statistical analysis techniques, and data interpretation. Created by Professor James Wilson for STAT 510 course.</p>
-                <div class="flex flex-wrap gap-2 mt-3">
-                    <span class="tag"><i class="fas fa-sticky-note mr-1"></i>Notes</span>
-                    <span class="tag"><i class="fas fa-chart-line mr-1"></i>Statistics</span>
-                    <span class="tag"><i class="fas fa-bookmark mr-1"></i>Bookmarked 340 times</span>
-                </div>
-            </div>
         </div>
         
         <!-- Pagination -->
