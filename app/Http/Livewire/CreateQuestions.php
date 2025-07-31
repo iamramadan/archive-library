@@ -62,7 +62,7 @@ class CreateQuestions extends Component
             Questions::create($question);
         }
         $this->isloading = false;
-        return redirect()->route('index');
+        return redirect()->route('pages.questionaire',['id'=>$this->QuestionaireId]);
     }
     public function render()
     {

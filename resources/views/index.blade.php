@@ -150,7 +150,7 @@
 
         // update form action before submit
         const form = document.getElementById('searchForm');
-        form.action = '/search/result/' + encodeURIComponent(input); // e.g. /books or /resources/my-query
+        form.action = '/search/result/' + input; // e.g. /books or /resources/my-query
     }
 </script>
 </body>

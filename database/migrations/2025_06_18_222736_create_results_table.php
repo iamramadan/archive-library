@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('results', function (Blueprint $table) {
             $table->id();
-            $table->json('result');
+            $table->string('result');
             $table->integer('score');
+            $table->json('your_answers');
             $table->foreignId('questionaires')->refrences('id')->on('questionaires');
             $table->foreignId('user')->refrences('id')->on('users');
             $table->timestamps();

@@ -24,6 +24,9 @@ class Questionaires extends Model
     public function Questions(){
         return $this->hasMany(Questions::class,'questionaire');
     }
+    public function Result(){
+        return $this->hasMany(Result::class,'questionaires')
+    }
     public static function createIfContributor(array $data, $system, User $user)
 {
       $hasAccess = System::where('id', $system)->where('creator', $user->id)->exists() ||

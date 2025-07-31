@@ -129,7 +129,7 @@
 
   <div class="space-y-4">
     @foreach($questionaires as $questionaire)
-    <x-questionaire name="{{$questionaire->name}}" goal="{{$questionaire->goal}}" updated_at="{{$questionaire->updated_at}}"/>
+    <x-questionaire id="{{$questionaire->id}}" name="{{$questionaire->name}}" goal="{{$questionaire->goal}}" updated_at="{{$questionaire->updated_at}}"/>
     @endforeach
   </div>
 
@@ -201,6 +201,17 @@
                         </a>
 
                     @endforeach
+                    </div>
+                    <div class="my-2">
+                        <a href="{{route('pages.myInstitutions')}}"
+                        class="relative inline-block my-4 font-semibold text-blue-600 group focus:outline-none focus:ring-2 focus:ring-blue-300">
+                        <span class="relative z-10 px-4 py-2 transition-colors duration-200
+                                    group-hover:text-white group-hover:bg-blue-600 rounded-md">
+                            View All Institutions
+                        </span>
+                        <span class="absolute inset-0 bg-blue-600 rounded-md opacity-0
+                                    group-hover:opacity-100 transition-opacity duration-200"></span>
+                        </a>
                     </div>
                 </div>
 

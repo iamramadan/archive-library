@@ -13,7 +13,6 @@ class SearchResults extends Component
     public $showing = 'notes';
 
     public function mount($notes,$resources,$questionaires,$all){
-        // dd()
             $this->notes = $notes;
             $this->resources = $resources;
             $this->questionaires = $questionaires;

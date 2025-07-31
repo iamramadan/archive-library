@@ -1,6 +1,7 @@
 <div>
-    @props(['name','goal','updated_at',])
+    @props(['name','goal','updated_at','id'])
     <div class="resource-card bg-white border border-gray-200 p-4 rounded-lg hover:shadow-md transition-all">
+    <a href="{{route('pages.questionaire',['id'=>$id])}}">
       <div class="flex items-center justify-between">
         <div class="flex items-center">
           <div class="h-12 w-12 rounded-lg bg-yellow-100 flex items-center justify-center mr-4">
@@ -25,5 +26,6 @@
           </button>
         </div>
       </div>
+    </a>
     </div>
 </div>

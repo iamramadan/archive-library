@@ -36,7 +36,7 @@ class NoteController extends Controller
             'image'=>'mimes:png,jpeg,jpg|max:10000'
     ]);
         if($request->hasFile('image')){
-            $data['image'] = upload($request->logo);
+            $data['image'] = upload($request->image);
         }
         $note = Note::createIfContributor($data,$request->system,Auth::user());
         if (!$note) {

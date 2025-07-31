@@ -43,7 +43,7 @@
           <x-error name="image"/>
           <label class="block text-sm font-medium text-gray-700 mb-1">Attach File</label>
                     <input type="file"
-                           name="logo"
+                           name="image"
                           >
           </div>
 

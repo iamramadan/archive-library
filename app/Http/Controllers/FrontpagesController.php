@@ -38,4 +38,17 @@ class FrontpagesController extends Controller
         $systems = System::paginate(5);
         return view('pages.manage.managecontent',compact(['notes','resources','questionaires','systems']));
     }
+    public function questionaire($id){
+        $questionaires = Questionaires::with('questions')->where('id',$id)->first();
+        return view('pages.questionaire',compact('questionaires'));
+    }
+    public function QuestionResult($id){
+            // questionaire with question and result
+        $questionaireResult = Questionaires::with(
+        ['result'=>function($query){
+                $query->where('user',Auth::user()->id);
+                },'questions'
+        ])->find($id);
+        return view('pages.result',compact('questionaireResult'));
+    }
 }

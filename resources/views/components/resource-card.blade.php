@@ -24,12 +24,9 @@
                                 <a href="{{route('download',['filename'=>$filename])}}" class="p-2 text-blue-500 hover:bg-blue-100 rounded-full">
                                     <i class="fas fa-download"></i>
                                 </a>
-                                <button class="p-2 text-gray-500 hover:bg-gray-100 rounded-full">
-                                    <i class="fas fa-share-alt"></i>
-                                </button>
-                                <button class="p-2 text-red-500 hover:bg-red-100 rounded-full">
+                                <a href="{{route('delete.confirm',['table'=>'resources','id'=>$id])}}" class="p-2 text-red-500 hover:bg-red-100 rounded-full">
                                     <i class="fas fa-trash"></i>
-                                </button>
+                                </a>
                             </div>
                         </div>
                         <p class="text-gray-600 text-sm mb-4">

@@ -4,6 +4,7 @@ use App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SystemController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\QuestionsController;
@@ -11,7 +12,6 @@ use App\Http\Controllers\ResourcesController;
 use App\Http\Controllers\FrontpagesController;
 use App\Http\Controllers\DeleteHandlerController;
 use App\Http\Controllers\QuestionairesController;
-use App\Http\Controllers\SearchController;
 
 
 
@@ -49,6 +49,7 @@ Route::prefix('update')->name('update.')->middleware('auth')->group(function(){
 Route::prefix('delete')->name('delete.')->middleware('auth')->group(function(){
     Route::delete('/system',[SystemController::class,'delete'])->name('system');
     Route::delete('/note',[NoteController::class,'delete'])->name('note');
+    Route::delete('/resources',[ResourcesController::class,'delete'])->name('resources');
     Route::get('/confirm-delete/{table}/{id}',[DeleteHandlerController::class,'delete'])->name('confirm');
 });
 Route::middleware('guest')->name('auth.')->group(function(){
@@ -65,6 +66,9 @@ Route::name('pages.')->middleware('auth')->group(function(){
     Route::get('/manage-content',[FrontpagesController::class,'managecontent'])->name('manage');
     Route::get('/ticket',[TicketController::class,'index'])->name('ticket-settings');
     Route::get('/register-tickets/{token}',[TicketController::class,'register'])->name('register-ticket');
+    Route::get('/questionaire/{id}',[FrontpagesController::class,'questionaire'])->name('questionaire');
+    Route::get('/questionaire-result/{id}',[FrontpagesController::class,'QuestionResult'])->name('questionaire.result');
+    Route::get('/submit-questionaire',[QuestionairesController::class,'submit'])->name('questionaire.submit');
     Route::name('manage.')->prefix('manage')->group(function(){
         Route::get('/ticket/institution/{id}',[TicketController::class,'show'])->name('tickets');
         Route::get('/note',[NoteController::class,'show'])->name('notes');

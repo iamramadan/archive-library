@@ -2,32 +2,30 @@
     <div class="border-b border-gray-300 my-8">
   <div class="max-w-6xl mx-auto px-4">
     <nav class="flex flex-wrap gap-4 md:gap-8 justify-center md:justify-start">
-      <a 
-        wire:click="show('all')" 
+      {{-- <a
+        wire:click="show('all')"
         class="nav-tab flex items-center px-4 py-2 rounded-md text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition @if($showing == 'all') active @endif bg-blue-100 text-blue-600"
       >
         <i class="fas fa-globe mr-2"></i> All
+      </a> --}}
+    <a
+        wire:click="show('notes')"
+        class="@if($showing == 'notes') active @endif nav-tab flex items-center px-4 py-2 rounded-md text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition"
+      >
+        <i class="fas fa-sticky-note mr-2"></i> Notes
       </a>
-
-      <a 
-        wire:click="show('questionaires')" 
+      <a
+        wire:click="show('questionaires')"
         class=" @if($showing == 'questionaires') active @endif nav-tab flex items-center px-4 py-2 rounded-md text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition"
       >
         <i class="fas fa-clipboard-list mr-2"></i> Questionnaires
       </a>
 
-      <a 
-        wire:click="show('resources')" 
+      <a
+        wire:click="show('resources')"
         class="@if($showing == 'resources') active @endif nav-tab flex items-center px-4 py-2 rounded-md text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition"
       >
         <i class="fas fa-book mr-2"></i> Resources
-      </a>
-
-      <a 
-        wire:click="show('notes')" 
-        class="@if($showing == 'notes') active @endif nav-tab flex items-center px-4 py-2 rounded-md text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition"
-      >
-        <i class="fas fa-sticky-note mr-2"></i> Notes
       </a>
     </nav>
   </div>
@@ -38,20 +36,22 @@
     @dd($notes) --}}
     <!-- Main Content -->
     <main class="flex-grow max-w-3xl mx-auto px-4 py-6 w-full">
+        <h2>{{ucwords($showing)}}</h2>
         <p class="text-gray-600 text-sm mb-6">About 4,210,000 results (0.42 seconds)</p>
-        
+
         <!-- Search Results -->
         <div class="space-y-8">
             <!-- Result 1 -->
             @switch($showing)
                 @case('notes')
-                    @forelse ($notes as $content)
-                        <div class="result-card p-4 rounded-lg">
+                {{-- @dd($notes) --}}
+                    @forelse ($notes as $note)
+                        <div  class="result-card p-4 rounded-lg">
                             <div class="flex items-center mb-1">
-                                {{-- <span class="result-url">https://archlib.edu › notes › research-methods-summary</span> --}}
+                                <a href="{{route('pages.note',['id'=>$note['id']])}}" class="result-url">archlib.edu › notes › {{$note['name']}}</span>
                             </div>
-                            <a href="#" class="result-title text-xl font-medium mb-1 inline-block">{{$content->title}}</a>
-                            <p class="text-gray-700 mb-2">{{str::limit($content->body,50)}}</p>
+                            <a href="#" class="result-title text-xl font-medium mb-1 inline-block">{{$note['title']}}</a>
+                            <p class="text-gray-700 mb-2">{!!Str::limit($note['body'],50)!!}</p>
                             <div class="flex flex-wrap gap-2 mt-3">
                                 <span class="tag"><i class="fas fa-sticky-note mr-1"></i>Notes</span>
                                 <span class="tag"><i class="fas fa-eye mr-1"></i>Viewed 1,240 times</span>
@@ -79,13 +79,13 @@
                     @endforelse
                     @break
                 @case('questionaires')
-                    @forelse ($questionaires as $content)
+                    @forelse ($questionaires as $questionaire)
                         <div class="result-card p-4 rounded-lg">
                             <div class="flex items-center mb-1">
                                 {{-- <span class="result-url">https://archlib.edu › questionnaires › RM-2024</span> --}}
                             </div>
-                            <a href="#" class="result-title text-xl font-medium mb-1 inline-block">{{$content->name}}</a>
-                            <p class="text-gray-700 mb-2">{{$content->goal}}</p>
+                            <a href="#" class="result-title text-xl font-medium mb-1 inline-block">{{$questionaire['name']}}</a>
+                            <p class="text-gray-700 mb-2">{{$questionaire['goal']}}</p>
                             <div class="flex flex-wrap gap-2 mt-3">
                                 <span class="tag"><i class="fas fa-clipboard-list mr-1"></i>Questionnaire</span>
                                 <span class="tag"><i class="fas fa-users mr-1"></i>Used by most researchers</span>
@@ -116,7 +116,7 @@
                     @forelse ($resources as $content)
                         <div class="result-card p-4 rounded-lg">
                             <div class="flex items-center mb-1">
-                                <span class="result-url">https://www.researchgate.net › methodology</span>
+                                <a href="{{route('pages.resources',['id'=>$content['id']])}}" class="result-url">archlib.edu › notes › {{$note['name']}}</a>
                             </div>
                             <a href="#" class="result-title text-xl font-medium mb-1 inline-block">{{$content->name}}</a>
                             <p class="text-gray-700 mb-2">{{$content->description}}</p>
@@ -142,7 +142,7 @@
 
                             <!-- Updated Message -->
                             <h2 class="text-xl font-semibold text-gray-800">Oops! No Resources</h2>
-                            <p class="text-gray-600">Looks like you’re out of resources. Submit a ticket to request more.</p>
+                            <p class="text-gray-600">You dont have access to resources. Submit a ticket to request more.</p>
 
                             <!-- Call to action button -->
                             <a href="#" class="inline-block mt-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-full hover:bg-blue-700 transition">
@@ -152,10 +152,10 @@
                     @endforelse
                     @break
                 @default
-                    
+
             @endswitch
         </div>
-        
+
         <!-- Pagination -->
         <div class="mt-12 flex justify-center">
             <div class="flex items-center space-x-1">
