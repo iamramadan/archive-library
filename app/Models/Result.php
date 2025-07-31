@@ -13,7 +13,11 @@ class Result extends Model
         'result',
         'user',
         'score',
-        'questionaires'
+        'questionaires',
+        'your_answers'
+    ];
+    protected $casts = [
+        'your_answers'=> 'array'
     ];
     public function User() :belongsTo
     {

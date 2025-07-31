@@ -108,11 +108,11 @@
                     <div class="text-gray-600">Correct Answers</div>
                 </div>
                 <div class="bg-red-50 p-4 rounded-lg">
-                    <div class="text-3xl font-bold text-red-500">{{questionaireResult->result->result}}</div>
+                    <div class="text-3xl font-bold text-red-500">{{$questionaireResult->question->count() - $questionaireResult->result->result}}</div>
                     <div class="text-gray-600">Incorrect Answers</div>
                 </div>
                 <div class="bg-green-50 p-4 rounded-lg">
-                    <div class="text-3xl font-bold text-green-500">80%</div>
+                    <div class="text-3xl font-bold text-green-500">{{$questionaireResult->result->score}}%</div>
                     <div class="text-gray-600">Overall Score</div>
                 </div>
             </div>
@@ -138,9 +138,6 @@
         <div class="flex border-b border-gray-300 mb-6">
             <button class="tab-button active">
                 <i class="fas fa-clipboard-list mr-2"></i>Question Review
-            </button>
-            <button class="tab-button">
-                <i class="fas fa-comments mr-2"></i>Comments
             </button>
         </div>
         
@@ -169,71 +166,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="bg-blue-50 p-4 rounded-lg mt-3">
-                        <h5 class="font-medium text-gray-800 mb-1 flex items-center">
-                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
-                            Explanation
-                        </h5>
-                        <p class="text-gray-700 text-sm">A research hypothesis provides a testable prediction about the relationship between variables. It serves as a tentative explanation that can be investigated through research.</p>
-                    </div>
-                </div>
-                
-                <!-- Question 2 -->
-                <div class="answer-incorrect mb-6 p-4 bg-white border rounded-lg">
-                    <div class="flex items-start mb-3">
-                        <div class="bg-red-100 text-red-800 rounded-full w-8 h-8 flex items-center justify-center mr-3">
-                            <i class="fas fa-times"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800">Question 2: What is the primary difference between qualitative and quantitative research methods?</h4>
-                            <div class="mt-2">
-                                <div class="flex items-center text-sm mb-1">
-                                    <span class="font-medium w-32">Your answer:</span>
-                                    <span class="bg-red-100 text-red-800 px-2 py-1 rounded">A. Qualitative research uses statistics while quantitative does not</span>
-                                </div>
-                                <div class="flex items-center text-sm">
-                                    <span class="font-medium w-32">Correct answer:</span>
-                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded">B. Quantitative research focuses on numerical data while qualitative focuses on non-numerical data</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-blue-50 p-4 rounded-lg mt-3">
-                        <h5 class="font-medium text-gray-800 mb-1 flex items-center">
-                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
-                            Explanation
-                        </h5>
-                        <p class="text-gray-700 text-sm">The key distinction is in the type of data each method focuses on. Quantitative research deals with numerical data and statistical analysis, while qualitative research deals with non-numerical data like words, images, and observations.</p>
-                    </div>
-                </div>
-                
-                <!-- Question 3 -->
-                <div class="answer-correct mb-6 p-4 bg-white border rounded-lg">
-                    <div class="flex items-start mb-3">
-                        <div class="bg-green-100 text-green-800 rounded-full w-8 h-8 flex items-center justify-center mr-3">
-                            <i class="fas fa-check"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800">Question 3: In research, what does 'external validity' refer to?</h4>
-                            <div class="mt-2">
-                                <div class="flex items-center text-sm mb-1">
-                                    <span class="font-medium w-32">Your answer:</span>
-                                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded">B. The generalizability of findings</span>
-                                </div>
-                                <div class="flex items-center text-sm">
-                                    <span class="font-medium w-32">Correct answer:</span>
-                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded">B. The generalizability of findings</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-blue-50 p-4 rounded-lg mt-3">
-                        <h5 class="font-medium text-gray-800 mb-1 flex items-center">
-                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
-                            Explanation
-                        </h5>
-                        <p class="text-gray-700 text-sm">External validity refers to the extent to which research findings can be generalized beyond the specific context of the study to other settings, populations, or time periods.</p>
-                    </div>
                 </div>
                 
                 <!-- View All Button -->
@@ -244,127 +176,8 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Comments Section (Hidden by default) -->
-        <div id="comments-section" class="hidden">
-            <div class="result-card p-6">
-                <h3 class="text-xl font-bold text-dark mb-4">Discussion & Comments</h3>
-                <p class="text-gray-600 mb-6">Share your thoughts about this quiz or ask questions about specific questions</p>
-                
-                <!-- Comment Form -->
-                <div class="bg-gray-50 rounded-lg p-4 mb-6">
-                    <div class="flex items-start mb-4">
-                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                            <span class="text-primary font-semibold">U</span>
-                        </div>
-                        <div class="flex-grow">
-                            <textarea class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-500" placeholder="Add your comment or question..." rows="3"></textarea>
-                        </div>
-                    </div>
-                    <div class="flex justify-end">
-                        <button class="px-6 py-2 bg-primary hover:bg-blue-700 text-white rounded-lg transition-colors">
-                            Post Comment
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Existing Comments -->
-                <div class="space-y-6">
-                    <!-- Comment 1 -->
-                    <div class="comment-card bg-white border rounded-lg p-4">
-                        <div class="flex items-start mb-3">
-                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                                <span class="text-primary font-semibold">J</span>
-                            </div>
-                            <div>
-                                <div class="flex items-center mb-1">
-                                    <h4 class="font-bold text-gray-800 mr-2">John Researcher</h4>
-                                    <span class="text-gray-500 text-sm">2 hours ago</span>
-                                </div>
-                                <p class="text-gray-700 mb-3">I think question 5 could be improved. Option D "All of the above" is technically correct, but option A seems misleading. What do others think?</p>
-                                <div class="flex space-x-4">
-                                    <button class="text-gray-500 hover:text-primary text-sm flex items-center">
-                                        <i class="fas fa-thumbs-up mr-1"></i> 12
-                                    </button>
-                                    <button class="text-gray-500 hover:text-primary text-sm flex items-center">
-                                        <i class="fas fa-thumbs-down mr-1"></i> 2
-                                    </button>
-                                    <button class="text-gray-500 hover:text-primary text-sm">
-                                        Reply
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Reply -->
-                        <div class="comment-card bg-gray-50 rounded-lg p-4 mt-4 ml-12">
-                            <div class="flex items-start mb-3">
-                                <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
-                                    <span class="text-green-700 font-semibold">P</span>
-                                </div>
-                                <div>
-                                    <div class="flex items-center mb-1">
-                                        <h4 class="font-bold text-gray-800 mr-2">Professor Davis</h4>
-                                        <span class="text-gray-500 text-sm">1 hour ago</span>
-                                    </div>
-                                    <p class="text-gray-700">Thanks for the feedback, John. I'll review this question. The literature review serves multiple purposes, which is why "All of the above" is correct, but I see how option A could be confusing.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Comment 2 -->
-                    <div class="comment-card bg-white border rounded-lg p-4">
-                        <div class="flex items-start mb-3">
-                            <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3">
-                                <span class="text-purple-700 font-semibold">S</span>
-                            </div>
-                            <div>
-                                <div class="flex items-center mb-1">
-                                    <h4 class="font-bold text-gray-800 mr-2">Sarah Thompson</h4>
-                                    <span class="text-gray-500 text-sm">4 hours ago</span>
-                                </div>
-                                <p class="text-gray-700 mb-3">Can someone explain why simple random sampling is better than convenience sampling for Question 4? I thought convenience sampling was acceptable in some situations.</p>
-                                <div class="flex space-x-4">
-                                    <button class="text-gray-500 hover:text-primary text-sm flex items-center">
-                                        <i class="fas fa-thumbs-up mr-1"></i> 8
-                                    </button>
-                                    <button class="text-gray-500 hover:text-primary text-sm flex items-center">
-                                        <i class="fas fa-thumbs-down mr-1"></i> 0
-                                    </button>
-                                    <button class="text-gray-500 hover:text-primary text-sm">
-                                        Reply
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Comment 3 -->
-                    <div class="comment-card bg-white border rounded-lg p-4">
-                        <div class="flex items-start mb-3">
-                            <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-3">
-                                <span class="text-yellow-700 font-semibold">M</span>
-                            </div>
-                            <div>
-                                <div class="flex items-center mb-1">
-                                    <h4 class="font-bold text-gray-800 mr-2">Michael Chen</h4>
-                                    <span class="text-gray-500 text-sm">5 hours ago</span>
-                                </div>
-                                <p class="text-gray-700 mb-3">Great quiz! The explanations for incorrect answers are really helpful for learning. I especially appreciated the clarification on external validity.</p>
-                                <div class="flex space-x-4">
-                                    <button class="text-gray-500 hover:text-primary text-sm flex items-center">
-                                        <i class="fas fa-thumbs-up mr-1"></i> 24
-                                    </button>
-                                    <button class="text-gray-500 hover:text-primary text-sm flex items-center">
-                                        <i class="fas fa-thumbs-down mr-1"></i> 1
-                                    </button>
-                                    <button class="text-gray-500 hover:text-primary text-sm">
-                                        Reply
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    </main>
+@endsection
+@push('scripts')
+    
+@endpush
