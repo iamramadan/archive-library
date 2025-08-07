@@ -95,7 +95,7 @@
 
         <!-- Form Card -->
         <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-            <div class="p-6 bg-gradient-to-r from-indigo-600 to-purple-600">
+            <div class="p-6">
                 <h2 class="text-2xl font-bold text-white">Create New Questionnaire</h2>
                 <p class="text-indigo-100">Fill in the basic details for your new questionnaire</p>
             </div>

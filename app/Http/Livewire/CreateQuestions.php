@@ -14,7 +14,7 @@ class CreateQuestions extends Component
     public $Option2;
     public $Option3;
     public $Option4;
-    public $correct_option;
+    public $correct_option = 1;
     public $QuestionaireId;
     public $questionArray = [];
     public $index = 0;
@@ -25,6 +25,7 @@ class CreateQuestions extends Component
     }
 
     public function addQuestions(){
+        
         $this->questionArray[$this->index] = [
             'question'=>$this->Question,
             'option1' => $this->Option1,
@@ -43,7 +44,7 @@ class CreateQuestions extends Component
         $this->Option2 = '';
         $this->Option3 = '';
         $this->Option4 = '';
-        $this->correct_option = '';
+        $this->correct_option = 1;
     }
     public function back(){
      $this->index--;

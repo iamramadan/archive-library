@@ -37,39 +37,29 @@
 
         <!-- Dropdown Menu -->
         <div id="mobileDropdown" class="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg hidden z-50">
-            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Home</a>
-            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Library</a>
+            <a href="{{ route('pages.manage') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Home</a>
+            <a href="{{ route('pages.ticket-settings') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Library</a>
             <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
         </div>
     </div>
     <!-- Right: Icons (desktop only) -->
-<div class="hidden sm:flex items-center space-x-2">
-    <!-- Search Icon -->
-    <a href="#" class="text-gray-600 hover:text-gray-800">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z" />
-        </svg>
-    </a>
+<div class=" sm:flex items-center space-x-4 mx-5 my-2">
 
-    <!-- Bell (Notifications) Icon -->
-    <a href="#" class="text-gray-600 hover:text-gray-800">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 00-9.33-4.97M6 9v1m0 0a6 6 0 000 3v1.158c0 .538-.214 1.055-.595 1.437L4 17h5m6 0v1a3 3 0 11-6 0v-1" />
-        </svg>
-    </a>
+                <!-- Manage Content Icon -->
+                <a href="{{ route('pages.manage') }}" class="text-gray-600 hover:text-gray-800" title="Manage Content">
+                    <i class="fas fa-folder-open text-lg"></i>
+                </a>
 
-    <!-- User Icon -->
-    <a href="#" class="text-gray-600 hover:text-gray-800">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M5.121 17.804A9.003 9.003 0 0112 15a9.003 9.003 0 016.879 2.804M15 10a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
-    </a>
+                <!-- Ticket Manager Icon -->
+                <a href="{{ route('pages.ticket-settings') }}" class="text-gray-600 hover:text-gray-800" title="Ticket Manager">
+                    <i class="fas fa-ticket-alt text-lg"></i>
+                </a>
+
+                <!-- Back Icon -->
+                <a href="#" class="text-gray-600 hover:text-gray-800" title="Back">
+                    <i class="fas fa-arrow-left text-lg"></i>
+                </a>
+
 </div>
 
 </header>

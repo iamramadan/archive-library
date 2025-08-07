@@ -16,13 +16,24 @@ class SearchController extends Controller
         $systems = System::where('creator',Auth::user()->id)
         ->orWhereIn('id',Auth::user()->Ticket()->get()->toArray())
         ->get('id')->toArray();
-        $notes = Note::where('title','like','%'.$query.'%')->orWhere('body','like','%'.$query.'%')->WhereIn('system',$systems)->get()->toArray();
-        $questionaires = Questionaires::where('name','like','%'.$query.'%')->WhereIn('system',$systems)->get()->toArray();
-        $resources = Resources::where('name','like','%'.$query.'%')->orWhere('details','like','%'.$query.'%')->WhereIn('system',$systems)->get()->toArray();
+        $notes = Note::where('title','like','%'.$query.'%')
+                ->orWhere('body','like','%'.$query.'%')
+                ->whereIn('system', $systems)
+                ->paginate(10)
+                ->toArray() ?? [];
+        $questionaires = Questionaires::where('name','like','%'.$query.'%')
+        ->WhereIn('system',$systems)
+        ->paginate(10)
+        ->toArray() ?? [];
+        $resources = Resources::where('name','like','%'.$query.'%')
+        ->orWhere('details','like','%'.$query.'%')
+        ->WhereIn('system',$systems)
+        ->paginate(10)
+        ->toArray() ?? [];
         // dd($notes);
         $all = collect($notes)->take(2)
         ->concat(collect($questionaires)->take(2))
         ->concat(collect($resources)->take(2));
-    return view('search.results',compact(['all','notes','resources','questionaires']));
+    return view('search.results',compact(['all','notes','resources','questionaires','query']));
     }
 }

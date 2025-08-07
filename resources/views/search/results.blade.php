@@ -83,7 +83,8 @@
     @livewire('search-results',['notes'=>$notes,
                                 'questionaires'=>$questionaires,
                                 'all'=>$all,
-                                'resources'=>$resources
+                                'resources'=>$resources,
+                                'query'=>$query
                                 ])
 @endsection
 @push('scripts')

@@ -1,6 +1,17 @@
 <div>
     <div class="bg-white rounded-lg shadow-sm p-6">
-        @if($isloading) <b>Questions are Being Submitted ...</b> @endif
+
+        @if($isloading) 
+        <h2><b>
+            Questions are being saved.
+            </b></h2>
+            <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden relative">
+            <div
+                class="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 h-full rounded-full animate-loading"
+            >
+            </div>
+            </div>
+        @endif
             <h2 class="text-2xl font-bold text-gray-800 mb-6">Add New Question</h2>
             <div class="space-y-6">
                 <div>
@@ -12,11 +23,11 @@
                     wire:model="Question" required class="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
                 </div>
                 <div class="space-y-4">
-                {{$QuestionaireId}}
                     <div class="border-l-4 border-blue-500 pl-4">
+                    {{-- {{$correct_option}} --}}
                         <h3 class="text-lg font-semibold text-gray-800 mb-2">Correct Option</h3>
                         <select wire:model="correct_option"  placeholder="Question text" class="w-full px-4 py-2 rounded-lg border border-gray-200 mb-3 focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
-                            <option value="1">Option 1</option>
+                            <option value="1" selected >Option 1</option>
                             <option value="2">Option 2</option>
                             <option value="3">Option 3</option>
                             <option value="4">Option 4</option>

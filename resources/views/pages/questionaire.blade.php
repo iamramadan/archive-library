@@ -172,9 +172,10 @@
   </div>
 </div>
 {{-- @dd($questionaires->questions->count()) --}}
-        <form id="quiz-form" class="quiz-card p-6 md:p-8" method="post" action="{{route('pages.questioanire.submit')}}">
+        <form id="quiz-form" class="quiz-card p-6 md:p-8" method="post" action="{{route('pages.questionaire.submit')}}">
         @csrf
             <!-- Hidden inputs for each question -->
+            <input type="hidden" value="{{$questionaires->id}}" name="questionaireId">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
                 <div class="mb-4 md:mb-0">
                     <h2 class="text-xl font-bold text-dark">Question <span id="current-question">1</span> of <span id="total-questions">{{$questionaires->questions->count()}}</span></h2>
@@ -185,8 +186,8 @@
             <!-- Question Container -->
             <div id="question-container" class="mb-10">
                 <!-- Question 1 -->
-                @foreach ($questionaires->questions as $question)
-                <input type="hidden" name="answer[{{$index}}]" id="answer_q{{$index}}" value="">
+                @forelse ($questionaires->questions as $question)
+                <input type="hidden" name="answers[{{$index}}]" id="answer_q{{$index}}" value="">
                 <div class="question @if($loop->first) active @endif" data-id="{{$index}}">
                     <h3 class="text-lg font-semibold text-gray-800 mb-1">Question {{$index}}</h3>
                     <p class="text-gray-700 mb-6 text-lg">{{ucwords($question->question)}}</p>
@@ -220,11 +221,30 @@
                 @php
                     $index++;
                 @endphp
-                @endforeach
+                @empty
+                        <div class="flex flex-col items-center justify-center p-6 bg-gray-50 dark:bg-gray-900 rounded-2xl shadow-md">
+                            <!-- Sad Teddy Bear SVG -->
+                            <svg class="w-20 h-20 mb-4 text-gray-400 dark:text-gray-500" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="20" cy="20" r="6" fill="#D1D5DB" />
+                                <circle cx="44" cy="20" r="6" fill="#D1D5DB" />
+                                <ellipse cx="32" cy="40" rx="16" ry="18" fill="#E5E7EB" />
+                                <circle cx="26" cy="36" r="2" fill="#111827" />
+                                <circle cx="38" cy="36" r="2" fill="#111827" />
+                                <path d="M28 44c2 2 6 2 8 0" stroke="#6B7280" stroke-linecap="round" />
+                                <path d="M30 48c1.5 2 4.5 2 6 0" stroke="#9CA3AF" stroke-linecap="round" />
+                            </svg>
+
+                            <!-- Message Text -->
+                            <p class="text-gray-600 dark:text-gray-300 text-lg font-medium text-center">
+                                No Questions Created
+                            </p>
+                        </div>
+
+                @endforelse
                 
             </div>
-            
-            <!-- Navigation Controls -->
+            @if (count($questionaires->questions))
+                
             <div class="flex flex-col gap-6">
                 <div class="flex justify-between">
                     <button type="button" id="prev-btn" class="nav-btn bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center">
@@ -259,6 +279,8 @@
                     <i class="fas fa-paper-plane mr-2"></i>Submit Quiz
                 </button>
             </div>
+            @endif
+            <!-- Navigation Controls -->
         </form>
     </main>
 @endsection

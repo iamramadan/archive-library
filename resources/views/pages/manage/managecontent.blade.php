@@ -122,9 +122,9 @@
     <h2 class="text-xl font-semibold text-gray-800 flex items-center">
       <i class="fas fa-question-circle text-green-500 mr-2"></i> Recent Questionnaires
     </h2>
-    <button class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg flex items-center">
+    <a href="{{route('create.questionaires')}}" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg flex items-center">
       <i class="fas fa-plus mr-2"></i> Create Questionnaire
-    </button>
+    </a>
   </div>
 
   <div class="space-y-4">

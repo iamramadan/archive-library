@@ -36,25 +36,26 @@
     @dd($notes) --}}
     <!-- Main Content -->
     <main class="flex-grow max-w-3xl mx-auto px-4 py-6 w-full">
-        <h2>{{ucwords($showing)}}</h2>
-        <p class="text-gray-600 text-sm mb-6">About 4,210,000 results (0.42 seconds)</p>
-
+        <h1 class="text-dark">{{ucwords($showing)}}</h1>
+        <p class="text-gray-600 text-sm mb-6">Showing Results For "{{$query}}"</p>
+     
         <!-- Search Results -->
         <div class="space-y-8">
             <!-- Result 1 -->
+            {{-- @dd($notes) --}}
             @switch($showing)
                 @case('notes')
                 {{-- @dd($notes) --}}
-                    @forelse ($notes as $note)
+                    @forelse ($notes['data'] as $note)
                         <div  class="result-card p-4 rounded-lg">
                             <div class="flex items-center mb-1">
                                 <a href="{{route('pages.note',['id'=>$note['id']])}}" class="result-url">archlib.edu › notes › {{$note['name']}}</span>
                             </div>
-                            <a href="#" class="result-title text-xl font-medium mb-1 inline-block">{{$note['title']}}</a>
-                            <p class="text-gray-700 mb-2">{!!Str::limit($note['body'],50)!!}</p>
+                            <a href="#" class="result-title text-xl font-medium mb-1 inline-block">{!!highlightWord($note['title'],$query)!!}</a>
+                            <p class="text-gray-700 mb-2">{!!highlightWord(Str::limit($note['body'],50),$query)!!}</p>
                             <div class="flex flex-wrap gap-2 mt-3">
                                 <span class="tag"><i class="fas fa-sticky-note mr-1"></i>Notes</span>
-                                <span class="tag"><i class="fas fa-eye mr-1"></i>Viewed 1,240 times</span>
+                                <span class="tag"><i class="fas fa-eye mr-1"></i>Published on: {{Carbon\Carbon::parse($note['created_at'])->format('d M Y')}}</span>
                             </div>
                         </div>
                     @empty
@@ -79,16 +80,17 @@
                     @endforelse
                     @break
                 @case('questionaires')
-                    @forelse ($questionaires as $questionaire)
+                    @forelse ($questionaires['data'] as $questionaire)
                         <div class="result-card p-4 rounded-lg">
                             <div class="flex items-center mb-1">
                                 {{-- <span class="result-url">https://archlib.edu › questionnaires › RM-2024</span> --}}
                             </div>
-                            <a href="#" class="result-title text-xl font-medium mb-1 inline-block">{{$questionaire['name']}}</a>
-                            <p class="text-gray-700 mb-2">{{$questionaire['goal']}}</p>
+                            <a href="{{route('pages.questionaire',['id'=>$questionaire['id']])}}" class="result-title text-xl font-medium mb-1 inline-block">{!!highlightWord($questionaire['name'],$query)!!}</a>
+                            <p class="text-gray-700 mb-2">{!!highlightWord($questionaire['goal'],$query)!!}</p>
                             <div class="flex flex-wrap gap-2 mt-3">
                                 <span class="tag"><i class="fas fa-clipboard-list mr-1"></i>Questionnaire</span>
                                 <span class="tag"><i class="fas fa-users mr-1"></i>Used by most researchers</span>
+                                <span class="tag"><i class="fas fa-users mr-1"></i>Drafted on {{Carbon\Carbon::parse($questionaire['created_at'])->format('d M Y')}}</span>
                             </div>
                         </div>
                     @empty
@@ -113,16 +115,16 @@
                     @endforelse
                     @break
                 @case('resources')
-                    @forelse ($resources as $content)
+                    @forelse ($resources['data'] as $resource)
                         <div class="result-card p-4 rounded-lg">
                             <div class="flex items-center mb-1">
-                                <a href="{{route('pages.resources',['id'=>$content['id']])}}" class="result-url">archlib.edu › notes › {{$note['name']}}</a>
+                                <a href="{{route('pages.resources',['id'=>$resource['id']])}}" class="result-url">archlib.edu › notes › {{$resource['name']}}</a>
                             </div>
-                            <a href="#" class="result-title text-xl font-medium mb-1 inline-block">{{$content->name}}</a>
-                            <p class="text-gray-700 mb-2">{{$content->description}}</p>
+                            <a href="{{route('pages.resources',['id'=>$resource['id']])}}" class="result-title text-xl font-medium mb-1 inline-block">{!!highlightWord($resource['name'],$query)!!}</a>
+                            <p class="text-gray-700 mb-2">{!!highlightWord($resource['details'],$query)!!}</p>
                             <div class="flex flex-wrap gap-2 mt-3">
                                 <span class="tag"><i class="fas fa-book mr-1"></i>Resource</span>
-                                <span class="tag"><i class="fas fa-calendar mr-1"></i>Published on {{$content->created_at->format('d M Y')}}</span>
+                                <span class="tag"><i class="fas fa-calendar mr-1"></i>Published on {{Carbon\Carbon::parse($resource['created_at'])->format('d M Y')}}</span>
                             </div>
                         </div>
                     @empty

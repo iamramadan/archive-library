@@ -48,3 +48,17 @@ function ArcCode() {
 
     return $code;
 }
+function highlightWord($text, $word) {
+    // Escape special characters for regex
+    $escapedWord = preg_quote($word, '/');
+    
+    // Replace the word with a highlighted span (case-insensitive, whole word match)
+    $highlightedText = preg_replace(
+        "/\b($escapedWord)\b/i",
+        '<span style="background-color: #a8f0b4; color: black;">$1</span>',
+        $text
+    );
+
+    return $highlightedText;
+}
+

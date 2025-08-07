@@ -10,13 +10,15 @@ class SearchResults extends Component
     public $resources = '';
     public $questionaires = '';
     public $all = '';
+    public $query = '';
     public $showing = 'notes';
 
-    public function mount($notes,$resources,$questionaires,$all){
+    public function mount($notes,$resources,$questionaires,$all,$query){
             $this->notes = $notes;
             $this->resources = $resources;
             $this->questionaires = $questionaires;
             $this->all = $all;
+            $this->query = $query;
     }
     public function show($showing){
         $this->showing = $showing;

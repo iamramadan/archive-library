@@ -68,11 +68,12 @@ Route::name('pages.')->middleware('auth')->group(function(){
     Route::get('/register-tickets/{token}',[TicketController::class,'register'])->name('register-ticket');
     Route::get('/questionaire/{id}',[FrontpagesController::class,'questionaire'])->name('questionaire');
     Route::get('/questionaire-result/{id}',[FrontpagesController::class,'QuestionResult'])->name('questionaire.result');
-    Route::get('/submit-questionaire',[QuestionairesController::class,'submit'])->name('questionaire.submit');
+    Route::post('/submit-questionaire',[QuestionairesController::class,'submit'])->name('questionaire.submit');
     Route::name('manage.')->prefix('manage')->group(function(){
         Route::get('/ticket/institution/{id}',[TicketController::class,'show'])->name('tickets');
         Route::get('/note',[NoteController::class,'show'])->name('notes');
         Route::get('/resources',[ResourcesController::class,'show'])->name('resources');
+        Route::get('/questionaires',[QuestionairesController::class,'show'])->name('questionaires');
     });
     Route::prefix('search')->name('search.')->group(function(){
         Route::get('/result/{query}', [SearchController::class,'index'])->name('name');
