@@ -11,7 +11,7 @@
         <!-- Main Title -->
         <h1 class="text-6xl font-bold text-gray-800 mb-4 text-center">
             ARCHLIB
-            <span class="block text-2xl font-normal text-gray-600 mt-2"> <h3>Welcome</h3>{{Auth::user()->username}}</span>
+            <span class="block text-2xl font-normal text-gray-600 mt-2"> <h3>Welcome</h3><b>{{Ucwords(Auth::user()->username)}}</b></span>
         </h1>
 
         <!-- Search Box -->

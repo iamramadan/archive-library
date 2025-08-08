@@ -41,20 +41,9 @@
         <!-- Action Bar -->
         <div class="flex flex-wrap items-center justify-between mb-6 gap-4">
             <div class="flex items-center space-x-3">
-                <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg flex items-center">
+                <a href="{{route('create.note')}}" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg flex items-center">
                     <i class="fas fa-plus mr-2"></i> New Note
-                </button>
-                <div class="relative">
-                    <button class="px-4 py-2 border border-gray-300 hover:bg-gray-50 text-gray-700 rounded-lg flex items-center">
-                        <i class="fas fa-filter mr-2"></i> Filter
-                    </button>
-                </div>
-            </div>
-            <div class="flex items-center">
-                <div class="relative">
-                    <input type="text" placeholder="Search notes..." class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-                </div>
+                </a>
             </div>
         </div>
 
@@ -112,20 +101,22 @@
                     </div>
 
                     <div class="mt-6 text-center">
-                        <a href="{{route('pages.manage.resources')}}" class="text-blue-600 hover:text-blue-700 font-medium inline-flex items-center">
+                        <a href="{{route('pages.manage.resources')}}" class="text-green-600 hover:text-green-700 font-medium inline-flex items-center">
                             View All Resources <i class="fas fa-arrow-right ml-2"></i>
                         </a>
                     </div>
                 </div>
                 <div class="bg-white rounded-xl shadow-sm p-6">
-  <div class="flex justify-between items-center mb-6">
-    <h2 class="text-xl font-semibold text-gray-800 flex items-center">
-      <i class="fas fa-question-circle text-green-500 mr-2"></i> Recent Questionnaires
-    </h2>
-    <a href="{{route('create.questionaires')}}" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg flex items-center">
-      <i class="fas fa-plus mr-2"></i> Create Questionnaire
-    </a>
-  </div>
+  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+  <h2 class="text-xl font-semibold text-gray-800 flex items-center">
+    <i class="fas fa-question-circle text-yellow-500 mr-2"></i> Recent Questionnaires
+  </h2>
+  <a href="{{ route('create.questionaires') }}"
+     class="w-full sm:w-auto px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg flex items-center justify-center transition duration-200 ease-in-out shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-yellow-400">
+    <i class="fas fa-plus mr-2"></i> Create Questionnaire
+  </a>
+</div>
+
 
   <div class="space-y-4">
     @foreach($questionaires as $questionaire)
@@ -134,7 +125,7 @@
   </div>
 
   <div class="mt-6 text-center">
-    <a href="#" class="text-blue-600 hover:text-blue-700 font-medium inline-flex items-center">
+    <a href="#" class="text-yellow-500 hover:text-yellow-700 font-medium inline-flex items-center">
       View All Questionnaires <i class="fas fa-arrow-right ml-2"></i>
     </a>
   </div>

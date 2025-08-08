@@ -1,39 +1,59 @@
 <div>
-    <div class="border-b border-gray-300 my-8">
+<div class="border-b border-gray-300 my-8">
   <div class="max-w-6xl mx-auto px-4">
-    <nav class="flex flex-wrap gap-4 md:gap-8 justify-center md:justify-start">
-      {{-- <a
-        wire:click="show('all')"
-        class="nav-tab flex items-center px-4 py-2 rounded-md text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition @if($showing == 'all') active @endif bg-blue-100 text-blue-600"
-      >
-        <i class="fas fa-globe mr-2"></i> All
-      </a> --}}
-    <a
-        wire:click="show('notes')"
-        class="@if($showing == 'notes') active @endif nav-tab flex items-center px-4 py-2 rounded-md text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition"
-      >
-        <i class="fas fa-sticky-note mr-2"></i> Notes
-      </a>
+    <nav class="flex overflow-x-auto flex-nowrap gap-3 md:gap-6 justify-start scrollbar-hide">
+
+      <!-- Notes Tab -->
       <a
-        wire:click="show('questionaires')"
-        class=" @if($showing == 'questionaires') active @endif nav-tab flex items-center px-4 py-2 rounded-md text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition"
+        wire:click="show('notes')"
+        class="nav-tab flex items-center gap-2 px-4 py-2 rounded-md transition-all duration-200
+               text-gray-700 hover:text-blue-600 hover:bg-gray-100 flex-shrink-0
+               @if($showing == 'notes') bg-blue-100 text-blue-600 font-medium shadow-sm @endif"
       >
-        <i class="fas fa-clipboard-list mr-2"></i> Questionnaires
+        <span class="inline-flex items-center justify-center w-5 h-5 text-[10px] font-bold text-white bg-blue-500 rounded-full">
+          {{ count($notes['data']) }}
+        </span>
+        <i class="fas fa-sticky-note"></i>
+        <span>Notes</span>
       </a>
 
+      <!-- Questionnaires Tab -->
+      <a
+        wire:click="show('questionaires')"
+        class="nav-tab flex items-center gap-2 px-4 py-2 rounded-md transition-all duration-200
+               text-gray-700 hover:text-blue-600 hover:bg-gray-100 flex-shrink-0
+               @if($showing == 'questionaires') bg-blue-100 text-blue-600 font-medium shadow-sm @endif"
+      >
+        <span class="inline-flex items-center justify-center w-5 h-5 text-[10px] font-bold text-white bg-blue-500 rounded-full">
+          {{ count($questionaires['data']) }}
+        </span>
+        <i class="fas fa-clipboard-list"></i>
+        <span>Questionnaires</span>
+      </a>
+
+      <!-- Resources Tab -->
       <a
         wire:click="show('resources')"
-        class="@if($showing == 'resources') active @endif nav-tab flex items-center px-4 py-2 rounded-md text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition"
+        class="nav-tab flex items-center gap-2 px-4 py-2 rounded-md transition-all duration-200
+               text-gray-700 hover:text-blue-600 hover:bg-gray-100 flex-shrink-0
+               @if($showing == 'resources') bg-blue-100 text-blue-600 font-medium shadow-sm @endif"
       >
-        <i class="fas fa-book mr-2"></i> Resources
+        <span class="inline-flex items-center justify-center w-5 h-5 text-[10px] font-bold text-white bg-blue-500 rounded-full">
+          {{ count($resources['data']) }}
+        </span>
+        <i class="fas fa-book"></i>
+        <span>Resources</span>
       </a>
+
     </nav>
   </div>
 </div>
 
-    {{-- @dd($all)
-    @dd($resources)
-    @dd($notes) --}}
+
+
+
+
+    {{-- @dd($questionaires) --}}
     <!-- Main Content -->
     <main class="flex-grow max-w-3xl mx-auto px-4 py-6 w-full">
         <h1 class="text-dark">{{ucwords($showing)}}</h1>
@@ -78,6 +98,31 @@
                                 </a>
                                 </div>
                     @endforelse
+                    {{-- {{dd($notes)}} --}}
+@if($notes['total'] > 1)
+<nav class="flex justify-center space-x-2 mt-4">
+    {{-- Previous button --}}
+    <a href="{{ $currentPage > 1 ? $notes['path'].'?page='.($currentPage - 1) : '#' }}"
+       class="px-3 py-1 rounded border {{ $currentPage == 1 ? 'text-gray-400 cursor-not-allowed' : 'hover:bg-gray-200' }}">
+        Previous
+    </a>
+
+    {{-- Page numbers --}}
+    @for ($page = 1; $page <= $totalPages; $page++)
+        <a href='?page='.{{$page}}
+           class="px-3 py-1 rounded border {{ $currentPage == $page ? 'bg-blue-600 text-white border-blue-600' : 'text-gray-700 hover:bg-gray-200' }}">
+            {{ $page }}
+        </a>
+    @endfor
+
+    {{-- Next button --}}
+    <a href="{{ $currentPage < $totalPages ? $notes['path'].'?page='.($currentPage + 1) : '#' }}"
+       class="px-3 py-1 rounded border {{ $currentPage == $totalPages ? 'text-gray-400 cursor-not-allowed' : 'hover:bg-gray-200' }}">
+        Next
+    </a>
+</nav>
+@endif
+
                     @break
                 @case('questionaires')
                     @forelse ($questionaires['data'] as $questionaire)
@@ -113,6 +158,30 @@
                         </a>
                         </div>
                     @endforelse
+@if($questionaires['total'] > 1)
+<nav class="flex justify-center space-x-2 mt-4">
+    {{-- Previous button --}}
+    <a href="{{ $currentPage > 1 ? $notes['path'].'?page='.($currentPage - 1) : '#' }}"
+       class="px-3 py-1 rounded border {{ $currentPage == 1 ? 'text-gray-400 cursor-not-allowed' : 'hover:bg-gray-200' }}">
+        Previous
+    </a>
+
+    {{-- Page numbers --}}
+    @for ($page = 1; $page <= $totalPages; $page++)
+        <a href='?page='.{{$page}}
+           class="px-3 py-1 rounded border {{ $currentPage == $page ? 'bg-blue-600 text-white border-blue-600' : 'text-gray-700 hover:bg-gray-200' }}">
+            {{ $page }}
+        </a>
+    @endfor
+
+    {{-- Next button --}}
+    <a href="{{ $currentPage < $totalPages ? $notes['path'].'?page='.($currentPage + 1) : '#' }}"
+       class="px-3 py-1 rounded border {{ $currentPage == $totalPages ? 'text-gray-400 cursor-not-allowed' : 'hover:bg-gray-200' }}">
+        Next
+    </a>
+</nav>
+@endif
+
                     @break
                 @case('resources')
                     @forelse ($resources['data'] as $resource)
@@ -152,6 +221,30 @@
                             </a>
                         </div>
                     @endforelse
+@if($resources['total'] > 1)
+<nav class="flex justify-center space-x-2 mt-4">
+    {{-- Previous button --}}
+    <a href="{{ $currentPage > 1 ? $notes['path'].'?page='.($currentPage - 1) : '#' }}"
+       class="px-3 py-1 rounded border {{ $currentPage == 1 ? 'text-gray-400 cursor-not-allowed' : 'hover:bg-gray-200' }}">
+        Previous
+    </a>
+
+    {{-- Page numbers --}}
+    @for ($page = 1; $page <= $totalPages; $page++)
+        <a href='?page='.{{$page}}
+           class="px-3 py-1 rounded border {{ $currentPage == $page ? 'bg-blue-600 text-white border-blue-600' : 'text-gray-700 hover:bg-gray-200' }}">
+            {{ $page }}
+        </a>
+    @endfor
+
+    {{-- Next button --}}
+    <a href="{{ $currentPage < $totalPages ? $notes['path'].'?page='.($currentPage + 1) : '#' }}"
+       class="px-3 py-1 rounded border {{ $currentPage == $totalPages ? 'text-gray-400 cursor-not-allowed' : 'hover:bg-gray-200' }}">
+        Next
+    </a>
+</nav>
+@endif
+
                     @break
                 @default
 
@@ -159,22 +252,5 @@
         </div>
 
         <!-- Pagination -->
-        <div class="mt-12 flex justify-center">
-            <div class="flex items-center space-x-1">
-                <a href="#" class="pagination-btn w-10 h-10 flex items-center justify-center text-blue-600">
-                    <i class="fas fa-chevron-left"></i>
-                </a>
-                <a href="#" class="pagination-btn w-10 h-10 flex items-center justify-center font-medium text-white bg-primary rounded-full">1</a>
-                <a href="#" class="pagination-btn w-10 h-10 flex items-center justify-center font-medium">2</a>
-                <a href="#" class="pagination-btn w-10 h-10 flex items-center justify-center font-medium">3</a>
-                <a href="#" class="pagination-btn w-10 h-10 flex items-center justify-center font-medium">4</a>
-                <a href="#" class="pagination-btn w-10 h-10 flex items-center justify-center font-medium">5</a>
-                <span class="px-2">...</span>
-                <a href="#" class="pagination-btn w-10 h-10 flex items-center justify-center font-medium">10</a>
-                <a href="#" class="pagination-btn w-10 h-10 flex items-center justify-center text-blue-600">
-                    <i class="fas fa-chevron-right"></i>
-                </a>
-            </div>
-        </div>
     </main>
 </div>
