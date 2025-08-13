@@ -172,16 +172,20 @@
                      <input type="hidden" name="type" id="permissionInput" value="viewer">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Quantity</label>
+                            <x-error name='number'>
                             <input type="number" 
                                 name="quantity"
+                                value="{{old('quantity')}}"
                                    placeholder="Total Amount of tickets You Want"
                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-blue-200 focus:outline-none input-focus transition">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Usage Limit</label>
+                            <x-error name="max_usage"/>
                             <small>* the total amount of users that can use this ticket.</small>
                             <input type="number" 
                             name="max_usage"
+                            value="{{old('number')}}"
                                    placeholder="Total Amount of tickets You Want"
                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-blue-200 focus:outline-none input-focus transition">
                         </div>
@@ -210,14 +214,17 @@
                         </div>
                         
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Expiration Date</label>
-                            <input type="date" 
-                            name="expires_at"
-                                   class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-blue-200 focus:outline-none input-focus transition">
-                        </div>
+    <label class="block text-sm font-medium text-gray-700 mb-2">Expiration Date</label>
+    <input type="datetime-local" 
+           name="expires_at"
+           value="{{old('expires_at')}}"
+           class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-blue-200 focus:outline-none input-focus transition">
+</div>
+
                         
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Institutions Available with Tickets</label>
+                            
                             <div class="grid grid-cols-2 gap-3 mt-3">
                                 <div onclick="selectPermission('viewer', this)" 
                                  class="permission-chip bg-blue-50 border border-blue-100 rounded-lg p-3 flex items-center cursor-pointer">

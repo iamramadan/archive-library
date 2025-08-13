@@ -28,6 +28,7 @@ class AuthController extends Controller
             'username'=>'unique:users,username|max:30|min:5|required',
             'email'=>'required|email|unique:users,email',
             'password'=>'required|min:8',
+            'password_confirmation'=>'required|same:password'
         ]);
         $IncomingField['password'] = Hash::make($IncomingField['password']);
         User::create($IncomingField);

@@ -1,6 +1,6 @@
 @extends('layout.auth')
 @section('title')
-        SIGNIN - ARCHLIB
+        SIGNUP - ARCHLIB
 @endsection
 @section('forms')
     <form class="space-y-4" action="{{route('auth.signup')}}"  method="POST">

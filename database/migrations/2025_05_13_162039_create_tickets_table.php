@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('token',13);
             $table->enum('type',['contributor','viewer'])->default('viewer');
             $table->foreignId('system')->refrences('id')->on('systems')->onDelete('cascade');
-            $table->date('expires_at');
+            $table->datetime('expires_at');
             $table->integer('max_usage');
             $table->timestamps();
         });

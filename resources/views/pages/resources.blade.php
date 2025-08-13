@@ -39,7 +39,7 @@
         <nav class="text-sm text-gray-600 mb-6 flex items-center">
             <a href="{{route('index')}}" class="text-primary hover:underline">Home</a>
             <span class="mx-2">/</span>
-            <a href="#" class="text-primary hover:underline">Resources</a>
+            <a href="{{route('pages.manage.resources')}}" class="text-primary hover:underline">Resources</a>
             <span class="mx-2">/</span>
             <span class="text-gray-500">{{$resource->name}}</span>
         </nav>
@@ -86,9 +86,10 @@
                         <a href="{{route('download',['filename'=>$resource->filename])}}" class="action-btn bg-primary hover:bg-secondary px-5 py-2.5 rounded-lg font-medium flex items-center">
                             <i class="fas fa-download mr-2"></i> Download
                         </a>
-                        <button class="action-btn bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-5 py-2.5 rounded-lg font-medium flex items-center">
-                            <i class="fas fa-share-alt mr-2"></i> Share
-                        </button>
+                        <button onclick="copyToClipboard({{route('download',['filename'=>$resource->filename])}})" title="Copy Download Link"
+                                    class="action-btn bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-5 py-2.5 rounded-lg font-medium flex items-center">
+                                    <i class="fas fa-copy mr-2"></i> Copy
+                                </button>
                         <button class="action-btn bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-5 py-2.5 rounded-lg font-medium flex items-center">
                             <i class="fas fa-bookmark mr-2"></i> Save
                         </button>
@@ -112,14 +113,6 @@
                         {{$resource->details}}
                     </p>
 
-                    <h3 class="font-medium text-gray-800 mb-3">Tags</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Climate Data</span>
-                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Historical Analysis</span>
-                        <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded">Environmental Research</span>
-                        <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded">Meteorology</span>
-                        <span class="bg-pink-100 text-pink-800 text-xs font-medium px-2.5 py-0.5 rounded">Sustainability</span>
-                    </div>
                 </div>
             </div>
         </div>
@@ -187,5 +180,12 @@
     </main>
 @endsection
 @push('scripts')
-
+    <script>
+function copyToClipboard() {
+  const text = document.getElementById('copyText').textContent;
+  navigator.clipboard.writeText(text)
+    .then(() => alert('Copied to clipboard!'))
+    .catch(err => console.error('Error copying text: ', err));
+}
+</script>  
 @endpush

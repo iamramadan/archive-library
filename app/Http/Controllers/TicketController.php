@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Ticket;
-use App\Models\Scopes\ContributableSystems;
 use App\Models\System;
+use App\Models\Ticket;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Scopes\ContributableSystems;
 
 
 class TicketController extends Controller
@@ -26,8 +26,8 @@ class TicketController extends Controller
             'max_usage'=>'required'
         ]);
         // dd($data);
-        for ($i=0; $i <= $request->quantity; $i++) {
-        
+        for ($i=0; $i < $request->quantity; $i++) {
+
            Ticket::create([
                 'system'=>$request->input('system'),
                 'type'=>$request->input('type'),
@@ -63,9 +63,13 @@ class TicketController extends Controller
     }
 
     // Attach the ticket to the user
-    Auth::user()->tickets()->attach($ticket->id);
+    Auth::user()->Ticket()->attach($ticket->id);
 
-    return back()->with('msg', 'You have successfully registered.');
+    return back()->with('TicketMsg', 'You have successfully registered.');
 }
+public function delete($id){
+    Ticket::find($id)->delete();
+    return back()->with('msg','Ticket deleted successfully');
+    }
 
 }

@@ -61,6 +61,17 @@
             <div>
                 <x-error name="filename"/>
                 <label class="block text-sm font-medium text-gray-700 mb-1">File Upload*</label>
+                    <small class="text-sm text-gray-500 leading-relaxed">
+                        You can upload a variety of file types including:
+                        <span class="font-medium text-gray-700">PDF</span> (documents),
+                        <span class="font-medium text-gray-700">CSV</span> (data spreadsheets),
+                        <span class="font-medium text-gray-700">DOC / DOCX</span> (Word files),
+                        <span class="font-medium text-gray-700">XLS / XLSX</span> (Excel sheets),
+                        <span class="font-medium text-gray-700">TXT</span> (plain text),
+                        and <span class="font-medium text-gray-700">images</span> like JPG or PNG.
+                        <br>
+                        Maximum file size: <span class="font-medium text-gray-700">10MB</span> per file.
+                    </small>
                 <input type="file" name="filename" value="{{old('filename')}}" required class="dropify" data-max-file-size="50M" data-allowed-file-extensions="pdf docx csv" />
             </div>
             <div class="flex justify-end space-x-3">

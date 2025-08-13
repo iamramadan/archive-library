@@ -58,7 +58,7 @@
     <main class="flex-grow max-w-3xl mx-auto px-4 py-6 w-full">
         <h1 class="text-dark">{{ucwords($showing)}}</h1>
         <p class="text-gray-600 text-sm mb-6">Showing Results For "{{$query}}"</p>
-     
+
         <!-- Search Results -->
         <div class="space-y-8">
             <!-- Result 1 -->
@@ -69,7 +69,7 @@
                     @forelse ($notes['data'] as $note)
                         <div  class="result-card p-4 rounded-lg">
                             <div class="flex items-center mb-1">
-                                <a href="{{route('pages.note',['id'=>$note['id']])}}" class="result-url">archlib.edu › notes › {{$note['name']}}</span>
+                                <a href="{{route('pages.note',['id'=>$note['id']])}}" class="result-url">archlib.edu › notes › {{$note['title']}}</span>
                             </div>
                             <a href="#" class="result-title text-xl font-medium mb-1 inline-block">{!!highlightWord($note['title'],$query)!!}</a>
                             <p class="text-gray-700 mb-2">{!!highlightWord(Str::limit($note['body'],50),$query)!!}</p>

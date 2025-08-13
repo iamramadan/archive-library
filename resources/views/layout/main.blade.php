@@ -43,7 +43,7 @@
                 <a href="{{url()->previous()}}" class="text-gray-600 hover:text-gray-800" title="Back">
                     <i class="fas fa-arrow-left text-lg"></i>
                 </a>
-                 
+
                 <div class="relative inline-block text-left group">
                 <!-- Dropdown Button -->
                 <button
@@ -93,7 +93,7 @@
                 <a href="{{route('pages.ticket-settings')}}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Ticket Settings</a>
                 <a href="{{ url()->previous() }} " class="block px-4 py-2 text-gray-700 hover:bg-gray-100">&larr; Back</a>
             </div>
-        </div>
+        </div>s
     </div>
 </header>
 
