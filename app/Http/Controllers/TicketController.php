@@ -49,27 +49,26 @@ class TicketController extends Controller
 
     // Check if the ticket exists
     if (!$ticket) {
-        return back()->with('msg', 'This token does not exist.');
+        return back()->with('Ticketmsg', 'This token does not exist.');
     }
 
     // Check if the ticket usage has reached its maximum limit
     if ($ticket->Users()->count() >= $ticket->max_usage) {
-        return back()->with('msg', 'This ticket has reached its usage limit.');
+        return back()->with('Ticketmsg', 'This ticket has reached its usage limit.');
     }
 
     // Check if the user has already registered this ticket
     if (Auth::user()->tickets->contains($ticket->id)) {
-        return back()->with('msg', 'You have already registered this ticket.');
+        return back()->with('Ticketmsg', 'You have already registered this ticket.');
     }
 
     // Attach the ticket to the user
     Auth::user()->Ticket()->attach($ticket->id);
 
-    return back()->with('TicketMsg', 'You have successfully registered.');
+    return back()->with('Ticketmsg', 'You have successfully registered.');
 }
 public function delete($id){
     Ticket::find($id)->delete();
     return back()->with('msg','Ticket deleted successfully');
     }
-
 }

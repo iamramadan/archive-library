@@ -20,13 +20,13 @@
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        
+
         body {
             font-family: 'Inter', sans-serif;
             /* background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); */
             min-height: 100vh;
         }
-        
+
         .result-card {
             transition: all 0.3s ease;
             position: relative;
@@ -35,7 +35,7 @@
             border-radius: 16px;
             background: white;
         }
-        
+
         .result-card:before, .result-card:after {
             content: '';
             position: absolute;
@@ -45,46 +45,46 @@
             border-radius: 50%;
             opacity: 0.3;
         }
-        
+
         .result-card:before {
             top: -20px;
             right: -20px;
         }
-        
+
         .result-card:after {
             bottom: -20px;
             left: -20px;
         }
-        
+
         .answer-correct {
             border-left: 4px solid #10b981;
         }
-        
+
         .answer-incorrect {
             border-left: 4px solid #ef4444;
         }
-        
+
         .comment-card {
             animation: fadeIn 0.5s ease-out;
         }
-        
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
+
         .tab-button {
             transition: all 0.2s ease;
             border-bottom: 3px solid transparent;
             padding: 12px 0;
             margin: 0 20px;
         }
-        
+
         .tab-button.active {
             border-color: #2563eb;
             color: #2563eb;
         }
-        
+
         .tab-button:hover:not(.active) {
             border-color: #cbd5e1;
         }
@@ -102,7 +102,7 @@
             </div>
             <h2 class="text-2xl font-bold text-gray-800 mb-2">Quiz Completed Successfully!</h2>
             <p class="text-gray-600 mb-6">You scored <span class="font-bold text-primary">{{$questionaireResult->result[0]->result}}/{{$questionaireResult->questions->count()}}</span> ({{$questionaireResult->result[0]->score}}) on the <b>{{$questionaireResult->name}}</b> quiz</p>
-            
+
             <div class="flex justify-center gap-6 mb-8">
                 <div class="bg-blue-50 p-4 rounded-lg">
                     <div class="text-3xl font-bold text-primary">{{$questionaireResult->result[0]->result}}</div>
@@ -118,19 +118,19 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Tabs -->
         <div class="flex border-b border-gray-300 mb-6">
             <button class="tab-button active">
                 <i class="fas fa-clipboard-list mr-2"></i>Question Review
             </button>
         </div>
-        
+
         <!-- Question Review Section -->
         <div id="review-section">
             <div class="result-card p-6 mb-6">
                 <h3 class="text-xl font-bold text-dark mb-4">Question Analysis</h3>
-                
+
                 <!-- Question 1 -->
                 @php
                     $index = 1;
@@ -139,13 +139,13 @@
                                 '3'=>'c',
                                 '4'=>'d'
                     ];
-                    $option = ['1'=>'option1',
-                                '2'=>'option2',
-                                '3'=>'option3',
-                                '4'=>'option4'
+                    $option = ['a'=>'option1',
+                                'b'=>'option2',
+                                'c'=>'option3',
+                                'd'=>'option4'
                     ];
                 @endphp
-                @foreach ($questionaireResult->questions as $questions)   
+                @foreach ($questionaireResult->questions as $questions)
                 <div class="answer-correct mb-6 p-4 bg-white border rounded-lg">
                     <div class="flex items-start mb-3">
                         <div class="bg-green-100 text-green-800 rounded-full w-8 h-8 flex items-center justify-center mr-3">
@@ -156,27 +156,31 @@
                             <div class="mt-2">
                                 <div class="flex items-center text-sm mb-1">
                                     <span class="font-medium w-32">Your answer:</span>
-                                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded">{{$questionaireResult->result[0]->your_answers[$index]}} </span>
+                                    @php
+                                        $your_option = $option[$questions->result[0]->your_answers[$index]];
+                                        $correct_option = $option[$toAlpha[$questions->correct_option]];
+                                    @endphp
+                                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded">{{$questionaireResult->result[0]->your_answers[$index]}} </span> : {{$questions->$your_option}}
                                 </div>
                                 <div class="flex items-center text-sm">
                                     <span class="font-medium w-32">Correct answer:</span>
-                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded">{{$toAlpha[$questions->correct_option]}}</span>  
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded">{{$toAlpha[$questions->correct_option]}}</span> : {{$questions->$correct_option}}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 @php
-                    
+
                 $index ++;
                 @endphp
                 @endforeach
-                
+
                 <!-- View All Button -->
             </div>
         </div>
     </main>
 @endsection
 @push('scripts')
-    
+
 @endpush

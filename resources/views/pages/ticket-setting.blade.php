@@ -18,24 +18,24 @@
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        
+
         body {
             font-family: 'Inter', sans-serif;
             /* background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); */
         }
-        
+
         .card {
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
         }
-        
+
         .card:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
         }
-        
+
         .tag {
             font-size: 0.75rem;
             padding: 3px 10px;
@@ -43,30 +43,30 @@
             display: inline-flex;
             align-items: center;
         }
-        
+
         .input-focus:focus {
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
         }
-        
+
         .tab-button {
             transition: all 0.3s ease;
             border-bottom: 3px solid transparent;
         }
-        
+
         .tab-button.active {
             border-color: #2563eb;
             color: #2563eb;
         }
-        
+
         .permission-chip {
             transition: all 0.2s ease;
         }
-        
+
         .permission-chip:hover {
             background: #e0f2fe;
             transform: scale(1.05);
         }
-        
+
         .ticket-preview {
             background: linear-gradient(135deg, #ffffff 0%, #f1f8ff 100%);
             border: 1px dashed #cbd5e1;
@@ -74,7 +74,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .ticket-preview::before {
             content: '';
             position: absolute;
@@ -84,7 +84,7 @@
             height: 4px;
             background: linear-gradient(90deg, #2563eb 0%, #0ea5e9 100%);
         }
-        
+
         .ticket-preview::after {
             content: '';
             position: absolute;
@@ -96,20 +96,20 @@
             opacity: 0.5;
             transform: translateY(-50%);
         }
-        
+
         .switch {
             position: relative;
             display: inline-block;
             width: 50px;
             height: 24px;
         }
-        
+
         .switch input {
             opacity: 0;
             width: 0;
             height: 0;
         }
-        
+
         .slider {
             position: absolute;
             cursor: pointer;
@@ -120,7 +120,7 @@
             transition: .4s;
             border-radius: 24px;
         }
-        
+
         .slider:before {
             position: absolute;
             content: "";
@@ -132,11 +132,11 @@
             transition: .4s;
             border-radius: 50%;
         }
-        
+
         input:checked + .slider {
             background-color: #2563eb;
         }
-        
+
         input:checked + .slider:before {
             transform: translateX(26px);
         }
@@ -153,9 +153,9 @@
                 <i class="fas fa-ticket-alt mr-2"></i>Register Existing Ticket
             </button>
         </div>
-        
+
         <!-- Create Ticket Section -->
-        <div id="create-section" class="space-y-8">
+        <div id="create-section" class="space-y-8 @if(session('TicketMsg')) 'hidden' @endif ">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <!-- Form Section -->
                 <div class="bg-white card rounded-xl p-6">
@@ -165,15 +165,15 @@
                         </svg>
                         Create New Ticket
                     </h2>
-                    
+
                     <form class="space-y-5" method="post" action="{{route('create.tickets')}}">
                     @csrf
                     @method('POST')
                      <input type="hidden" name="type" id="permissionInput" value="viewer">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Quantity</label>
-                            <x-error name='number'>
-                            <input type="number" 
+                            <x-error name='number'/>
+                            <input type="number"
                                 name="quantity"
                                 value="{{old('quantity')}}"
                                    placeholder="Total Amount of tickets You Want"
@@ -183,13 +183,13 @@
                             <label class="block text-sm font-medium text-gray-700 mb-2">Usage Limit</label>
                             <x-error name="max_usage"/>
                             <small>* the total amount of users that can use this ticket.</small>
-                            <input type="number" 
+                            <input type="number"
                             name="max_usage"
                             value="{{old('number')}}"
                                    placeholder="Total Amount of tickets You Want"
                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-blue-200 focus:outline-none input-focus transition">
                         </div>
-                        
+
                         <div>
                         @if(count($systems))
                             <label class="block text-sm font-medium text-gray-700 mb-2">Issuing Institution</label>
@@ -212,21 +212,22 @@
                         </div>
                         @endif
                         </div>
-                        
+
                         <div>
     <label class="block text-sm font-medium text-gray-700 mb-2">Expiration Date</label>
-    <input type="datetime-local" 
+    <x-error name="expires_at"/>
+    <input type="datetime-local"
            name="expires_at"
            value="{{old('expires_at')}}"
            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-blue-200 focus:outline-none input-focus transition">
 </div>
 
-                        
+
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Institutions Available with Tickets</label>
-                            
+
                             <div class="grid grid-cols-2 gap-3 mt-3">
-                                <div onclick="selectPermission('viewer', this)" 
+                                <div onclick="selectPermission('viewer', this)"
                                  class="permission-chip bg-blue-50 border border-blue-100 rounded-lg p-3 flex items-center cursor-pointer">
                                     <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 mr-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -247,7 +248,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="flex items-center justify-between pt-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Enable Multi-Use</label>
@@ -258,7 +259,7 @@
                                 <span class="slider"></span>
                             </label>
                         </div>
-                        
+
                         <button {{ count($systems) == 0 ? 'disabled' : '' }} class="w-full mt-6 flex items-center justify-center py-3 px-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-300 {{ count($systems) == 0 ? 'opacity-50 cursor-not-allowed' : '' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -267,7 +268,7 @@
                         </button>
                     </form>
                 </div>
-                
+
                 <!-- Preview Section -->
                 <div class="bg-white card rounded-xl p-6">
                     <h2 class="text-xl font-bold text-dark mb-6 flex items-center">
@@ -276,7 +277,7 @@
                         </svg>
                         Institutions Available with Tickets
                     </h2>
-                    
+
                     @forelse ($SystemsWithTickets as $system)
                     <a href="{{route('pages.manage.tickets',['id'=>$system->id])}}">
                     <div  class="ticket-preview p-5">
@@ -290,9 +291,9 @@
                                 <h3 class="font-bold text-gray-800"></h3>
                             </div>
                         </div>
-                        
+
                         <p class="text-sm text-gray-600 mb-4">Issued by: {{$system->name}}</p>
-                        
+
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="tag bg-purple-100 text-purple-800">
                                 <i class="fas fa-lock mr-1"></i> Read-only
@@ -323,26 +324,26 @@
                         </div>
 
                     @endforelse
-                    
-                    
+
+
                 </div>
             </div>
-            
+
             <!-- Recent Tickets -->
-            
+
         </div>
-        
+
         <!-- Register Ticket Section (Hidden by default) -->
-        <div id="register-section" class="hidden">
-       @if (session()->has('msg'))
+        <div id="register-section" @if(!session('TicketMsg')) class="hidden" @endif>
+       @if (session()->has('Ticketmsg'))
             <div id="msg-card" class="fixed top-6 left-1/2 transform -translate-x-1/2 bg-white/70 backdrop-blur-md shadow-lg text-blue-800 font-semibold px-6 py-3 rounded-xl transition-opacity duration-1000 opacity-100 z-50 mt-4 mx-4">
-            🎉 {{Ucwords(session('msg'))}}
+             {{Ucwords(session('Ticketmsg'))}}
             </div>
        @endif
             <div class="space-y-5 my-2">
             {{-- {{dd($tickets)}} --}}
             @forelse ($tickets as $ticket)
-                    
+
             <div class="ticket-card fade-in bg-white rounded-xl shadow-sm p-5 border-l-blue-400">
                 <div class="flex flex-col md:flex-row md:items-center justify-between">
                     <div class="space-y-3">
@@ -357,7 +358,7 @@
                                 <p class="text-sm text-gray-600 mt-1">Massachusetts Institute of Technology</p>
                             </div>
                         </div>
-                        
+
                         <div class="flex flex-wrap gap-2">
                             <span class="tag bg-blue-100 text-blue-800">
                                 <i class="far fa-calendar mr-1"></i> Created: {{$ticket->created_at}}
@@ -370,7 +371,7 @@
                             </span>
                         </div>
                     </div>
-                    
+
                     <div class="mt-4 md:mt-0 flex items-center space-x-3">
                         <span class="tag bg-green-100 text-green-800">
                             <span class="status-dot bg-green-500"></span> Active
@@ -410,7 +411,7 @@
                     </svg>
                     Register an Existing Ticket
                 </h2>
-                
+
                 <div class="space-y-6 max-w-2xl mx-auto">
                 <form id="myForm" method="GET" onsubmit="updateAction()">
                     <div>
@@ -422,14 +423,14 @@
                                 </svg>
                             </div>
                             {{-- <x-error name=""> --}}
-                            <input type="text" 
+                            <input type="text"
                                     id="id"
                                    placeholder="Enter 16-digit ticket code"
                                    class="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-blue-200 focus:outline-none input-focus transition">
                         </div>
                         <p class="mt-2 text-sm text-gray-500">Enter the code provided by your institution or ticket issuer.</p>
                     </div>
-                    
+
                     <div class="p-5 bg-purple-50 rounded-lg border border-purple-100">
                         <div class="flex">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-purple-600 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -438,7 +439,7 @@
                             <p class="text-sm text-purple-700">By registering this ticket, you agree to comply with the resource provider's terms of service. Misuse of access may result in revocation of privileges.</p>
                         </div>
                     </div>
-                    
+
                     <button class="w-full mt-4 flex items-center justify-center py-3 px-4 bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-700 hover:to-indigo-800 text-white font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -453,75 +454,73 @@
     </main>
 @endsection
 @push('scripts')
-<script>
-        // Tab switching functionality
+    <script>
         document.getElementById('create-tab').addEventListener('click', function() {
             document.getElementById('create-section').classList.remove('hidden');
             document.getElementById('register-section').classList.add('hidden');
             document.getElementById('create-tab').classList.add('active');
             document.getElementById('register-tab').classList.remove('active');
         });
-        
+
         document.getElementById('register-tab').addEventListener('click', function() {
             document.getElementById('create-section').classList.add('hidden');
             document.getElementById('register-section').classList.remove('hidden');
             document.getElementById('create-tab').classList.remove('active');
             document.getElementById('register-tab').classList.add('active');
         });
-        
-        // Permission chip selection
+
         const chips = document.querySelectorAll('.permission-chip');
         chips.forEach(chip => {
             chip.addEventListener('click', function() {
                 // Remove any existing active state
                 chips.forEach(c => c.classList.remove('ring-2', 'ring-blue-500'));
-                
+
                 // Add active state to clicked chip
                 this.classList.add('ring-2', 'ring-blue-500');
             });
         });
-        
+
         // Set the first permission chip as active by default
         if (chips.length > 0) {
             chips[0].classList.add('ring-2', 'ring-blue-500');
         }
     </script>
-    <script>
-    function selectPermission(value, el) {
-        // Update hidden input
-        document.getElementById('permissionInput').value = value;
+        <script>
+            function selectPermission(value, el) {
+                // Update hidden input
+                document.getElementById('permissionInput').value = value;
 
-        // Remove "selected" styles from all
-        document.querySelectorAll('.permission-chip').forEach(chip => {
-            chip.classList.remove('ring-2', 'ring-offset-2', 'ring-blue-400', 'ring-green-400');
-        });
+                // Remove "selected" styles from all
+                document.querySelectorAll('.permission-chip').forEach(chip => {
+                    chip.classList.remove('ring-2', 'ring-offset-2', 'ring-blue-400', 'ring-green-400');
+                });
 
-        // Add selected style
-        el.classList.add('ring-2', 'ring-offset-2', value === 'read' ? 'ring-blue-400' : 'ring-green-400');
-    }
+                // Add selected style
+                el.classList.add('ring-2', 'ring-offset-2', value === 'read' ? 'ring-blue-400' : 'ring-green-400');
+            }
 
-    function setPermission() {
-        const val = document.getElementById('permissionInput').value;
-        if (!val) {
-            alert("Please select a permission type.");
-            return false;
-        }
-        return true;
-    }
-</script>
-<script>
-    function updateAction() {
-        const id = document.getElementById('id').value;
-        const form = document.getElementById('myForm');
-        form.action = "{{ url('/register-tickets') }}/" + encodeURIComponent(id);
-    }
-</script>
-<script>
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      const card = document.getElementById("msg-card");
-      card.classList.add("opacity-0");
-    }, 10000); // 10 seconds
-  });
-</script>
+            function setPermission() {
+                const val = document.getElementById('permissionInput').value;
+                if (!val) {
+                    alert("Please select a permission type.");
+                    return false;
+                }
+                return true;
+            }
+        </script>
+        <script>
+            function updateAction() {
+                const id = document.getElementById('id').value;
+                const form = document.getElementById('myForm');
+                form.action = "{{ url('/register-tickets') }}/" + encodeURIComponent(id);
+            }
+        </script>
+            <script>
+            window.addEventListener("load", () => {
+                setTimeout(() => {
+                const card = document.getElementById("msg-card");
+                card.classList.add("opacity-0");
+                }, 10000); // 10 seconds
+            });
+            </script>
 @endpush

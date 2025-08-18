@@ -124,6 +124,8 @@
                         <p class="text-gray-600 text-sm">Describe what you aim to achieve with this questionnaire</p>
                         <textarea rows="4" required
                         name='goal'
+                        value="{{old('goal')}}"
+                        placeholder="The goal of this questionnaire "
                         class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition">{{old('goal')}}</textarea>
                     </div>
 
@@ -157,7 +159,7 @@
 
                     <!-- Form Actions -->
                     <div class="flex flex-col-reverse md:flex-row md:items-center md:justify-between pt-6 border-t border-gray-200">
-                        <a href="{{route('index')}}" class="px-6 py-3 text-gray-600 hover:text-gray-800 font-medium rounded-lg transition-colors">
+                        <a href="{{url()->previous()}}" class="px-6 py-3 text-gray-600 hover:text-gray-800 font-medium rounded-lg transition-colors">
                             <i class="fas fa-times mr-2"></i>Cancel
                         </a>
                         <button type="submit" class="next-btn mb-4 md:mb-0 px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-lg font-semibold text-lg">

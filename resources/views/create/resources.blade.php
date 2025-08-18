@@ -75,7 +75,7 @@
                 <input type="file" name="filename" value="{{old('filename')}}" required class="dropify" data-max-file-size="50M" data-allowed-file-extensions="pdf docx csv" />
             </div>
             <div class="flex justify-end space-x-3">
-                <a href="{{route('index')}}"  class="px-4 py-2 text-gray-600 hover:text-gray-800">Cancel</a>
+                <a href="{{url()->previous()}}"  class="px-4 py-2 text-gray-600 hover:text-gray-800">Cancel</a>
                 @if ($AvailableSystems->count())           
                 <button type="submit" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
                     Upload Resource
