@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\System;
 use Illuminate\Http\Request;
 use App\Models\Questionaires;
@@ -16,12 +17,29 @@ class QuestionairesController extends Controller
         $systems = System::all();
         return view('create.questionaire',compact(['systems']));
     }
-    public function show($system){
-        $questionaires = ($_GET) ?
-        Questionaires::where('author',Auth::user()->id)->where('system',$_GET['system'])->get() :
-        Questionaires::where('author',Auth::user()->id)->get();
-        return view('pages.manage.questionaire',compact(['questionaire']));
-    }
+    
+public function show(Request $request) {
+    $authorId = Auth::id();
+    $currentSystem = $request->query('system');
+
+    $base = Questionaires::where('author', $authorId);
+    $system = System::where('name',$currentSystem)->value('id');
+    $questionaires = $currentSystem
+        ? (clone $base)->where('system', $system)->get()
+        : (clone $base)->get();
+
+    $systems = System::all();
+
+    $systemCounts = Questionaires::select('system', DB::raw('COUNT(*) as total'))
+        ->where('author', $authorId)
+        ->groupBy('system')
+        ->pluck('total', 'system');
+
+    $all = (clone $base)->count();
+
+    return view('pages.manage.questionaire', compact('questionaires','systems','all','systemCounts','currentSystem'));
+}
+
     public function store(Request $request ){
         $data = $request->validate([
             'name'=>'min:8|max:200|required',

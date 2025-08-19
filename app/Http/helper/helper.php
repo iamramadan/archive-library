@@ -32,7 +32,7 @@ function StorageUsed($resources){
   if ($resources->count() == 0) return 0;
   $size = 0;
   foreach ($resources as $resource) {
-    $size += round(filesize(storage_path('app/public/files/'.$resource->filename))/1048576);
+    $size += filesize(storage_path('app/public/files/'.$resource->filename))/1048576;
   }
   return $size;
 }

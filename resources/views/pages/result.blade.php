@@ -145,21 +145,29 @@
                                 'd'=>'option4'
                     ];
                 @endphp
+                {{-- @dd($option[$questionaireResult->result[0]->your_answers[1]]) --}}
                 @foreach ($questionaireResult->questions as $questions)
+                @php
+                                        $your_option = $option[$questionaireResult->result[0]->your_answers[1]];
+                                        $correct_option = $option[$toAlpha[$questions->correct_option]];
+                @endphp
                 <div class="answer-correct mb-6 p-4 bg-white border rounded-lg">
                     <div class="flex items-start mb-3">
+                    @if ($your_option == $correct_option)
                         <div class="bg-green-100 text-green-800 rounded-full w-8 h-8 flex items-center justify-center mr-3">
                             <i class="fas fa-check"></i>
                         </div>
+                    @else
+                    <div class="bg-red-100 text-red-800 rounded-full w-8 h-8 flex items-center justify-center mr-3">
+                        <i class="fas fa-times"></i>
+                    </div>
+                    @endif
                         <div>
                             <h4 class="font-bold text-gray-800">Question {{$index}}: {{$questions->question}}</h4>
                             <div class="mt-2">
                                 <div class="flex items-center text-sm mb-1">
                                     <span class="font-medium w-32">Your answer:</span>
-                                    @php
-                                        $your_option = $option[$questions->result[0]->your_answers[$index]];
-                                        $correct_option = $option[$toAlpha[$questions->correct_option]];
-                                    @endphp
+                                    
                                     <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded">{{$questionaireResult->result[0]->your_answers[$index]}} </span> : {{$questions->$your_option}}
                                 </div>
                                 <div class="flex items-center text-sm">

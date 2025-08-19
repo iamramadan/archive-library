@@ -1,17 +1,49 @@
 <div>
     <div class="bg-white rounded-lg shadow-sm p-6">
+    @if ($msg != '')
+        
+        <div class="max-w-lg mx-auto mt-6">
+            <div class="flex items-center p-4 mb-4 text-sm text-gray-700 bg-gray-100 border border-gray-300 rounded-lg shadow-sm" role="alert">
+                <svg class="flex-shrink-0 inline w-5 h-5 mr-3 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span class="font-medium">Heads up!</span>
+                <span class="ml-1">{{$msg}}</span>
+            </div>
+        </div>
+    @endif
+           <!-- Stunning Tailwind-only Loader (monochrome) -->
+           @if ($isloading)
+                        <div class="min-h-[20vh] flex items-center justify-center bg-white">
+                        <div class="flex items-center space-x-4">
+                            <!-- Loader -->
+                            <div class="relative h-12 w-12">
+                            <!-- Outer ring -->
+                            <div class="absolute inset-0 rounded-full border-4 border-black/10 border-t-black animate-spin"></div>
+                            <!-- Middle ring (reverse spin) -->
+                            <div class="absolute inset-1.5 rounded-full border-4 border-black/10 border-b-black animate-spin [animation-duration:1.5s] [animation-direction:reverse]"></div>
+                            <!-- Inner ring (faster) -->
+                            <div class="absolute inset-3 rounded-full border-4 border-black/10 border-l-black animate-spin [animation-duration:1s]"></div>
+                            <!-- Soft glow -->
+                            <div class="absolute inset-0 rounded-full blur-md bg-black/5"></div>
+                            <!-- Core pulse -->
+                            <div class="absolute inset-1 flex items-center justify-center">
+                                <div class="h-2 w-2 rounded-full bg-black animate-pulse"></div>
+                            </div>
+                            </div>
 
-        @if($isloading) 
-        <h2><b>
-            Questions are being saved.
-            </b></h2>
-            <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden relative">
-            <div
-                class="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 h-full rounded-full animate-loading"
-            >
-            </div>
-            </div>
-        @endif
+                            <!-- Message -->
+                            <p class="text-lg font-semibold text-black">
+                            Questions are being submitted...
+                            </p>
+                        </div>
+                        </div>
+           @endif
+
+
+
+
             <h2 class="text-2xl font-bold text-gray-800 mb-6">Add New Question</h2>
             <div class="space-y-6">
                 <div>
@@ -85,10 +117,10 @@
                 <div class="grid grid-cols-10 gap-2 p-6 bg-white my-2 rounded-xl shadow-lg">
 
                     @php
-                        $i = 1;
+                        $i = 0;
                     @endphp
                     @foreach($questionArray as $question)
-                    <button wire:click="setindex({{$i}})" class="w-8 h-8 rounded-full bg-blue-500 text-white text-xl font-bold">{{$i}}</button>
+                    <button wire:click="setindex({{$i}})" class="w-8 h-8 rounded-full bg-blue-500 text-white text-xl font-bold">{{$i + 1}}</button>
                     @php
                      $i ++;
                     @endphp

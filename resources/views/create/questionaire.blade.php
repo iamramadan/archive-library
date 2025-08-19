@@ -94,7 +94,7 @@
         </div> --}}
 
         <!-- Form Card -->
-        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+        {{-- <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
             <div class="p-6">
                 <h2 class="text-2xl font-bold text-white">Create New Questionnaire</h2>
                 <p class="text-indigo-100">Fill in the basic details for your new questionnaire</p>
@@ -168,7 +168,169 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </div> --}}
+        {{-- <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+    <!-- Card Header -->
+    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-6">
+        <h2 class="text-2xl font-bold text-white">Create New Questionnaire</h2>
+        <p class="text-indigo-100">Fill in the basic details for your new questionnaire</p>
+    </div>
+
+    <!-- Card Body -->
+    <div class="p-6 md:p-8">
+        <form class="space-y-8" action='{{route('create.questionaires.store')}}' method="POST">
+            @method('POST')
+            @csrf
+            <input name="author" value="{{Auth::user()->id}}" type="hidden"/>
+
+            <!-- Title Field -->
+            <div class="space-y-2">
+                <x-error name="name"/>
+                <label class="block text-lg font-semibold text-gray-800">Questionnaire Title*</label>
+                <p class="text-gray-600 text-sm">Give your questionnaire a clear and descriptive title</p>
+                <input type="text"
+                       name='name'
+                       value="{{old('name')}}"
+                       required
+                       class="w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 transition">
+            </div>
+
+            <!-- Goals Field -->
+            <div class="space-y-2">
+                <x-error name="goal"/>
+                <label class="block text-lg font-semibold text-gray-800">Goals & Objectives*</label>
+                <p class="text-gray-600 text-sm">Describe what you aim to achieve with this questionnaire</p>
+                <textarea rows="4"
+                          name='goal'
+                          required
+                          placeholder="The goal of this questionnaire..."
+                          class="w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 transition">{{old('goal')}}</textarea>
+            </div>
+
+            <!-- Systems Section -->
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-lg font-semibold text-gray-800">Select Systems*</label>
+                    <p class="text-gray-600 text-sm">Choose which systems this questionnaire applies to</p>
+                </div>
+
+                @if($systems->count())
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Institution</label>
+                    <x-error name="system"/>
+                    <select name="system"
+                            class="w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 transition">
+                        @foreach($systems as $system)
+                            <option value="{{$system->id}}">{{$system->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                @else
+                <div class="md:col-span-2 text-center py-12 text-gray-500" id="emptyState">
+                    <p class="mb-4">No institutions found</p>
+                    <a href="{{route('create.system')}}"
+                       class="px-4 py-2 text-blue-600 hover:text-blue-700 border border-blue-600 rounded-full">
+                        Create Your First Institution
+                    </a>
+                </div>
+                @endif
+            </div>
+
+            <!-- Form Actions -->
+            <div class="flex flex-col-reverse md:flex-row md:items-center md:justify-between pt-6 border-t border-gray-200">
+                <a href="{{url()->previous()}}" 
+                   class="px-6 py-3 bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium rounded-lg transition">
+                    <i class="fas fa-times mr-2"></i>Cancel
+                </a>
+                <button type="submit" 
+                        class="next-btn mb-4 md:mb-0 px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-lg font-semibold text-lg">
+                    Next <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div> --}}
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+    <!-- Card Header -->
+    <div class="px-6 py-6 border-b border-gray-200">
+        <h2 class="text-2xl font-bold text-black">Create New Questionnaire</h2>
+        <p class="text-gray-600">Fill in the basic details for your new questionnaire</p>
+    </div>
+
+    <!-- Card Body -->
+    <div class="p-6 md:p-8">
+        <form class="space-y-8" action='{{route('create.questionaires.store')}}' method="POST">
+            @method('POST')
+            @csrf
+            <input name="author" value="{{Auth::user()->id}}" type="hidden"/>
+
+            <!-- Title Field -->
+            <div class="space-y-2">
+                <x-error name="name"/>
+                <label class="block text-lg font-bold text-black">Questionnaire Title*</label>
+                <p class="text-gray-600 text-sm">Give your questionnaire a clear and descriptive title</p>
+                <input type="text"
+                       name='name'
+                       value="{{old('name')}}"
+                       required
+                       class="w-full px-4 py-3 rounded-lg border border-gray-400 shadow-sm focus:border-black focus:ring-2 focus:ring-black transition">
+            </div>
+
+            <!-- Goals Field -->
+            <div class="space-y-2">
+                <x-error name="goal"/>
+                <label class="block text-lg font-bold text-black">Goals & Objectives*</label>
+                <p class="text-gray-600 text-sm">Describe what you aim to achieve with this questionnaire</p>
+                <textarea rows="4"
+                          name='goal'
+                          required
+                          placeholder="The goal of this questionnaire..."
+                          class="w-full px-4 py-3 rounded-lg border border-gray-400 shadow-sm focus:border-black focus:ring-2 focus:ring-black transition">{{old('goal')}}</textarea>
+            </div>
+
+            <!-- Systems Section -->
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-lg font-bold text-black">Select Systems*</label>
+                    <p class="text-gray-600 text-sm">Choose which systems this questionnaire applies to</p>
+                </div>
+
+                @if($systems->count())
+                <div>
+                    <label class="block text-sm font-medium text-black mb-1">Institution</label>
+                    <x-error name="system"/>
+                    <select name="system"
+                            class="w-full px-4 py-3 rounded-lg border border-gray-400 shadow-sm focus:border-black focus:ring-2 focus:ring-black transition">
+                        @foreach($systems as $system)
+                            <option value="{{$system->id}}">{{$system->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                @else
+                <div class="md:col-span-2 text-center py-12 text-gray-500" id="emptyState">
+                    <p class="mb-4">No institutions found</p>
+                    <a href="{{route('create.system')}}"
+                       class="px-4 py-2 border border-black text-black hover:bg-gray-100 rounded-full font-semibold">
+                        Create Your First Institution
+                    </a>
+                </div>
+                @endif
+            </div>
+
+            <!-- Form Actions -->
+            <div class="flex flex-col-reverse md:flex-row md:items-center md:justify-between pt-6 border-t border-gray-200">
+                <a href="{{url()->previous()}}" 
+                   class="px-6 py-3 border border-black text-black hover:bg-gray-100 font-semibold rounded-lg transition">
+                    <i class="fas fa-times mr-2"></i>Cancel
+                </a>
+                <button type="submit" 
+                        class="next-btn mb-4 md:mb-0 px-8 py-3 bg-black hover:bg-gray-900 text-white rounded-lg font-bold text-lg shadow">
+                    Next <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 
         <!-- Tips Section -->
         

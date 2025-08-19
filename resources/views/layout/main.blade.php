@@ -6,6 +6,7 @@
     <title>@yield('title')</title>
     @stack('links')
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     @livewireStyles
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -20,6 +21,7 @@
             <div class="flex-1 hidden sm:block">
             <form  id="searchForm" method="GET" onsubmit="updateAction(event)">
                 <input type="text"
+                        id="searchForm"
                        placeholder="Search archive..."
                        class="w-full px-4 py-2 rounded-full border border-gray-200 focus:outline-none focus:border-blue-500">
             </form>
@@ -46,32 +48,30 @@
 
                 <div class="relative inline-block text-left group">
                 <!-- Dropdown Button -->
-                <button
-                    class="inline-flex justify-center items-center w-full px-4 py-2 text-sm font-medium  bg-gray-500 text-white  rounded-md focus:outline-none"
-                >
-                    <i class="fas fa-plus"></i>
-                    <!-- SVG chevron icon -->
-                    <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                    </svg>
-                </button>
+                            <button
+                                class="inline-flex justify-center items-center w-full px-4 py-2 text-sm font-medium  bg-gray-500 text-white  rounded-md focus:outline-none"
+                            >
+                                <i class="fas fa-plus"></i>
+                                <!-- SVG chevron icon -->
+                                <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
 
                 <!-- Dropdown Menu (shown on hover) -->
-                <div
-                    class="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden group-hover:block z-10"
-                >
-                    <div class="py-1">
-                    <a href="{{route('create.note')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                        Create Notes
-                    </a>
-                    <a href="{{route('create.resources')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                        Resources
-                    </a>
-                    <a href="{{route('create.questionaires')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                        Questionnaire
-                    </a>
-                    </div>
-                </div>
+                        <div class="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden group-:block z-10">
+                            <div class="py-1">
+                                <a href="{{route('create.note')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    Create Notes
+                                </a>
+                                <a href="{{route('create.resources')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    Resources
+                                </a>
+                                <a href="{{route('create.questionaires')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    Questionnaire
+                                </a>
+                            </div>
+                        </div>
                 </div>
 
             </div>
@@ -93,7 +93,7 @@
                 <a href="{{route('pages.ticket-settings')}}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Ticket Settings</a>
                 <a href="{{ url()->previous() }} " class="block px-4 py-2 text-gray-700 hover:bg-gray-100">&larr; Back</a>
             </div>
-        </div>s
+        </div>
     </div>
 </header>
 

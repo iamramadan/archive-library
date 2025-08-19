@@ -26,15 +26,11 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
         <div class="bg-blue-50 p-3 rounded-lg border border-blue-100">
             <div class="text-blue-800 font-medium">Total Tickets</div>
-            <div class="text-2xl font-bold text-blue-600">24</div>
+            <div class="text-2xl font-bold text-blue-600">{{$tickets->count()}}</div>
         </div>
         <div class="bg-green-50 p-3 rounded-lg border border-green-100">
-            <div class="text-green-800 font-medium">Active</div>
-            <div class="text-2xl font-bold text-green-600">18</div>
-        </div>
-        <div class="bg-amber-50 p-3 rounded-lg border border-amber-100">
-            <div class="text-amber-800 font-medium">Pending</div>
-            <div class="text-2xl font-bold text-amber-600">4</div>
+            <div class="text-green-800 font-medium">Collaborators</div>
+            <div class="text-2xl font-bold text-green-600">{{}}</div>
         </div>
         <div class="bg-red-50 p-3 rounded-lg border border-red-100">
             <div class="text-red-800 font-medium">Expired</div>
@@ -112,7 +108,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                                     </svg>
                                 </button>
-                                
+
                                 <form method="POST" action="{{ route('delete.ticket', $ticket->id) }}" class="inline">
                                     @csrf
                                     @method('DELETE')
@@ -147,7 +143,7 @@
                         @endif
                     </div>
                 </div>
-                
+
                 <div class="grid grid-cols-2 gap-3 mt-3">
                     <div>
                         <span class="text-xs text-gray-500">Permissions</span>
@@ -164,14 +160,14 @@
                         <div class="text-sm text-gray-700">{{ date('d M Y', strtotime($ticket->expires_at)) }}</div>
                     </div>
                 </div>
-                
+
                 <div class="flex justify-end space-x-2 mt-4">
                     <button onclick="copyToClipboard('{{ $ticket->token }}')" class="text-gray-500 hover:text-blue-600 p-1 rounded-full hover:bg-blue-50" title="Copy Ticket">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                         </svg>
                     </button>
-                    
+
                     <form method="POST" action="{{ route('delete.ticket', $ticket->id) }}" class="inline">
                         @csrf
                         @method('DELETE')
@@ -185,7 +181,7 @@
             </div>
         @endforeach
     </div>
-    
+
     <!-- Pagination -->
     {{ $tickets->links('pagination::tailwind') }}
 </div>
@@ -202,9 +198,9 @@
                 </svg>
                 Copied to clipboard!
             `;
-            
+
             document.body.appendChild(alertDiv);
-            
+
             setTimeout(() => {
                 alertDiv.remove();
             }, 2000);

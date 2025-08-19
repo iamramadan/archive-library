@@ -125,7 +125,7 @@
   </div>
 
   <div class="mt-6 text-center">
-    <a href="#" class="text-yellow-500 hover:text-yellow-700 font-medium inline-flex items-center">
+    <a href="{{route('pages.manage.questionaires')}}?all" class="text-yellow-500 hover:text-yellow-700 font-medium inline-flex items-center">
       View All Questionnaires <i class="fas fa-arrow-right ml-2"></i>
     </a>
   </div>

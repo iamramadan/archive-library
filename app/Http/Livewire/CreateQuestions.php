@@ -20,23 +20,37 @@ class CreateQuestions extends Component
     public $index = 0;
     public $msg = '';
     public $isloading = false;
+    public $updating = false;
     public function mount($id){
         $this->QuestionaireId = $id;
     }
 
+    public function hasEmptyFields() {
+    return empty($this->Option1) ||
+           empty($this->Option2) ||
+           empty($this->Option3) ||
+           empty($this->Option4) ||
+           empty($this->correct_option) ||
+           empty($this->Question);
+}
+
     public function addQuestions(){
-        
-        $this->questionArray[$this->index] = [
-            'question'=>$this->Question,
-            'option1' => $this->Option1,
-            'option2' => $this->Option2,
-            'option3' => $this->Option3,
-            'option4' => $this->Option4,
-            'questionaire'=>$this->QuestionaireId,
-            'correct_option' => $this->correct_option
-        ];
-        $this->clear();
-        $this->index++;
+        if ($this->hasEmptyFields() || count($this->questionArray) >= 20) {
+            $this->msg = 'Some feilds are empty fill them up.';
+        } else {
+            $this->questionArray[$this->index] = [
+                'question'=>$this->Question,
+                'option1' => $this->Option1,
+                'option2' => $this->Option2,
+                'option3' => $this->Option3,
+                'option4' => $this->Option4,
+                'questionaire'=>$this->QuestionaireId,
+                'correct_option' => $this->correct_option
+            ];
+            $this->clear();
+            $this->msg = '';
+            $this->index++;
+        }
     }
     public function clear(){
         $this->Question = '';
@@ -50,19 +64,26 @@ class CreateQuestions extends Component
      $this->index--;
     }
     public function setindex($index){
-     $this->index = $index;
+        $this->index = $index;
+           $this->Question = $this->questionArray[$this->index]['question'];
+           $this->Option1 = $this->questionArray[$this->index]['option1'];
+           $this->Option2 = $this->questionArray[$this->index]['option2'];
+           $this->Option3 = $this->questionArray[$this->index]['option3'];
+           $this->Option4 = $this->questionArray[$this->index]['option4'];
+           $this->correct_option = $this->questionArray[$this->index]['correct_option'];
+           $this->msg = '';
     }
 
+
     public function submit(){
+        $this->isloading = true;
         if(count($this->questionArray) > 20){
             $this->msg = 'Questions Should Not Exceed 20';
             return;
         }
-        $this->isloading = true;
         foreach ($this->questionArray as $question) {
             Questions::create($question);
         }
-        $this->isloading = false;
         return redirect()->route('pages.questionaire',['id'=>$this->QuestionaireId]);
     }
     public function render()

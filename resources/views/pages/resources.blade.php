@@ -69,7 +69,7 @@
                             @php
                             // {{filesize(asset('storage/files/'.$resource->filename))}}
                                 $file = storage_path('app/public/files/'.$resource->filename);
-                                $filesize = (file_exists($file)) ? round(filesize($file)/1048576) : null;
+                                $filesize = (file_exists($file)) ? number_format(filesize($file)/1048576,2) : null;
                             @endphp
                             <p class="font-medium">{{$filesize}} MB</p>
                         </div>

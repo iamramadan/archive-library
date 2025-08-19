@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     @livewireStyles
     <!-- Dropify Dependencies -->
@@ -14,7 +15,9 @@
 <header class="bg-white shadow-sm flex items-center justify-between px-4 py-3 relative">
     <!-- Left: Static Logo -->
     <a href="{{ route('index') }}" class="text-xl sm:text-2xl font-bold text-gray-800">
+    @section('title')
         ARCHLIB
+    @show
     </a>
 
     <!-- Center: Page Heading -->
@@ -56,7 +59,7 @@
                 </a>
 
                 <!-- Back Icon -->
-                <a href="#" class="text-gray-600 hover:text-gray-800" title="Back">
+                <a href="{{url()->previous()}}" class="text-gray-600 hover:text-gray-800" title="Back">
                     <i class="fas fa-arrow-left text-lg"></i>
                 </a>
 

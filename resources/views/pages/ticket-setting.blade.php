@@ -249,17 +249,6 @@
                             </div>
                         </div>
 
-                        <div class="flex items-center justify-between pt-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Enable Multi-Use</label>
-                                <p class="text-sm text-gray-500">Allow multiple users to register with this ticket</p>
-                            </div>
-                            <label class="switch">
-                                <input type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-
                         <button {{ count($systems) == 0 ? 'disabled' : '' }} class="w-full mt-6 flex items-center justify-center py-3 px-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-300 {{ count($systems) == 0 ? 'opacity-50 cursor-not-allowed' : '' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
