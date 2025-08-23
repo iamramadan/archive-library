@@ -15,18 +15,19 @@ class ContentToggler extends Component
 
     public function mount($InstitutionId)
     {
+        $this->content = Resources::where('system', $InstitutionId)->paginate(10);
         $this->InstitutionId = $InstitutionId;
     }
 
     public function sort($content)
     {
-        $model = match ($content) {
+        $this->contentDisplayed = $content;
+        $model = match ($this->contentDisplayed) {
             'questionaires' => Questionaires::class,
             'note' => Note::class,
             'resources' => Resources::class,
             default => null,
         };
-        $this->contentDisplayed = $content;
         if ($model) {
             $this->SetContent($model);
         }
@@ -34,15 +35,15 @@ class ContentToggler extends Component
 
     public function SetContent($modelClass)
     {
-        $this->content = $modelClass::where('author', $this->InstitutionId)->get();
+        $this->content = $modelClass::where('system', $this->InstitutionId)->paginate(10);
     }
 
     public function render()
     {
         return view('livewire.content-toggler',[
-             
+
         'content' => $this->content,
-    
+
         ]);
     }
 }
