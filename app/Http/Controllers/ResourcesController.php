@@ -53,6 +53,6 @@ class ResourcesController extends Controller
     }
     public function delete(Request $request){
     $resource = Resources::find($request->id);
-    return $resource->delete() ? redirect()->route('pages.manage.resources') : redirect()->back();
+    return $resource->delete() ? redirect()->route('pages.manage.resources')->with('success','Successfully Deleted Resource') : redirect()->back();
     }
 }

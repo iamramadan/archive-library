@@ -2,7 +2,7 @@
 @section('title', 'Confirm-Delete')
 @section('heading', 'Confirm Delete Of '.$table)
 @php
-    $action = ['institution'=>'delete.system','note'=>'delete.note','resources'=>'delete.resources'];
+    $action = ['institution'=>'delete.system','note'=>'delete.note','resources'=>'delete.resources','questionaire'=>'delete.questionaire'];
 @endphp
 @section('main')
     <main class="max-w-3xl mx-auto p-4">

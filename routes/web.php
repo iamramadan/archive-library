@@ -51,6 +51,7 @@ Route::prefix('delete')->name('delete.')->middleware('auth')->group(function(){
     Route::delete('/note',[NoteController::class,'delete'])->name('note');
     Route::delete('/ticket/{id}',[TicketController::class,'delete'])->name('ticket');
     Route::delete('/resources',[ResourcesController::class,'delete'])->name('resources');
+    Route::delete('/questionaire',[QuestionairesController::class,'delete'])->name('questionaire');
     Route::get('/confirm-delete/{table}/{id}',[DeleteHandlerController::class,'delete'])->name('confirm');
 });
 Route::middleware('guest')->name('auth.')->group(function(){

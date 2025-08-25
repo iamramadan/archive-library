@@ -225,7 +225,7 @@
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Institutions Available with Tickets</label>
-
+                            <small>* "Read-only" allows you to explore content, while "Read and Write" grants permission to contribute to this institution.</small>
                             <div class="grid grid-cols-2 gap-3 mt-3">
                                 <div onclick="selectPermission('viewer', this)"
                                  class="permission-chip bg-blue-50 border border-blue-100 rounded-lg p-3 flex items-center cursor-pointer">
@@ -343,8 +343,8 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="font-bold text-gray-800">{{strtoupper(SystemName($ticket->system))}} Access</h3>
-                                <p class="text-sm text-gray-600 mt-1">Massachusetts Institute of Technology</p>
+                                <h3 class="font-bold text-gray-800"><a href="{{route('pages.institution',['name'=>{{SystemName($ticket->system)}}])}}">{{strtoupper(SystemName($ticket->system))}} Access</a></h3>
+                                {{-- <p class="text-sm text-gray-600 mt-1">Massachusetts Institute of Technology</p> --}}
                             </div>
                         </div>
 

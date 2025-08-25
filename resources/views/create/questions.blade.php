@@ -31,6 +31,10 @@
             {{$questionaire->goal}}
         </p>
         </div>
+        @if(isset($questions))
+        @livewire('create-questions',['id'=>$id,'questions'=>$questions])
+        @else
         @livewire('create-questions',['id'=>$id])
+        @endif
     </main>
 @endsection

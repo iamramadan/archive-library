@@ -278,6 +278,11 @@
                 <button type="submit" class="nav-btn hover:bg-success bg-green-600 text-white px-8 py-3">
                     <i class="fas fa-paper-plane mr-2"></i>Submit Quiz
                 </button>
+                @if ($questionaires->id == Auth::user()->id)         
+                <a href="{{route('create.questions',['id'=>$questionaires->id])}}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                    Update
+                </a>
+                @endif
             </div>
             @endif
             <!-- Navigation Controls -->

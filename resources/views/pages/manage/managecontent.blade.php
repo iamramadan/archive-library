@@ -78,9 +78,10 @@
                     <div class="mt-6 flex justify-between items-center">
                         <div class="text-sm text-gray-500">Showing {{$notes->count()}} of all notes</div>
                         <a href="{{route('pages.manage.notes')}}" class="px-4 py-2 border border-gray-300 hover:bg-gray-50 text-gray-700 rounded-lg flex items-center">
-                            See All Notes <i class="fas fa-chevron-down ml-2"></i>
+                            See All Notes <i class="fas fa-arrow-right ml-2"></i>
                         </a>
                     </div>
+
                 </div>
 
                 <!-- Resources Section -->

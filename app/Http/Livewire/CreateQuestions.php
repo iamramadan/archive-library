@@ -21,7 +21,12 @@ class CreateQuestions extends Component
     public $msg = '';
     public $isloading = false;
     public $updating = false;
-    public function mount($id){
+    public function mount($id,array $questions =[]){
+        if(!empty($questions)){
+            $this->questionArray = $questions;
+            $this->updating = true;
+            $this->setindex(count($questions) - 1);
+        }
         $this->QuestionaireId = $id;
     }
 
@@ -82,7 +87,10 @@ class CreateQuestions extends Component
             return;
         }
         foreach ($this->questionArray as $question) {
-            Questions::create($question);
+            Questions::UpdateorCreate(
+            ['questionaire'=>$this->QuestionaireId]
+            ,$question
+        );
         }
         return redirect()->route('pages.questionaire',['id'=>$this->QuestionaireId]);
     }

@@ -65,8 +65,8 @@ class NoteController extends Controller
         }
         return back()->with('message','Note Updated Successfully');
     }
-    public function delete($id){
-        Note::where('id',$id)->delete();
-        return back()->with('success','Successfully Deleted Message');
+    public function delete(Request $request){
+        Note::where('id',$request->id)->delete();
+        return redirect()->route('pages.manage.notes')->with('success','Successfully Deleted Note');
     }
 }

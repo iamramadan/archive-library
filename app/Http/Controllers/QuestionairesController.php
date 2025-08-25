@@ -89,3 +89,9 @@ public function show(Request $request) {
         return redirect()->route('pages.questionaire.result',['id'=>$questionaire->id]);
     }
 }
+public function delete(Request $request){
+   return  Questionaires::where('id',$request->id)->delete() 
+   ? redirect()->route('pages.manage.questionaires')->->with('success','Successfully Deleted Questionaire')
+   : back()->with('error','couldnt delete this questionaire')
+   ;
+}

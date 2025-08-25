@@ -269,12 +269,13 @@
                                     </div>
 
                                     <div class="flex justify-between">
-                                        <button class="px-4 py-2 bg-primary hover:bg-blue-700 text-white rounded-lg text-sm">
+                                        <a href="{{route('pages.questionaire',['id'=>$q->id])}}" class="px-4 py-2 bg-primary hover:bg-blue-700 text-white rounded-lg text-sm">
                                             Open
-                                        </button>
-                                        <button class="p-2 text-gray-500 hover:text-primary rounded-full hover:bg-gray-100">
-                                            <i class="fas fa-ellipsis-h"></i>
-                                        </button>
+                                        </a>
+                                        <a href="{{route('delete.confirm',['table'=>'questionaire','id'=>$q->id])}}" class="p-2 text-gray-500 hover:text-primary rounded-full hover:bg-gray-100">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+
                                     </div>
                                 </div>
                             </div>
