@@ -50,7 +50,7 @@
                 <!-- File Icon -->
                 <div class="flex-shrink-0">
                     <div class="file-icon w-24 h-24 rounded-lg bg-red-50 flex items-center justify-center">
-                        <i class="fas fa-file-pdf text-5xl text-red-500"></i>
+                        <i class="{{fileTypeIcon($resource->filetype)}} text-5xl text-red-500"></i>
                     </div>
                 </div>
 
