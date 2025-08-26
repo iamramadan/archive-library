@@ -92,7 +92,7 @@
                                     </g>
                                 </svg>
                                 <h2 class="text-xl font-semibold text-gray-800">No Notes Found</h2>
-                                <p class="text-gray-600">You haven’t added any notes yet. Start jotting something down to save it here.</p>
+                                <p class="text-gray-600">You haven’t added any notes yet. Acquire a ticket that grants you access to an note ,or just make one <small>(click on the plus button above)</small>.</p>
                                 <a href="#" class="inline-block mt-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-full hover:bg-blue-700 transition">
                                     Add Note
                                 </a>
@@ -152,7 +152,7 @@
                             </g>
                         </svg>
                         <h2 class="text-xl font-semibold text-gray-800">No Questionnaires Yet</h2>
-                        <p class="text-gray-600">There are no questionnaires available right now. Please check back later or request one.</p>
+                        <p class="text-gray-600">There are no questionnaires available right now.Acquire a ticket that grants you access to one, or simply make yours <small>(click on the plus button above)</small>.</p>
                         <a href="#" class="inline-block mt-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-full hover:bg-blue-700 transition">
                             Request Questionnaire
                         </a>
@@ -213,7 +213,7 @@
 
                             <!-- Updated Message -->
                             <h2 class="text-xl font-semibold text-gray-800">Oops! No Resources</h2>
-                            <p class="text-gray-600">You dont have access to resources. Submit a ticket to request more.</p>
+                            <p class="text-gray-600">You dont have access to resources. Acquire a ticket to get access, or simply make yours <small>(click on the plus button above)</small>.</p>
 
                             <!-- Call to action button -->
                             <a href="#" class="inline-block mt-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-full hover:bg-blue-700 transition">

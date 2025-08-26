@@ -88,9 +88,8 @@ class CreateQuestions extends Component
         }
         Questions::where('questionaire',$this->QuestionaireId)->delete();
         foreach ($this->questionArray as $question) {
-            Questions::UpdateorCreate(
-            ['questionaire'=>$this->QuestionaireId]
-            ,$question
+            Questions::Create(
+            $question
         );
         }
         return redirect()->route('pages.questionaire',['id'=>$this->QuestionaireId]);
