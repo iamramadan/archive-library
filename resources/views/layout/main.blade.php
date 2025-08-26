@@ -21,7 +21,7 @@
             <div class="flex-1 hidden sm:block">
             <form  id="searchForm" method="GET" onsubmit="updateAction(event)">
                 <input type="text"
-                        id="searchForm"
+                        id="searchInput"
                        placeholder="Search archive..."
                        class="w-full px-4 py-2 rounded-full border border-gray-200 focus:outline-none focus:border-blue-500">
             </form>
@@ -46,33 +46,33 @@
                     <i class="fas fa-arrow-left text-lg"></i>
                 </a>
 
-                <div class="relative inline-block text-left group">
-                <!-- Dropdown Button -->
-                            <button
-                                class="inline-flex justify-center items-center w-full px-4 py-2 text-sm font-medium  bg-gray-500 text-white  rounded-md focus:outline-none"
-                            >
-                                <i class="fas fa-plus"></i>
-                                <!-- SVG chevron icon -->
-                                <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                                </svg>
-                            </button>
+                <div class="relative inline-block text-left">
+                    <!-- Dropdown Button -->
+                    <button id="dropdownButton"
+                            class="inline-flex justify-center items-center w-full px-4 py-2 text-sm font-medium bg-gray-500 text-white rounded-md focus:outline-none">
+                        <i class="fas fa-plus"></i>
+                        <!-- SVG chevron icon -->
+                        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
 
-                <!-- Dropdown Menu (shown on hover) -->
-                        <div class="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden group-:block z-10">
-                            <div class="py-1">
-                                <a href="{{route('create.note')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    Create Notes
-                                </a>
-                                <a href="{{route('create.resources')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    Resources
-                                </a>
-                                <a href="{{route('create.questionaires')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    Questionnaire
-                                </a>
-                            </div>
+                    <!-- Dropdown Menu -->
+                    <div id="dropdownMenu" class="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden z-10">
+                        <div class="py-1">
+                            <a href="{{route('create.note')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                Create Notes
+                            </a>
+                            <a href="{{route('create.resources')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                Resources
+                            </a>
+                            <a href="{{route('create.questionaires')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                Questionnaire
+                            </a>
                         </div>
+                    </div>
                 </div>
+
 
             </div>
 
@@ -101,17 +101,20 @@
     @stack('scripts')
     @livewireScripts
 <script>
-    function updateAction(event) {
-        const input = document.getElementById('queryInput').value.trim();
-        if (!input) {
-            event.preventDefault(); // block submission if empty
-            return;
-        }
+function updateAction(event) {
+    event.preventDefault(); // Prevent form from submitting immediately
 
-        // update form action before submit
-        const form = document.getElementById('searchForm');
-        form.action = '/search/result/' + input; // e.g. /books or /resources/my-query
+    const form = document.getElementById('searchForm');
+    const query = document.getElementById('searchInput').value.trim();
+
+    if(query) {
+        // Update the form action with the search query
+        form.action = `/search/result/${encodeURIComponent(query)}`;
+        form.submit(); // Submit the form with the new action
+    } else {
+        alert("Please enter a search term.");
     }
+}
 </script>
 <script>
     const btn = document.getElementById('mobileMenuBtn');
@@ -120,6 +123,22 @@
     btn.addEventListener('click', () => {
         dropdown.classList.toggle('hidden');
     });
+</script>
+
+<script>
+const dropdownButton = document.getElementById('dropdownButton');
+const dropdownMenu = document.getElementById('dropdownMenu');
+
+dropdownButton.addEventListener('click', () => {
+    dropdownMenu.classList.toggle('hidden');
+});
+
+// Close dropdown when clicking outside
+document.addEventListener('click', (event) => {
+    if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+        dropdownMenu.classList.add('hidden');
+    }
+});
 </script>
 
 </body>

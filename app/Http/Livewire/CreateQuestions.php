@@ -86,6 +86,7 @@ class CreateQuestions extends Component
             $this->msg = 'Questions Should Not Exceed 20';
             return;
         }
+        Questions::where('questionaire',$this->QuestionaireId)->delete();
         foreach ($this->questionArray as $question) {
             Questions::UpdateorCreate(
             ['questionaire'=>$this->QuestionaireId]
