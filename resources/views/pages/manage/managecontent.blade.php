@@ -97,7 +97,7 @@
 
                     <div class="space-y-4">
                         @foreach ($resources as $resource)
-                            <x-resources filetype="{{$resource->filetype}}" name="{{$resource->name}}" details="{{$resource->details}}" id="{{$resource->id}}" created_at="{{$resource->created_at}}" size="5"/>
+                            <x-resources filetype="{{$resource->filetype}}" name="{{$resource->name}}" details="{{$resource->details}}" id="{{$resource->id}}" created_at="{{$resource->created_at}}" size="{{ number_format(filesize(storage_path('app/public/files/'.$resource->filename))/1048576,3) }}"/>
                         @endforeach
                     </div>
 

@@ -76,7 +76,7 @@
                 </ul>
                 
                 <h3 class="font-semibold text-gray-800 mb-3 flex items-center">
-                    <i class="fas fa-filter text-gray-500 mr-2"></i> Filter by Type
+                    <i class="fas fa-filter text-gray-500 mr-2"></i> File Types Available
                 </h3>
                 <ul class="space-y-2">
                     <li class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-100 cursor-pointer">
@@ -209,7 +209,7 @@
                 @foreach ($resources as $resource)
                     <x-resource-card 
                         name="{{ $resource->name }}"
-                        size="{{ round(filesize(storage_path('app/public/files/'.$resource->filename))/1048576) }}"
+                        size="{{ number_format(filesize(storage_path('app/public/files/'.$resource->filename))/1048576,3) }}"
                         details="{{ $resource->details}}"
                         uploaded_at="{{ $resource->created_at}}"
                         author="{{ username($resource->author)}}"

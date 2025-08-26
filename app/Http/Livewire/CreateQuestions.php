@@ -82,6 +82,7 @@ class CreateQuestions extends Component
 
     public function submit(){
         $this->isloading = true;
+        $this->addQuestions();
         if(count($this->questionArray) > 20){
             $this->msg = 'Questions Should Not Exceed 20';
             return;
