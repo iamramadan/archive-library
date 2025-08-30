@@ -19,7 +19,7 @@
             @csrf
             <input name="id" value="{{$id}}" type="hidden"/>
             <div class="flex justify-center space-x-4">
-                <a href="#" class="px-6 py-2 text-gray-600 hover:text-gray-800">Cancel</a>
+                <a href="{{url()->previous()}}" class="px-6 py-2 text-gray-600 hover:text-gray-800">Cancel</a>
                 <button class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors">
                     Confirm Delete
                 </button>

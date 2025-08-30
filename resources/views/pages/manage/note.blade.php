@@ -97,7 +97,6 @@
             <!-- Notes Grid -->
                 @forelse($notes as $note)
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        @foreach($notes as $note)
                             <x-note-card
                                 title="{{ $note->title }}"
                                 body="{!! $note->body !!}"
@@ -106,7 +105,6 @@
                                 created_at="{{ $note->created_at->format('M d, Y') }}"
                                 updated_at="{{ $note->updated_at->format('M d, Y') }}"
                             />
-                        @endforeach
                     </div>
 
                 @empty

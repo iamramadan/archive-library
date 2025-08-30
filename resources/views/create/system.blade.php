@@ -34,7 +34,7 @@
                 <!-- Form Actions -->
                 <div class="pt-6 border-t border-gray-200">
                     <div class="flex justify-end gap-3">
-                        <a href="#" class="px-6 py-2 text-gray-600 hover:text-gray-800">Cancel</a>
+                        <a href="{{url()->previous()}}" class="px-6 py-2 text-gray-600 hover:text-gray-800">Cancel</a>
                         <button type="submit"
                                 class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
                             Create Institution
