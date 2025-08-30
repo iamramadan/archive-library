@@ -124,7 +124,7 @@
 
             <!-- Pagination -->
             <div class="mt-10 flex justify-center">
-                {{$notes->link()}}
+                {{$notes->links()}}
             </div>
         </div>
     </div>
