@@ -5,7 +5,7 @@
     <main class="max-w-3xl mx-auto p-4 mt-8">
         <!-- Create New Button -->
         <div class="mb-8 text-right">
-            <a href="{{route('create.system')}}" 
+            <a href="{{route('create.system')}}"
                class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
                 Create New Institution
             </a>
@@ -58,6 +58,7 @@
                     </div>
                 </div>
             </div>
+            <a href="{{route('pages.institution',['name'=>$institute->name])}}">
                 <div class="flex items-start gap-4">
                     <x-image name="{{ $institute->logo }}" class="w-16 h-16 rounded-lg" />
                     <div class="flex-1">
@@ -65,21 +66,22 @@
                         <p class="text-sm text-gray-600 mb-4">{{ Str::limit($institute->about,50) }}</p>
                         <div class="flex items-center justify-between text-sm text-gray-500">
                             <div class="space-x-2">
-                                <span>📚 Resources</span>
+                                {{-- <span>📚 Resources</span> --}}
                                 <span>👥 245 Members</span>
                             </div>
                             <a href="{{route('pages.institution',['name'=>$institute->name])}}" class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">View</a>
                         </div>
                     </div>
                 </div>
+            </a>
 </div>
 
             @endforeach
             <!-- Empty State -->
         </div>
         @endif
-        
-        
+
+
     </main>
 @endsection
 @push('scripts')
@@ -87,7 +89,7 @@
         // Simple empty state toggle (remove if implementing backend)
         const institutions = document.querySelectorAll('.bg-white.rounded-xl');
         const emptyState = document.getElementById('emptyState');
-        
+
         if(institutions.length === 0) {
             emptyState.style.display = 'block';
         }

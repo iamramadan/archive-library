@@ -32,7 +32,7 @@
                             @endphp
                                 <span>{{$filesize}} MB</span>
                             </div>
-                            <div class="mt-2 text-sm text-gray-400">Last updated: {{}}</div>
+                            <div class="mt-2 text-sm text-gray-400">Last updated: {{$item->updated_at}}</div>
                         </div>
                     </div>
                 </div>

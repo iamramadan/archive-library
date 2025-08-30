@@ -163,25 +163,25 @@
                         </div>
                     @endforelse
 @php
-    $currentPage = $questionnaires['current_page'];
-    $totalPages = $questionnaires['last_page'];
+    $currentPage = $questionaires['current_page'];
+    $totalPages = $questionaires['last_page'];
 @endphp
 
-@if($questionnaires['total'] > 1)
+@if($questionaires['total'] > 1)
 <nav class="flex justify-center space-x-2 mt-4">
-    <a href="{{ $currentPage > 1 ? $questionnaires['path'].'?page='.($currentPage - 1) : '#' }}"
+    <a href="{{ $currentPage > 1 ? $questionaires['path'].'?page='.($currentPage - 1) : '#' }}"
        class="px-3 py-1 rounded border {{ $currentPage == 1 ? 'text-gray-400 cursor-not-allowed' : 'hover:bg-gray-200' }}">
         Previous
     </a>
 
     @for ($page = 1; $page <= $totalPages; $page++)
-        <a href="{{ $questionnaires['path'].'?page='.$page }}"
+        <a href="{{ $questionaires['path'].'?page='.$page }}"
            class="px-3 py-1 rounded border {{ $currentPage == $page ? 'bg-blue-600 text-white border-blue-600' : 'text-gray-700 hover:bg-gray-200' }}">
             {{ $page }}
         </a>
     @endfor
 
-    <a href="{{ $currentPage < $totalPages ? $questionnaires['path'].'?page='.($currentPage + 1) : '#' }}"
+    <a href="{{ $currentPage < $totalPages ? $questionaires['path'].'?page='.($currentPage + 1) : '#' }}"
        class="px-3 py-1 rounded border {{ $currentPage == $totalPages ? 'text-gray-400 cursor-not-allowed' : 'hover:bg-gray-200' }}">
         Next
     </a>

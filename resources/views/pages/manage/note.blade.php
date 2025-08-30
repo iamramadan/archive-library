@@ -11,7 +11,7 @@
                 <a href="{{route('create.note')}}" class="w-full mb-4 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg flex items-center justify-center">
                     <i class="fas fa-plus mr-2"></i> New Note
                 </a>
-                
+
                 <h3 class="font-semibold text-gray-800 mb-3 flex items-center">
                     <i class="fas fa-folder text-gray-500 mr-2"></i> Collections
                 </h3>
@@ -22,7 +22,7 @@
                             <span class="ml-auto text-gray-500">{{$notes->count()}}</span>
                         </a>
                     </li>
-                    @foreach ($systems as $system) 
+                    @foreach ($systems as $system)
                     <li>
                         <a href="?system={{$system->name}}" class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-100">
                             <i class="fas fa-bookmark mr-2 text-blue-500"></i>{{$system->name}}
@@ -35,7 +35,7 @@
                     </li>
                     @endforeach
                 </ul>
-                
+
                 <h3 class="font-semibold text-gray-800 mb-3 flex items-center">
                     <i class="fas fa-tags text-gray-500 mr-2"></i> Tags
                 </h3>
@@ -58,7 +58,7 @@
                         @if (isset($_GET['system']))
                         <h2 class="text-2xl font-bold text-gray-800 flex items-center">
                             <i class="far fa-file-alt text-blue-500 mr-2">{{Ucwords($_GET['system'])}} Notes</i>
-                        </h2> 
+                        </h2>
                         <a class="text-gray-600" href="{{route('pages.institution',['name'=>$_GET['system']])}}">View Institution</a>
                         @else
                         <h2 class="text-2xl font-bold text-gray-800 flex items-center">
@@ -80,7 +80,7 @@
                         </button>
                     </div> --}}
                 </div>
-                
+
                 <div class="flex flex-wrap gap-4 mt-6">
                     <div class="flex items-center px-4 py-2 bg-blue-50 rounded-lg">
                         <div class="text-blue-600 mr-2">
@@ -93,12 +93,22 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Notes Grid -->
                 @forelse($notes as $note)
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <x-note-card title="{{$note->title}}" body="{!! $note->body !!}" system="{{Ucwords(SystemName($note->system))}}" id="{{$note->id}}" created_at="{{$note->created_at}}" updated_at="{{$note->updated_at}}" />
+                        @foreach($notes['data'] as $note)
+                            <x-note-card
+                                title="{{ $note['title'] }}"
+                                body="{!! $note['body'] !!}"
+                                system="{{ ucwords(SystemName($note['system'])) }}"
+                                id="{{ $note['id'] }}"
+                                created_at="{{ $note['created_at'] }}"
+                                updated_at="{{ $note['updated_at'] }}"
+                            />
+                        @endforeach
                     </div>
+
                 @empty
                         <div class="flex justify-center mt-8 mb-4">
                             <a href="{{ route('create.note') }}"
@@ -111,22 +121,10 @@
                         </div>
 
                 @endforelse
-            
+
             <!-- Pagination -->
             <div class="mt-10 flex justify-center">
-                <nav class="flex items-center gap-1">
-                    <button class="h-10 w-10 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-100">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="h-10 w-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-medium">1</button>
-                    <button class="h-10 w-10 rounded-full flex items-center justify-center text-gray-700 hover:bg-gray-100 font-medium">2</button>
-                    <button class="h-10 w-10 rounded-full flex items-center justify-center text-gray-700 hover:bg-gray-100 font-medium">3</button>
-                    <button class="h-10 w-10 rounded-full flex items-center justify-center text-gray-500">...</button>
-                    <button class="h-10 w-10 rounded-full flex items-center justify-center text-gray-700 hover:bg-gray-100 font-medium">6</button>
-                    <button class="h-10 w-10 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-100">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </nav>
+                {{$notes->link()}}
             </div>
         </div>
     </div>
