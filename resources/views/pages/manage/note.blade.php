@@ -19,7 +19,7 @@
                     <li>
                         <a href="{{route('pages.manage.notes')}}" class="sidebar-item flex items-center px-3 py-2 rounded-lg active">
                             <i class="far fa-file-alt mr-2"></i> All Notes
-                            <span class="ml-auto text-gray-500">{{$notes->count()}}</span>
+                            <span class="ml-auto text-gray-500">{{$all}}</span>
                         </a>
                     </li>
                     @foreach ($systems as $system)
@@ -99,12 +99,12 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach($notes['data'] as $note)
                             <x-note-card
-                                title="{{ $note['title'] }}"
-                                body="{!! $note['body'] !!}"
-                                system="{{ ucwords(SystemName($note['system'])) }}"
-                                id="{{ $note['id'] }}"
-                                created_at="{{ $note['created_at'] }}"
-                                updated_at="{{ $note['updated_at'] }}"
+                                title="{{ $note->title }}"
+                                body="{!! $note->body !!}"
+                                system="{{ ucwords(SystemName($note->system)) }}"
+                                id="{{ $note->id }}"
+                                created_at="{{ $note->created_at->format('M d, Y') }}"
+                                updated_at="{{ $note->updated_at->format('M d, Y') }}"
                             />
                         @endforeach
                     </div>

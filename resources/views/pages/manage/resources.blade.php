@@ -62,14 +62,16 @@
                     <li>
                         <a href="{{route('pages.manage.resources')}}" class="sidebar-item flex items-center px-3 py-2 rounded-lg @if(!$_GET) active @endif">
                             <i class="fas fa-box-open mr-2"></i> All Resources
-                            <span class="ml-auto text-gray-500">{{count($resources)}}</span>
+                            <span class="ml-auto text-gray-500">{{$all}}</span>
                         </a>
                     </li>
                     @foreach ($systems as $system)
                     <li>
                         <a href="?system={{$system->name}}" class="sidebar-item flex items-center px-3 py-2 rounded-lg @if($_GET && $_GET['system'] === $system->name) active @endif">
                             <i class="fas fa-box-open mr-2"></i> {{Ucwords($system->name)}}
+                            @if ($_GET && $_GET['system'] === $system->name)              
                             <span class="ml-auto text-gray-500">{{count($resources)}}</span>
+                            @endif
                         </a>
                     </li>
                     @endforeach

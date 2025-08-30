@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
+use App\Models\Result;
 use App\Models\System;
 use Illuminate\Http\Request;
 use App\Models\Questionaires;
-use App\Models\Result;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class QuestionairesController extends Controller
@@ -29,7 +29,7 @@ public function show(Request $request) {
         : (clone $base)->get();
 
     $systems = System::all();
-
+    $all = (clone $base)->count();
     $systemCounts = Questionaires::select('system', DB::raw('COUNT(*) as total'))
         ->where('author', $authorId)
         ->groupBy('system')
@@ -37,7 +37,7 @@ public function show(Request $request) {
 
     $all = (clone $base)->count();
 
-    return view('pages.manage.questionaire', compact('questionaires','systems','all','systemCounts','currentSystem'));
+    return view('pages.manage.questionaire', compact('all','questionaires','systems','all','systemCounts','currentSystem'));
 }
 
     public function store(Request $request ){

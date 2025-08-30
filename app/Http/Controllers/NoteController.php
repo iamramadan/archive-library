@@ -12,11 +12,12 @@ use App\Models\Scopes\ContributableSystems;
 class NoteController extends Controller
 {
     public function show(){
+        $all = Note::where('author',Auth::user()->id)->count();
         $notes =  ($_GET) ?
          Note::where('author',Auth::user()->id)->where('system',System::where('name',$_GET['system'])->value('id'))->paginate(10)
          : Note::where('author',Auth::user()->id)->get();
         $systems = System::all();
-        return view('pages.manage.note',compact(['notes','systems']));
+        return view('pages.manage.note',compact(['all','notes','systems']));
     }
     public function CreateNotesPage(){
         $AvailableSystems = System::all();

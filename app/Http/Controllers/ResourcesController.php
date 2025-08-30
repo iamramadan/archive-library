@@ -14,9 +14,10 @@ class ResourcesController extends Controller
         ? Resources::where('author',Auth::user()->id)->where('system',System::where('name',$_GET['system'])->value('id'))->get()
         : Resources::where('author',Auth::user()->id)->get();
         $systems = System::all();
+        $all = Resources::where('author',Auth::user()->id)->count();
         $TotalResources = Resources::count();
         $UploadedToday = Resources::where('created_at','>',now()->startOfDay())->count();
-        return view('pages.manage.resources',compact(['systems','resources','TotalResources','UploadedToday']));
+        return view('pages.manage.resources',compact(['systems','all','resources','TotalResources','UploadedToday']));
     }
     public function CreateResourcesPage(){
         $AvailableSystems = System::all();
