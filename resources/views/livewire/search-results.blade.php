@@ -98,7 +98,11 @@
                                 </a>
                                 </div>
                     @endforelse
-                    {{-- {{dd($notes)}} --}}
+ @php
+    $currentPage = $notes['current_page'];
+    $totalPages = $notes['last_page'];
+@endphp
+
 @if($notes['total'] > 1)
 <nav class="flex justify-center space-x-2 mt-4">
     {{-- Previous button --}}
@@ -109,7 +113,7 @@
 
     {{-- Page numbers --}}
     @for ($page = 1; $page <= $totalPages; $page++)
-        <a href='?page='.{{$page}}
+        <a href="{{ $notes['path'].'?page='.$page }}"
            class="px-3 py-1 rounded border {{ $currentPage == $page ? 'bg-blue-600 text-white border-blue-600' : 'text-gray-700 hover:bg-gray-200' }}">
             {{ $page }}
         </a>
@@ -158,29 +162,32 @@
                         </a>
                         </div>
                     @endforelse
-@if($questionaires['total'] > 1)
+@php
+    $currentPage = $questionnaires['current_page'];
+    $totalPages = $questionnaires['last_page'];
+@endphp
+
+@if($questionnaires['total'] > 1)
 <nav class="flex justify-center space-x-2 mt-4">
-    {{-- Previous button --}}
-    <a href="{{ $currentPage > 1 ? $notes['path'].'?page='.($currentPage - 1) : '#' }}"
+    <a href="{{ $currentPage > 1 ? $questionnaires['path'].'?page='.($currentPage - 1) : '#' }}"
        class="px-3 py-1 rounded border {{ $currentPage == 1 ? 'text-gray-400 cursor-not-allowed' : 'hover:bg-gray-200' }}">
         Previous
     </a>
 
-    {{-- Page numbers --}}
     @for ($page = 1; $page <= $totalPages; $page++)
-        <a href='?page='.{{$page}}
+        <a href="{{ $questionnaires['path'].'?page='.$page }}"
            class="px-3 py-1 rounded border {{ $currentPage == $page ? 'bg-blue-600 text-white border-blue-600' : 'text-gray-700 hover:bg-gray-200' }}">
             {{ $page }}
         </a>
     @endfor
 
-    {{-- Next button --}}
-    <a href="{{ $currentPage < $totalPages ? $notes['path'].'?page='.($currentPage + 1) : '#' }}"
+    <a href="{{ $currentPage < $totalPages ? $questionnaires['path'].'?page='.($currentPage + 1) : '#' }}"
        class="px-3 py-1 rounded border {{ $currentPage == $totalPages ? 'text-gray-400 cursor-not-allowed' : 'hover:bg-gray-200' }}">
         Next
     </a>
 </nav>
 @endif
+
 
                     @break
                 @case('resources')
@@ -221,30 +228,31 @@
                             </a>
                         </div>
                     @endforelse
+@php
+    $currentPage = $resources['current_page'];
+    $totalPages = $resources['last_page'];
+@endphp
+
 @if($resources['total'] > 1)
 <nav class="flex justify-center space-x-2 mt-4">
-    {{-- Previous button --}}
-    <a href="{{ $currentPage > 1 ? $notes['path'].'?page='.($currentPage - 1) : '#' }}"
+    <a href="{{ $currentPage > 1 ? $resources['path'].'?page='.($currentPage - 1) : '#' }}"
        class="px-3 py-1 rounded border {{ $currentPage == 1 ? 'text-gray-400 cursor-not-allowed' : 'hover:bg-gray-200' }}">
         Previous
     </a>
 
-    {{-- Page numbers --}}
     @for ($page = 1; $page <= $totalPages; $page++)
-        <a href='?page='.{{$page}}
+        <a href="{{ $resources['path'].'?page='.$page }}"
            class="px-3 py-1 rounded border {{ $currentPage == $page ? 'bg-blue-600 text-white border-blue-600' : 'text-gray-700 hover:bg-gray-200' }}">
             {{ $page }}
         </a>
     @endfor
 
-    {{-- Next button --}}
-    <a href="{{ $currentPage < $totalPages ? $notes['path'].'?page='.($currentPage + 1) : '#' }}"
+    <a href="{{ $currentPage < $totalPages ? $resources['path'].'?page='.($currentPage + 1) : '#' }}"
        class="px-3 py-1 rounded border {{ $currentPage == $totalPages ? 'text-gray-400 cursor-not-allowed' : 'hover:bg-gray-200' }}">
         Next
     </a>
 </nav>
 @endif
-
                     @break
                 @default
 
