@@ -14,8 +14,8 @@ class NoteController extends Controller
     public function show(){
         $all = Note::where('author',Auth::user()->id)->count();
         $notes =  ($_GET) ?
-         Note::where('author',Auth::user()->id)->where('system',System::where('name',$_GET['system'])->value('id'))->paginate(10)
-         : Note::where('author',Auth::user()->id)->get();
+         Note::where('author',Auth::user()->id)->where('system',System::where('name',$_GET['system'])->value('id'))->paginate(9)
+         : Note::where('author',Auth::user()->id)->paginate(9);
         $systems = System::all();
         return view('pages.manage.note',compact(['all','notes','systems']));
     }
