@@ -95,8 +95,9 @@
             </div>
 
             <!-- Notes Grid -->
-                @forelse($notes as $note)
+                
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+			@forelse($notes as $note)
                             <x-note-card
                                 title="{{ $note->title }}"
                                 body="{!! $note->body !!}"
@@ -105,9 +106,8 @@
                                 created_at="{{ $note->created_at->format('M d, Y') }}"
                                 updated_at="{{ $note->updated_at->format('M d, Y') }}"
                             />
-                    </div>
-
-                @empty
+			@empty
+                    
                         <div class="flex justify-center mt-8 mb-4">
                             <a href="{{ route('create.note') }}"
                             class="flex items-center gap-2 text-blue-600 hover:bg-blue-100 hover:text-blue-700 font-semibold py-2 px-6 rounded-lg transition duration-200 ease-in-out">
@@ -119,6 +119,7 @@
                         </div>
 
                 @endforelse
+		</div>
 
             <!-- Pagination -->
             <div class="mt-10 flex justify-center">

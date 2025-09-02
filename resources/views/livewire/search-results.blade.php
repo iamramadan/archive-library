@@ -157,7 +157,7 @@
                         </svg>
                         <h2 class="text-xl font-semibold text-gray-800">No Questionnaires Yet</h2>
                         <p class="text-gray-600">There are no questionnaires available right now.Acquire a ticket that grants you access to one, or simply make yours <small>(click on the plus button above)</small>.</p>
-                        <a href="#" class="inline-block mt-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-full hover:bg-blue-700 transition">
+                        <a href="{{route('create.questionaire')}}" class="inline-block mt-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-full hover:bg-blue-700 transition">
                             Request Questionnaire
                         </a>
                         </div>
@@ -224,7 +224,7 @@
 
                             <!-- Call to action button -->
                             <a href="#" class="inline-block mt-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-full hover:bg-blue-700 transition">
-                                Submit Ticket
+                                Create Resource
                             </a>
                         </div>
                     @endforelse

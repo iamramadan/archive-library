@@ -15,7 +15,7 @@ class ContentToggler extends Component
 
     public function mount($InstitutionId)
     {
-        $this->content = Resources::where('system', $InstitutionId)->paginate(10);
+        $this->content = Resources::where('system', $InstitutionId)->paginate(10)->toArray();
         $this->InstitutionId = $InstitutionId;
     }
 
@@ -35,7 +35,7 @@ class ContentToggler extends Component
 
     public function SetContent($modelClass)
     {
-        $this->content = $modelClass::where('system', $this->InstitutionId)->paginate(10);
+        $this->content = $modelClass::where('system', $this->InstitutionId)->paginate(10)->toArray();
     }
 
     public function render()
