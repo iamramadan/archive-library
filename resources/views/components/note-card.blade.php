@@ -10,7 +10,7 @@
                                 </div>
                                 <h3 class="text-lg font-bold text-gray-800 mb-3">{{$title}}</h3>
                                 <p class="note-content text-gray-600 text-sm mb-4">
-                                        {!!clean_html_limit($body)!!} ...
+                                        {!!clean_html_limit($body,100)!!} ...
                                 </p>
                             </div>
                             <div class="note-actions  transition-opacity flex space-x-1">

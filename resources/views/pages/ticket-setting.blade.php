@@ -155,7 +155,7 @@
         </div>
 
         <!-- Create Ticket Section -->
-        <div id="create-section" class="space-y-8 @if(session('TicketMsg')) 'hidden' @endif ">
+        <div id="create-section" @class(['space-y-8','hidden' => session()->has('TicketMsg')])>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <!-- Form Section -->
                 <div class="bg-white card rounded-xl p-6">
@@ -323,7 +323,7 @@
         </div>
 
         <!-- Register Ticket Section (Hidden by default) -->
-        <div id="register-section" @if(!session('TicketMsg')) class="hidden" @endif>
+        <div id="register-section" @if(session()->missing('TicketMsg')) class="hidden" @endif>
        @if (session()->has('Ticketmsg'))
             <div id="msg-card" class="fixed top-6 left-1/2 transform -translate-x-1/2 bg-white/70 backdrop-blur-md shadow-lg text-blue-800 font-semibold px-6 py-3 rounded-xl transition-opacity duration-1000 opacity-100 z-50 mt-4 mx-4">
              {{Ucwords(session('Ticketmsg'))}}
@@ -402,7 +402,7 @@
                 </h2>
 
                 <div class="space-y-6 max-w-2xl mx-auto">
-                <form id="myForm" method="GET" onsubmit="updateAction()">
+                <form id="myForm" method="GET" onsubmit="SubmitToken(event)">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Ticket Code</label>
                         <div class="relative">
@@ -413,7 +413,7 @@
                             </div>
                             {{-- <x-error name=""> --}}
                             <input type="text"
-                                    id="id"
+                                    id="token"
                                    placeholder="Enter 16-digit ticket code"
                                    class="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-blue-200 focus:outline-none input-focus transition">
                         </div>
@@ -429,7 +429,7 @@
                         </div>
                     </div>
 
-                    <button class="w-full mt-4 flex items-center justify-center py-3 px-4 bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-700 hover:to-indigo-800 text-white font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
+                    <button type="submit" class="w-full mt-4 flex items-center justify-center py-3 px-4 bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-700 hover:to-indigo-800 text-white font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                         </svg>
@@ -443,6 +443,23 @@
     </main>
 @endsection
 @push('scripts')
+    <script>
+function SubmitToken(event) {
+    const id = document.getElementById('token').value;
+
+    // Check if the input is empty
+    if (!id) {
+        event.preventDefault();
+        alert('Please enter a token.');
+        return;
+    }
+
+    // Set form action dynamically
+    const form = document.getElementById('myForm');
+    form.action = "/register-tickets/" + encodeURIComponent(id);
+}
+</script>
+
     <script>
         document.getElementById('create-tab').addEventListener('click', function() {
             document.getElementById('create-section').classList.remove('hidden');
@@ -497,13 +514,7 @@
                 return true;
             }
         </script>
-        <script>
-            function updateAction() {
-                const id = document.getElementById('id').value;
-                const form = document.getElementById('myForm');
-                form.action = "{{ url('/register-tickets') }}/" + encodeURIComponent(id);
-            }
-        </script>
+        
             <script>
             window.addEventListener("load", () => {
                 setTimeout(() => {

@@ -72,7 +72,7 @@
                                 <a href="{{route('pages.note',['id'=>$note['id']])}}" class="result-url">archlib.edu › notes › {{$note['title']}}</span>
                             </div>
                             <a href="#" class="result-title text-xl font-medium mb-1 inline-block">{!!highlightWord($note['title'],$query)!!}</a>
-                            <p class="text-gray-700 mb-2">{!!highlightWord(Str::limit($note['body'],50),$query)!!}</p>
+                            <p class="text-gray-700 mb-2">{!!highlightWord(clean_html_limit($note['body'],50),$query)!!}</p>
                             <div class="flex flex-wrap gap-2 mt-3">
                                 <span class="tag"><i class="fas fa-sticky-note mr-1"></i>Notes</span>
                                 <span class="tag"><i class="fas fa-eye mr-1"></i>Published on: {{Carbon\Carbon::parse($note['created_at'])->format('d M Y')}}</span>

@@ -15,9 +15,7 @@
 <header class="bg-white shadow-sm flex items-center justify-between px-4 py-3 relative">
     <!-- Left: Static Logo -->
     <a href="{{ route('index') }}" class="text-xl sm:text-2xl font-bold text-gray-800">
-    @section('title')
-        ARCHLIB
-    @show
+    ARCHLIB
     </a>
 
     <!-- Center: Page Heading -->

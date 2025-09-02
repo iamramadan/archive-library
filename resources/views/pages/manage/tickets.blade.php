@@ -30,7 +30,7 @@
         </div>
         <div class="bg-green-50 p-3 rounded-lg border border-green-100">
             <div class="text-green-800 font-medium">Collaborators</div>
-            <div class="text-2xl font-bold text-green-600">{{}}</div>
+            <div class="text-2xl font-bold text-green-600"></div>
         </div>
         <div class="bg-red-50 p-3 rounded-lg border border-red-100">
             <div class="text-red-800 font-medium">Expired</div>

@@ -18,7 +18,7 @@ class Ticket extends Model
     public function System(){
         return $this->belongsTo(System::class,'system');
     }
-    public function Users(){
-        return $this->belongsToMany(User::class, 'ticket','user' );
+    public function User(){
+        return $this->belongsToMany(User::class,'users_tickets', 'ticket','user' );
     }
 }

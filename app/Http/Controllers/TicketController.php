@@ -53,14 +53,16 @@ class TicketController extends Controller
     }
 
     // Check if the ticket usage has reached its maximum limit
-    if ($ticket->Users()->count() >= $ticket->max_usage) {
+    if ($ticket->User()->count() >= $ticket->max_usage) {
         return back()->with('Ticketmsg', 'This ticket has reached its usage limit.');
     }
 
     // Check if the user has already registered this ticket
-    if (Auth::user()->tickets->contains($ticket->id)) {
+    // dd(Auth::user()->Ticket()->where('tickets.id',$ticket->id)->get());
+    if (Auth::user()->Ticket()->where('tickets.id',$ticket->id)->exists()) {
         return back()->with('Ticketmsg', 'You have already registered this ticket.');
     }
+    // dd($ticket);
 
     // Attach the ticket to the user
     Auth::user()->Ticket()->attach($ticket->id);

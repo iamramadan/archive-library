@@ -49,7 +49,7 @@
 
                 <button type="submit" 
                         class="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
-                    Log In
+                    Register
                 </button>
 
                 <p class="text-center text-gray-600 mt-4">

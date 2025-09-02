@@ -1,4 +1,4 @@
-@extends('layout.main')
+{{-- @extends('layout.main')
 @push('links')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -301,27 +301,361 @@
             </div>
         </div>
     </div>
+@endsection --}}
+@extends('layout.main')
+@push('links')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#0ea5e9',
+                        dark: '#1e293b',
+                        light: '#f8fafc',
+                        success: '#10b981',
+                        warning: '#f59e0b',
+                        danger: '#ef4444',
+                        academic: '#1e40af'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        .dashboard-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .content-container {
+            display: flex;
+            flex: 1;
+        }
+        
+        .sidebar {
+            width: 30%;
+            background: white;
+            border-right: 1px solid #e5e7eb;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+        
+        .main-content {
+            width: 70%;
+            padding: 1.5rem;
+            background-color: #f8fafc;
+            overflow-y: auto;
+        }
+        
+        .dashboard-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border-radius: 10px;
+            background: white;
+            overflow: hidden;
+        }
+        
+        .institution-card {
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border-left: 4px solid transparent;
+        }
+        
+        .institution-card.active {
+            border-left-color: #2563eb;
+            background-color: #eff6ff;
+        }
+        
+        .note-card {
+            transition: all 0.2s ease;
+        }
+        
+        .note-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .academic-header {
+            background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+        }
+        
+        .institution-logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 16px;
+            color: white;
+        }
+        
+        @media (max-width: 1024px) {
+            .content-container {
+                flex-direction: column;
+            }
+            
+            .sidebar, .main-content {
+                width: 100%;
+            }
+            
+            .sidebar {
+                border-right: none;
+                border-bottom: 1px solid #e5e7eb;
+            }
+        }
+        
+        .note-body-preview {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+@endpush
+@section('main')
+    <div class="content-container">
+        <!-- Sidebar (30% width) -->
+        <div class="sidebar">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Collections</h3>
+            
+            <div class="space-y-3">
+                <div class="institution-card {{ !request()->has('system') ? 'active' : '' }} p-3 rounded-lg" data-institution="all">
+                    <a href="{{ route('pages.manage.notes') }}" aria-current="{{ !request()->has('system') ? 'true' : 'false' }}">
+                        <div class="flex items-center">
+                            <div class="institution-logo bg-blue-500">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="flex-grow">
+                                <h4 class="font-semibold text-gray-800">All Notes</h4>
+                                <p class="text-xs text-gray-500">Showing all notes</p>
+                            </div>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">{{ $all }}</span>
+                        </div>
+                    </a>
+                </div>
+
+                @foreach ($systems as $system)
+                    @php
+                        $isActive = request('system') === $system->name;
+                        $slug = \Illuminate\Support\Str::slug($system->name);
+                        $countForSystem = $notes->where('system', $system->name)->count();
+                    @endphp
+                    <div class="institution-card {{ $isActive ? 'active' : '' }} p-3 rounded-lg" data-institution="{{ $slug }}">
+                        <a href="{{ route('pages.manage.notes', ['system' => $system->name]) }}" aria-current="{{ $isActive ? 'true' : 'false' }}">
+                            <div class="flex items-center">
+                                <div class="institution-logo bg-red-500">
+                                    <i class="fas fa-bookmark"></i>
+                                </div>
+                                <div class="flex-grow">
+                                    <h4 class="font-semibold text-gray-800">{{ ucwords($system->name) }}</h4>
+                                    @if ($isActive)
+                                        <p class="text-xs text-gray-500">{{ $countForSystem }} notes</p>
+                                    @endif
+                                </div>
+                                <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">{{ $countForSystem }}</span>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+            
+            <div class="mt-8">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Tags</h3>
+                <div class="tag-cloud flex flex-wrap gap-2">
+                    <span class="tag-research px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full cursor-pointer">Research</span>
+                    <span class="tag-analysis px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full cursor-pointer">Analysis</span>
+                    <span class="tag-methodology px-3 py-1 bg-purple-100 text-purple-800 text-sm rounded-full cursor-pointer">Methodology</span>
+                    <span class="tag-ideas px-3 py-1 bg-yellow-100 text-yellow-800 text-sm rounded-full cursor-pointer">Ideas</span>
+                    <span class="tag-reference px-3 py-1 bg-gray-100 text-gray-800 text-sm rounded-full cursor-pointer">Reference</span>
+                </div>
+            </div>
+            
+            <div class="mt-8">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Quick Actions</h3>
+                <div class="space-y-2">
+                    <a href="{{ route('create.note') }}" class="w-full flex items-center p-3 text-gray-700 rounded-lg hover:bg-blue-50 transition-colors">
+                        <i class="fas fa-plus-circle text-blue-500 mr-3"></i>
+                        <span>Create New Note</span>
+                    </a>
+                    <button class="w-full flex items-center p-3 text-gray-700 rounded-lg hover:bg-blue-50 transition-colors">
+                        <i class="fas fa-download text-green-500 mr-3"></i>
+                        <span>Export Notes</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content (70% width) -->
+        <div class="main-content">
+            <div class="max-w-6xl mx-auto">
+                <!-- Dashboard Header -->
+                <div class="mb-6 flex flex-col md:flex-row md:items-center md:justify-between">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800" id="institution-title">
+                            {{ request('system') ? ucwords(request('system')) . ' Notes' : 'All Notes' }}
+                        </h2>
+                        <p class="text-gray-600">Your collection of notes{{ request('system') ? ' for ' . ucwords(request('system')) : '' }}</p>
+                    </div>
+                    <div class="mt-4 md:mt-0">
+                        <div class="relative">
+                            <input type="text" placeholder="Search notes..." class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="dashboard-card p-6">
+                        <div class="flex items-center">
+                            <div class="p-3 bg-blue-100 rounded-lg mr-4">
+                                <i class="fas fa-sticky-note text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800">{{ $notes->count() }}</h3>
+                                <p class="text-gray-600">Total Notes</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card p-6">
+                        <div class="flex items-center">
+                            <div class="p-3 bg-green-100 rounded-lg mr-4">
+                                <i class="fas fa-check-circle text-success text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800">{{ $systems->count() }}</h3>
+                                <p class="text-gray-600">Collections</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card p-6">
+                        <div class="flex items-center">
+                            <div class="p-3 bg-purple-100 rounded-lg mr-4">
+                                <i class="fas fa-sync-alt text-warning text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800">—</h3>
+                                <p class="text-gray-600">Recently Updated</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Notes Grid -->
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold text-gray-800">Your Notes</h3>
+                    <div class="flex items-center text-sm">
+                        <span class="text-gray-500 mr-3">Sort by:</span>
+                        <select class="border border-gray-300 rounded-lg px-3 py-1 focus:ring-2 focus:ring-primary">
+                            <option>Date Created</option>
+                            <option>Last Modified</option>
+                            <option>Title</option>
+                            <option>Collection</option>
+                        </select>
+                    </div>
+                </div>
+
+                @if($notes->count())
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8" id="notes-container">
+                        @foreach($notes as $note)
+                            <div class="dashboard-card note-card" data-institution="{{ \Illuminate\Support\Str::slug($note->system ?? 'general') }}">
+                                <div class="p-6">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <div>
+                                            <span class="text-xs font-medium px-2.5 py-0.5 rounded bg-blue-100 text-blue-800">{{ ucwords(SystemName($note->system)) }}</span>
+                                            <h4 class="text-xl font-bold text-gray-800 mt-2">{{ $note->title }}</h4>
+                                        </div>
+                                        <div class="bg-gray-100 w-12 h-12 rounded-lg flex items-center justify-center">
+                                            <i class="fas fa-sticky-note text-gray-700 text-xl"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="note-body-preview text-gray-600 mb-4">
+                                        {!! strip_tags($note->body) !!}
+                                    </div>
+
+                                    <div class="flex items-center text-sm text-gray-500 mb-4">
+                                        <div class="flex items-center mr-4">
+                                            <i class="far fa-calendar-plus mr-2"></i>
+                                            <span>{{ $note->created_at->format('M d, Y') }}</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="far fa-calendar-check mr-2"></i>
+                                            <span>{{ $note->updated_at->format('M d, Y') }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex justify-between">
+                                        <a href="{{ route('pages.note', ['id' => $note->id]) }}" class="px-4 py-2 bg-primary hover:bg-blue-700 text-white rounded-lg text-sm">
+                                            View Note
+                                        </a>
+                                        <div class="flex space-x-2">
+                                            <a href="{{ route('edit.note', ['id' => $note->id]) }}" class="p-2 text-gray-500 hover:text-primary rounded-full hover:bg-gray-100">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="{{ route('delete.confirm', ['table' => 'note', 'id' => $note->id]) }}" class="p-2 text-gray-500 hover:text-red-500 rounded-full hover:bg-gray-100">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="dashboard-card p-8 mb-10">
+                        <div class="flex items-start">
+                            <div class="p-3 rounded-lg bg-gray-100 mr-4">
+                                <i class="fas fa-info-circle text-gray-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800">No notes found</h4>
+                                <p class="text-gray-600">There are no notes{{ request('system') ? ' under ' . ucwords(request('system')) : '' }} yet. Create your first note to get started.</p>
+                                <a href="{{ route('create.note') }}" class="inline-block mt-3 px-4 py-2 bg-primary hover:bg-blue-700 text-white rounded-lg text-sm">Create Note</a>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+                <!-- Pagination -->
+                <div class="mt-6 flex justify-center">
+                    {{ $notes->links() }}
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @push('scripts')
-    {{-- Optional client-side filtering left commented out; server-side filtering via query string is used. --}}
-    {{--
     <script>
+        // Optional: Add client-side filtering if needed
         const institutionCards = document.querySelectorAll('.institution-card');
-        const questionnaireItems = document.querySelectorAll('.questionnaire-item');
+        const noteItems = document.querySelectorAll('.note-card');
         
         institutionCards.forEach(card => {
             card.addEventListener('click', function(e) {
-                // If you ever switch back to client-side filtering, prevent link navigation
-                // e.preventDefault();
                 institutionCards.forEach(c => c.classList.remove('active'));
                 this.classList.add('active');
                 const selectedInstitution = this.getAttribute('data-institution');
-                document.getElementById('institution-title').textContent = selectedInstitution === 'all' ? 'All Institutions' : this.querySelector('h4').textContent;
-                questionnaireItems.forEach(item => {
+                document.getElementById('institution-title').textContent = selectedInstitution === 'all' ? 'All Notes' : this.querySelector('h4').textContent + ' Notes';
+                noteItems.forEach(item => {
                     item.style.display = (selectedInstitution === 'all' || item.getAttribute('data-institution') === selectedInstitution) ? 'block' : 'none';
                 });
             });
         });
     </script>
-    --}}
 @endpush

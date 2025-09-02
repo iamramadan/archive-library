@@ -25,7 +25,7 @@ class Resources extends Model
    public static function createIfContributor(array $data, $system, User $user)
 {
     $hasAccess = System::where('id', $system)->where('creator', $user->id)->exists() ||
-                 $user->tickets()->where('type', 'contributor')->where('system', $system)->exists();
+                 $user->Ticket()->where('type', 'contributor')->where('system', $system)->exists();
 
     return $hasAccess ? Resources::create($data) : null;
 }
