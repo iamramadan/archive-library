@@ -25,8 +25,8 @@ public function show(Request $request) {
     $base = Questionaires::where('author', $authorId);
     $system = System::where('name',$currentSystem)->value('id');
     $questionaires = $currentSystem
-        ? (clone $base)->where('system', $system)->get()
-        : (clone $base)->get();
+        ? (clone $base)->where('system', $system)->paginate(10)
+        : (clone $base)->paginate(10);
 
     $systems = System::all();
     $all = (clone $base)->count();

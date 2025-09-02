@@ -14,7 +14,7 @@ class SearchController extends Controller
     public function index($query){
         $query = str_replace("?", "", $query);
         $systems = System::where('creator',Auth::user()->id)
-        ->orWhereIn('id',Auth::user()->Ticket()->get('system')->toArray())
+        ->orWhereIn('id',Auth::user()->Ticket()->pluck('system')->toArray())
         ->get('id')->toArray();
         $notes = Note::where('title','like','%'.$query.'%')
                 ->orWhere('body','like','%'.$query.'%')
