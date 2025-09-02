@@ -41,7 +41,7 @@
         <!-- 🔽 Dropify File Upload -->
         <div>
           <x-error name="image"/>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Attach File</label>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Attach Image</label>
                     <input type="file"
                            name="image"
                           >

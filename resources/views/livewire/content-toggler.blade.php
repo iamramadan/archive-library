@@ -14,7 +14,7 @@
             @switch($contentDisplayed)
                 @case('resources')
                 @forelse ($content['data'] as $item)
-                <a href="{{ route('create.resources') }}" class="block">
+                <a href="{{ route('pages.resources',['id'=>$item['id']]) }}" class="block">
     <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6 transition-all transform hover:-translate-y-1 hover:scale-105 hover:shadow-lg duration-200 cursor-pointer hover:bg-gray-50">
         <!-- Title -->
         <h3 class="text-lg font-semibold text-gray-900">{{ $item['name'] }}</h3>
@@ -58,7 +58,7 @@
                     @break
                 @case('note')
                 @forelse ($content['data'] as $item)
-<a href="{{ route('create.note') }}" class="block">
+<a href="{{ route('pages.note',['id'=>$item['id']]) }}" class="block">
     <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6 transition-all transform hover:-translate-y-1 hover:scale-105 hover:shadow-lg duration-200 cursor-pointer hover:bg-gray-50">
         <!-- Title -->
         <h3 class="text-lg font-semibold text-gray-900">{{ $item['title'] }}</h3>
@@ -89,7 +89,7 @@
                     @break
                 @case('questionaires')
                 @forelse ($content['data'] as $item)
-<a href="{{ route('create.questionaires') }}" class="block">
+<a href="{{ route('pages.questionaire',['id'=>$item['id']]) }}" class="block">
     <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6 transition-all transform hover:-translate-y-1 hover:scale-105 hover:shadow-lg duration-200 cursor-pointer hover:bg-gray-50">
         <!-- Title -->
         <h3 class="text-xl font-bold text-gray-900">{{ ucwords($item['name']) }}</h3>

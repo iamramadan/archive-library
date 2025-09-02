@@ -72,7 +72,7 @@
         </div>
 
         <div class="flex justify-end space-x-3">
-          <button type="button" class="px-4 py-2 text-gray-600 hover:text-gray-800">Cancel</button>
+          <a href="{{url()->previous()}}" class="px-4 py-2 text-gray-600 hover:text-gray-800">Cancel</button>
           <button type="submit" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
             Update Note
           </button>
