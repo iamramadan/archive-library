@@ -175,10 +175,15 @@
                 <div class="bg-white rounded-xl shadow-sm p-6">
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-lg font-semibold text-gray-800">Your Institution</h3>
+			
                         <a href="{{route('create.system')}}" class="text-blue-600 hover:text-blue-700">
                             <i class="fas fa-plus"></i>
                         </a>
                     </div>
+			<div class="m-4">
+  <small>*All institutions here are created or contributed to by you</small>
+</div>
+
                     <div class="space-y-4">
                     @foreach ($systems as $system)
 
