@@ -18,8 +18,8 @@ class TicketController extends Controller
         return view('pages.ticket-setting',compact(['systems','SystemsWithTickets','tickets']));
     }
     public function CreateTickets(Request $request){
-        $data =$request->validate([
-            'quantity'=>'required|integer|min:2|max:30',
+        $data = $request->validate([
+            'quantity'=>'required|integer',
             'expires_at'=>'required|date|after:'.now(),
             'type'=>'required',
             'system'=>'required',
@@ -61,6 +61,9 @@ class TicketController extends Controller
     // dd(Auth::user()->Ticket()->where('tickets.id',$ticket->id)->get());
     if (Auth::user()->Ticket()->where('tickets.id',$ticket->id)->exists()) {
         return back()->with('Ticketmsg', 'You have already registered this ticket.');
+    }
+    if (Auth::user()->Ticket()->where('tickets.expires_at','<',now())->exists()) {
+        return back()->with('Ticketmsg', 'Ticket has expired.');
     }
     // dd($ticket);
 
