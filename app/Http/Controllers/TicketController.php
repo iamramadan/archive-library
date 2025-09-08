@@ -19,11 +19,11 @@ class TicketController extends Controller
     }
     public function CreateTickets(Request $request){
         $data = $request->validate([
-            'quantity'=>'required|integer,min:0',
+            'quantity'=>'required|integer|min:0',
             'expires_at'=>'required|date|after:'.now(),
             'type'=>'required',
             'system'=>'required',
-            'max_usage'=>'required,integer,min:1',
+            'max_usage'=>'required|integer|min:1',
         ]);
         // dd($data);
         for ($i=0; $i < $request->quantity; $i++) {
