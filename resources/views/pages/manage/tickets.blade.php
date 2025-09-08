@@ -12,25 +12,24 @@
             {{ ucwords($system->name) }}
         </h2>
         <div class="flex items-center space-x-2">
-            <a href="#" class="text-sm text-blue-600 font-medium hover:underline">View All</a>
-            <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-md text-sm flex items-center">
+            <a href="{{route('pages.ticket-settings')}}" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-md text-sm flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                 </svg>
                 New Ticket
-            </button>
+            </a>
         </div>
     </div>
 
     <!-- Stats Summary -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
         <div class="bg-blue-50 p-3 rounded-lg border border-blue-100">
-            <div class="text-blue-800 font-medium">Total Tickets</div>
+            <div class="text-blue-800 font-medium">Showing Tickets</div>
             <div class="text-2xl font-bold text-blue-600">{{$tickets->count()}}</div>
         </div>
         <div class="bg-green-50 p-3 rounded-lg border border-green-100">
             <div class="text-green-800 font-medium">Collaborators</div>
-            <div class="text-2xl font-bold text-green-600"></div>
+            <div class="text-2xl font-bold text-green-600">{{$tickets->where('type','contributor')->count()}}</div>
         </div>
         <div class="bg-red-50 p-3 rounded-lg border border-red-100">
             <div class="text-red-800 font-medium">Expired</div>
