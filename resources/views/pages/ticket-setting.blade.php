@@ -155,7 +155,7 @@
         </div>
 
         <!-- Create Ticket Section -->
-        <div id="create-section" @class(['space-y-8','hidden' => session()->has('TicketMsg')])>
+        <div id="create-section" @class(['space-y-8','hidden' => session()->has('Ticketmsg')])>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <!-- Form Section -->
                 <div class="bg-white card rounded-xl p-6">
@@ -323,7 +323,7 @@
         </div>
 
         <!-- Register Ticket Section (Hidden by default) -->
-        <div id="register-section" @if(session()->missing('TicketMsg')) class="hidden" @endif>
+        <div id="register-section" @if(session()->missing('Ticketmsg')) class="hidden" @endif>
        @if (session()->has('Ticketmsg'))
             <div id="msg-card" class="fixed top-6 left-1/2 transform -translate-x-1/2 bg-white/70 backdrop-blur-md shadow-lg text-blue-800 font-semibold px-6 py-3 rounded-xl transition-opacity duration-1000 opacity-100 z-50 mt-4 mx-4">
              {{Ucwords(session('Ticketmsg'))}}
@@ -365,7 +365,7 @@
                         <span class="tag bg-green-100 text-green-800">
                             <span class="status-dot bg-green-500"></span> Active
                         </span>
-                        <form method="POST" action="{{ route('delete.ticket', $ticket->id) }}" class="inline">
+                        <form method="POST" action="{{ route('delete.tickets.detach', $ticket->id) }}" class="inline">
                             @csrf
                             @method('DELETE')
                             <button class="text-gray-500 hover:text-primary p-2 rounded-full hover:bg-blue-50">

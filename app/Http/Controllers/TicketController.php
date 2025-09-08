@@ -19,11 +19,11 @@ class TicketController extends Controller
     }
     public function CreateTickets(Request $request){
         $data = $request->validate([
-            'quantity'=>'required|integer',
+            'quantity'=>'required|integer,min:0',
             'expires_at'=>'required|date|after:'.now(),
             'type'=>'required',
             'system'=>'required',
-            'max_usage'=>'required'
+            'max_usage'=>'required,integer,min:1',
         ]);
         // dd($data);
         for ($i=0; $i < $request->quantity; $i++) {
@@ -75,5 +75,9 @@ class TicketController extends Controller
 public function delete($id){
     Ticket::find($id)->delete();
     return back()->with('msg','Ticket deleted successfully');
-    }
+}
+   public function detach($id){
+    auth()->user()->tickets()->detach($id);
+    return back()->with('Ticketmsg', 'Ticket detached successfully. You wont be able access content using this ticket again');
+}
 }
