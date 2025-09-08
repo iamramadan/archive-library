@@ -21,9 +21,9 @@
           <button class="p-2 text-blue-500 hover:bg-blue-100 rounded-full" title="View Form">
             <i class="fas fa-eye"></i>
           </button>
-          <button class="p-2 text-green-500 hover:bg-green-100 rounded-full" title="Edit Form">
+          <a href="{{route('create.questions',['id'=>$id])}}" class="p-2 text-green-500 hover:bg-green-100 rounded-full" title="Edit Form">
             <i class="fas fa-edit"></i>
-          </button>
+          </a>
         </div>
       </div>
     </a>

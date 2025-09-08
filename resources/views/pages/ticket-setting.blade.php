@@ -343,7 +343,7 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="font-bold text-gray-800"><a href="{{route('pages.institution',['name'=>SystemName($ticket->system)])}}">{{strtoupper(SystemName($ticket->system))}} Access</a></h3>
+                                {{-- <h3 class="font-bold text-gray-800"><a href="{{route('pages.institution',['name'=>SystemName($ticket->system)])}}">{{strtoupper(SystemName($ticket->system))}} Access</a></h3> --}}
                                 {{-- <p class="text-sm text-gray-600 mt-1">Massachusetts Institute of Technology</p> --}}
                             </div>
                         </div>

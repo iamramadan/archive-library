@@ -34,7 +34,7 @@
         </div>
         <div class="bg-red-50 p-3 rounded-lg border border-red-100">
             <div class="text-red-800 font-medium">Expired</div>
-            <div class="text-2xl font-bold text-red-600">2</div>
+            <div class="text-2xl font-bold text-red-600">{{$tickets->where('expires_at','<',now())->count()}}</div>
         </div>
     </div>
 
