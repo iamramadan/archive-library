@@ -15,7 +15,7 @@ class SearchController extends Controller
     public function index($query){
         $query = str_replace("?", "", $query);
         $systems = System::withoutGlobalScope(new ContributableSystems())
-        ->WhereIn('id',Auth::user()->Ticket()->where('tickets.expires_at','<',now())->pluck('system')->toArray())
+        ->WhereIn('id',Auth::user()->Ticket()->pluck('system')->toArray())
         ->orWhere('creator',Auth::user()->id)
         ->pluck('id')
         ->toArray();

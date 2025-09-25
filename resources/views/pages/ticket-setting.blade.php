@@ -323,7 +323,7 @@
         </div>
 
         <!-- Register Ticket Section (Hidden by default) -->
-        <div id="register-section" @if(session()->missing('Ticketmsg')) class="hidden" @endif>
+        <div id="register-section" @if(session()->missing('Ticketmsg')) class="hidden active" @endif>
        @if (session()->has('Ticketmsg'))
             <div id="msg-card" class="fixed top-6 left-1/2 transform -translate-x-1/2 bg-white/70 backdrop-blur-md shadow-lg text-blue-800 font-semibold px-6 py-3 rounded-xl transition-opacity duration-1000 opacity-100 z-50 mt-4 mx-4">
              {{Ucwords(session('Ticketmsg'))}}

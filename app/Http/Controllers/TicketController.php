@@ -62,7 +62,7 @@ class TicketController extends Controller
     if (Auth::user()->Ticket()->where('tickets.id',$ticket->id)->exists()) {
         return back()->with('Ticketmsg', 'You have already registered this ticket.');
     }
-    if (Auth::user()->Ticket()->where('tickets.expires_at','<',now())->exists()) {
+    if ($ticket->expires_at < now()) {
         return back()->with('Ticketmsg', 'Ticket has expired.');
     }
     // dd($ticket);
@@ -77,7 +77,7 @@ public function delete($id){
     return back()->with('msg','Ticket deleted successfully');
 }
    public function detach($id){
-    auth()->user()->tickets()->detach($id);
+    Auth::user()->Ticket()->detach($id);
     return back()->with('Ticketmsg', 'Ticket detached successfully. You wont be able access content using this ticket again');
 }
 }

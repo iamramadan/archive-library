@@ -153,7 +153,7 @@
                 @endphp
                 <div class="answer-correct mb-6 p-4 bg-white border rounded-lg">
                     <div class="flex items-start mb-3">
-                    @if ($your_option == $correct_option)
+                    @if ($questionaireResult->result[0]->your_answers[$index] == $toAlpha[$questions->correct_option])
                         <div class="bg-green-100 text-green-800 rounded-full w-8 h-8 flex items-center justify-center mr-3">
                             <i class="fas fa-check"></i>
                         </div>
